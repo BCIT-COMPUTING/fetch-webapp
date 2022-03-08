@@ -1,0 +1,29 @@
+.homePageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeContainer {
+  background-color: #e5e5e5;
+  width: 400px;
+  height: 250px;
+  margin: 200px 0px;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.homeBtn {
+  margin-top: 20px;
+  margin-left: 5px;
+  padding: 10px;
+  background-color: slategray;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.homeBtn:hover {
+  cursor: pointer;
+  background-color: rgb(151, 151, 151);
+}
