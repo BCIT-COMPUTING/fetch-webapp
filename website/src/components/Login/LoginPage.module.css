@@ -1,0 +1,38 @@
+.loginPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContainer {
+  background-color: #e5e5e5;
+  width: 400px;
+  height: 250px;
+  margin: 200px 0px;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.loginLabel {
+  width: 140px;
+}
+
+.labelSection {
+  display: flex;
+  padding: 5px;
+}
+
+.loginBtn {
+  margin-top: 20px;
+  margin-left: 5px;
+  padding: 10px;
+  background-color: slategray;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.loginBtn:hover {
+  cursor: pointer;
+  background-color: rgb(151, 151, 151);
+}
