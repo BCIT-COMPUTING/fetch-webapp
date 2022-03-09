@@ -3,31 +3,52 @@ import { useAppContext } from "../../store/appContext";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 import styles from './LoginPage.module.css';
+import * as crypto from "crypto-js";
+
+
 
 const LoginPage = () => {
 
+  
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
+
+  
 
   async function login () {
     const email = (document.getElementById("email-input") as HTMLInputElement).value;
     const password = (document.getElementById("password-input") as HTMLInputElement).value;
     checkCredentials(email, password);
 
-    const response = await axios.post("http://localhost:3000/login", {
-        email: email,
-        password: password
-      }
-    ).then(response => {
-      // localStorage.setItem("jwtoken", response.data);
-      console.log(response);
-      toast.success("Login successful");
-    }).catch(error => {
-      toast.error(error.response.data);
-    })
+    console.log("my .env variable: " + process.env.REACT_APP_USER_ID);
+
+    console.log("password: " + password);
+
+    var cipherText = crypto.AES.encrypt(password, 'poodle').toString();
+    console.log("encrypted: " + cipherText);
+
+    var bytes  = crypto.AES.decrypt(cipherText, 'poodle');
+    var originalText = bytes.toString(crypto.enc.Utf8);
+
+    console.log("decrypted: " + originalText);
+
+
+
+    // const response = await axios.post("http://localhost:3000/login", {
+    //     email: email,
+    //     password: password
+    //   }
+    // ).then(response => {
+    //   // localStorage.setItem("jwtoken", response.data);
+    //   console.log(response);
+    //   toast.success("Login successful");
+    // }).catch(error => {
+    //   toast.error(error.response.data);
+    // })
+
   }
 
-  const checkCredentials = (email: string, password: string): void => {
+  const checkCredentials  = (email: string, password: string): void => {
       if (!email) {
         toast.error("Email required");
         return;
