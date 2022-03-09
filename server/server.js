@@ -3,38 +3,46 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
-const mysqlConfig = require("./configs/mysqlConfig");
-const credentials = require("./credentials");
+const { createConn, query, ensureTables } = require("./configs/mysqlConfig");
 // const bcrypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
 
 const server = express();
 const PORT = process.env.PORT || 8080;
 
-const conn = mysql.createConnection({
-  host: mysqlConfig.HOST,
-  port: mysqlConfig.PORT,
-  user: credentials.user,
-  password: credentials.password,
-
-});
-
 
 server.use(cors());
 server.use(bodyParser.json());
 
+ensureTables();
+
 
 server.get('/', function (req, res) {
-  conn.query('SHOW TABLES FROM mysql', (err, results) => {
-    if (err?.fatal) {
-      console.error(err);
-      res.send("There was some errors.");
-      return;
-    }
+
+  // THIS IS FOR TESTING
+  try {
+    const { results, conn, fields } = query('SHOW TABLES FROM mysql');
+    console.log("results", results);
     res.send("Hello world!" + JSON.stringify(results));
-  });
+    conn.end();
+  } catch (err) {
+    console.error(err);
+    res.send("There was some errors.");
+  }
+
+});
+
+server.get('/login', function (req, res) {
+  // TODO: implement login endpoint
+  // try {
+  //   const { results, conn, fields } = query('SHOW TABLES FROM mysql');
+  //   console.log("results", results);
+  //   res.send("Hello world!" + JSON.stringify(results));
+  //   conn.end();
+  // } catch (err) {
+  //   console.error(err);
+  //   res.send("There was some errors.");
+  // }
 });
 
 server.listen(PORT, () => console.log(`Listening at: http://localhost:${PORT}`));
-//   })
-//   .catch(console.error("Client couldn't connect."));
