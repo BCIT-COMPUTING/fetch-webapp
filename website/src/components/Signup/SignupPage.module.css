@@ -1,0 +1,38 @@
+.signupPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signupContainer {
+  background-color: #e5e5e5;
+  width: 400px;
+  height: 450px;
+  margin: 200px 0px;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.signupLabel {
+  width: 140px;
+}
+
+.labelSection {
+  display: flex;
+  padding: 5px;
+}
+
+.signupBtn {
+  margin-top: 20px;
+  margin-left: 5px;
+  padding: 10px;
+  background-color: slategray;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.signupBtn:hover {
+  cursor: pointer;
+  background-color: rgb(151, 151, 151);
+}
