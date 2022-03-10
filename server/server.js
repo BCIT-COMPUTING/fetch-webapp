@@ -50,9 +50,8 @@ server.post("/login", function (req, res) {
 
 server.post("/signup", function (req, res) {
   console.log("signup hit");
-
+  console.log(req.body);
   res.send("hi from the server (signup)");
-
 
   // TODO: implement login endpoint
   // try {

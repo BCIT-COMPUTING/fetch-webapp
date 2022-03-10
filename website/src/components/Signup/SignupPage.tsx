@@ -19,22 +19,13 @@ const Signupage = () => {
   const [dogGender, setDogGender] = useState('');
   const [dogUrl, setDogUrl] = useState('');
 
-  const signup = async () => {
-
-    const realPassword = (document.getElementById("password-input") as HTMLInputElement).value;
+  const encryptPassword = (password) => {
+    const realPassword = password;
     var encryptedPassword = crypto.AES.encrypt(realPassword, 'poodle').toString();
+    setPassword(encryptedPassword);
+  }
 
-    await setFirstName(document.getElementById("first-name-input").value)
-    await setLastName(document.getElementById("last-name-input").value)
-    await setEmail(document.getElementById("email-input").value)
-    await setPassword(encryptedPassword);
-
-    console.log(firstName);
-    console.log(lastName);
-    console.log(email);
-    console.log(password);
-
-
+  const signup = async () => {
     const response = await axios.post(endPointUrl + "/signup", {
       firstName: firstName,
       lastName: lastName,
@@ -45,11 +36,8 @@ const Signupage = () => {
       dogGender: dogGender,
       dogUrl: dogUrl
     })
-
     console.log(response.data);
   }
-
-
 
   return (
     <>
@@ -60,31 +48,31 @@ const Signupage = () => {
           <form>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >First Name: </div>
-              <input id="first-name-input" type="text" placeholder="Enter your First Name" name="firstName" />
+              <input id="first-name-input" type="text" placeholder="Enter your First Name" name="firstName" onChange={ (event) => setFirstName(document.getElementById("first-name-input").value) }/>
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Last Name: </div>
-              <input id="last-name-input" type="text" placeholder="Enter your Last Name" name="lastName" autoComplete="off" />
+              <input id="last-name-input" type="text" placeholder="Enter your Last Name" name="lastName" onChange={ (event) => setLastName(document.getElementById("last-name-input").value) } />
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Email Address: </div>
-              <input id="email-input" type="email" placeholder="Enter your email" name="email" autoComplete="off"/>
+              <input id="email-input" type="email" placeholder="Enter your email" name="email" onChange={ (event) => setEmail(document.getElementById("email-input").value) }/>
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Password: </div>
-              <input id="password-input" type="password" placeholder="Enter your password" name="password" />
+              <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(document.getElementById("email-input").value) }/>
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Dog Name: </div>
-              <input id="dog-name-input" type="text" placeholder="Enter your dog's name" name="dogName" />
+              <input id="dog-name-input" type="text" placeholder="Enter your dog's name" name="dogName" onChange={ (event) => setDogName(document.getElementById("dog-name-input").value) }/>
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Dog Age: </div>
-              <input id="dog-age-input" type="text" placeholder="Enter your dog's age" name="dogAge" />
+              <input id="dog-age-input" type="text" placeholder="Enter your dog's age" name="dogAge" onChange={ (event) => setDogAge(document.getElementById("dog-age-input").value) }/>
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Dog Gender: </div>
-              <select name="dogGender" id="dog-gender-input">
+              <select name="dogGender" id="dog-gender-input" onChange={ (event) => setDogGender(document.getElementById("dog-gender-input").value) }>
                 <option defaultValue=""></option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -92,7 +80,7 @@ const Signupage = () => {
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Dog Picture (URL): </div>
-              <input id="dog-picture-input" type="text" placeholder="http://imgur...etc" name="dogPicture" />
+              <input id="dog-picture-input" type="text" placeholder="http://imgur...etc" name="dogPicture" onChange={ (event) => setDogUrl(document.getElementById("dog-picture-input").value) }/>
             </div>
             <input className={styles.signupBtn} type="button" value="Signup" onClick={() => signup()}/>
           </form>
