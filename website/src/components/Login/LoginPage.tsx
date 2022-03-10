@@ -5,46 +5,41 @@ import axios from "axios";
 import styles from './LoginPage.module.css';
 import * as crypto from "crypto-js";
 
-
-
 const LoginPage = () => {
 
-  
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
 
-  
+  const endPointUrl = "http://localhost:8080";
 
-  async function login () {
+
+  const login = async () => {
     const email = (document.getElementById("email-input") as HTMLInputElement).value;
     const password = (document.getElementById("password-input") as HTMLInputElement).value;
-    checkCredentials(email, password);
+    
+    // console.log("my .env variable: " + process.env.REACT_APP_USER_ID);
+    // console.log("password: " + password);
 
-    console.log("my .env variable: " + process.env.REACT_APP_USER_ID);
+    var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
+    console.log("encrypted: " + encryptedPassword);
 
-    console.log("password: " + password);
+    // var bytes  = crypto.AES.decrypt(encryptedPassword, 'poodle');
+    // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
+    // console.log("decrypted: " + decryptedPassword);
 
-    var cipherText = crypto.AES.encrypt(password, 'poodle').toString();
-    console.log("encrypted: " + cipherText);
-
-    var bytes  = crypto.AES.decrypt(cipherText, 'poodle');
-    var originalText = bytes.toString(crypto.enc.Utf8);
-
-    console.log("decrypted: " + originalText);
-
+    checkCredentials(email, encryptedPassword);
 
 
-    // const response = await axios.post("http://localhost:3000/login", {
-    //     email: email,
-    //     password: password
-    //   }
-    // ).then(response => {
-    //   // localStorage.setItem("jwtoken", response.data);
-    //   console.log(response);
-    //   toast.success("Login successful");
-    // }).catch(error => {
-    //   toast.error(error.response.data);
-    // })
+    await axios.post(endPointUrl + "/login", {
+        email: email,
+        password: encryptedPassword
+      }
+    ).then(response => {
+      console.log(response);
+      toast.success("Login successful");
+    }).catch(error => {
+      toast.error(error.response.data);
+    })
 
   }
 
