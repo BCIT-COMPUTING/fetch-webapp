@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const { mysqlConfig } = require('./configs/mysqlConfig');
-const credentials = require('./credentials');
+const credentials = require('./configs/credentials');
 
 const databaseName = "fetchWebapp";
 
