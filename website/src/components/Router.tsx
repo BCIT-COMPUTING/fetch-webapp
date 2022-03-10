@@ -8,6 +8,7 @@ import TestPage from "./Test/TestPage";
 import HomePage from "./Home/HomePage";
 import SignupPage from "./Signup/SignupPage";
 import LoginPage from "./Login/LoginPage";
+import DogInfoPage from "./DogInfo/DogInfoPage";
 
 function AppRouter() {
   const appContext = useAppContext();
@@ -21,6 +22,7 @@ function AppRouter() {
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/dogInfo" element={<DogInfoPage />} />
         </Routes>
       </BrowserRouter >
     </AppContext.Provider>
