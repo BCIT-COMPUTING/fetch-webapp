@@ -30,7 +30,7 @@ const LoginPage = () => {
     checkCredentials(email, encryptedPassword);
 
 
-    await axios.post(endPointUrl + "/login", {
+    const response = await axios.post(endPointUrl + "/login", {
         email: email,
         password: encryptedPassword
       }

@@ -21,9 +21,32 @@ const Signupage = () => {
 
   const signup = async () => {
 
-    await axios.post(endPointUrl + "/signup", {
+    const realPassword = (document.getElementById("password-input") as HTMLInputElement).value;
+    var encryptedPassword = crypto.AES.encrypt(realPassword, 'poodle').toString();
 
+    await setFirstName(document.getElementById("first-name-input").value)
+    await setLastName(document.getElementById("last-name-input").value)
+    await setEmail(document.getElementById("email-input").value)
+    await setPassword(encryptedPassword);
+
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+    console.log(password);
+
+
+    const response = await axios.post(endPointUrl + "/signup", {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      dogName: dogName,
+      dogAge: dogAge,
+      dogGender: dogGender,
+      dogUrl: dogUrl
     })
+
+    console.log(response.data);
   }
 
 
