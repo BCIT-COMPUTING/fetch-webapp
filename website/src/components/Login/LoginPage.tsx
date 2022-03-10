@@ -1,6 +1,6 @@
 
 import { useAppContext } from "../../store/appContext";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from "axios";
 import styles from './LoginPage.module.css';
 import * as crypto from "crypto-js";

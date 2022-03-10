@@ -1,11 +1,32 @@
-
 import { useAppContext } from "../../store/appContext";
+import { useState } from 'react';
 import styles from './SignupPage.module.css';
+import axios from "axios";
+import * as crypto from "crypto-js";
 
 const Signupage = () => {
 
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
+  const endPointUrl = "http://localhost:8080";
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [dogName, setDogName] = useState('');
+  const [dogAge, setDogAge] = useState('');
+  const [dogGender, setDogGender] = useState('');
+  const [dogUrl, setDogUrl] = useState('');
+
+  const signup = async () => {
+
+    await axios.post(endPointUrl + "/signup", {
+
+    })
+  }
+
+
 
   return (
     <>
@@ -41,7 +62,7 @@ const Signupage = () => {
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Dog Gender: </div>
               <select name="dogGender" id="dog-gender-input">
-                <option value="" selected></option>
+                <option defaultValue=""></option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
@@ -50,7 +71,7 @@ const Signupage = () => {
               <div className={styles.signupLabel} >Dog Picture (URL): </div>
               <input id="dog-picture-input" type="text" placeholder="http://imgur...etc" name="dogPicture" />
             </div>
-            <input className={styles.signupBtn} type="button" value="Signup" />
+            <input className={styles.signupBtn} type="button" value="Signup" onClick={() => signup()}/>
           </form>
         </div>
       </div>
