@@ -28,19 +28,24 @@ const LoginPage = () => {
     // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
     // console.log("decrypted: " + decryptedPassword);
 
-    if (isValid(email, password)){
-      const response = await axios.post(endPointUrl + "/login", {
-        email: email,
-        password: password
-      }
-      ).then(response => {
-        console.log(response);
-        toast.success("Login successful");
-      }).catch(error => {
-        toast.error(error.response.data);
-      })
+    if (!isValid(email, password)){
+      return;
     }
 
+    const response = await axios.post(endPointUrl + "/login", {
+      email: email,
+      password: password
+    }
+    ).then(response => {
+      console.log(response);
+      toast.success("Login successful");
+
+      //TODO: REDIRECT TO Home Page
+      
+    }).catch(error => {
+      toast.error(error.response.data);
+    })
+    
   }
 
   const isValid  = (email: string, password: string): boolean => {
