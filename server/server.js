@@ -34,8 +34,9 @@ server.get('/', function (req, res) {
 
 server.post("/login", function (req, res) {
   console.log("login hit");
-
+  console.log(req.body);
   res.send("hi from the server (login)");
+  
   // TODO: implement login endpoint
   // try {
   //   const { results, conn, fields } = query('SHOW TABLES FROM mysql');

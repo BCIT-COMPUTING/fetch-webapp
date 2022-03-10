@@ -1,5 +1,6 @@
 
 import { useAppContext } from "../../store/appContext";
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from "axios";
 import styles from './LoginPage.module.css';
@@ -9,55 +10,56 @@ const LoginPage = () => {
 
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const endPointUrl = "http://localhost:8080";
 
+  const encryptPassword = (password) => {
+    var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
+    setPassword(encryptedPassword);
+  }
 
   const login = async () => {
-    const email = (document.getElementById("email-input") as HTMLInputElement).value;
-    const password = (document.getElementById("password-input") as HTMLInputElement).value;
-    
     // console.log("my .env variable: " + process.env.REACT_APP_USER_ID);
-    // console.log("password: " + password);
 
-    var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
-    console.log("encrypted: " + encryptedPassword);
-
+    //FOR DECRYPTING PURPOSES
     // var bytes  = crypto.AES.decrypt(encryptedPassword, 'poodle');
     // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
     // console.log("decrypted: " + decryptedPassword);
 
-    checkCredentials(email, encryptedPassword);
-
-
-    const response = await axios.post(endPointUrl + "/login", {
+    if (isValid(email, password)){
+      const response = await axios.post(endPointUrl + "/login", {
         email: email,
-        password: encryptedPassword
+        password: password
       }
-    ).then(response => {
-      console.log(response);
-      toast.success("Login successful");
-    }).catch(error => {
-      toast.error(error.response.data);
-    })
+      ).then(response => {
+        console.log(response);
+        toast.success("Login successful");
+      }).catch(error => {
+        toast.error(error.response.data);
+      })
+    }
 
   }
 
-  const checkCredentials  = (email: string, password: string): void => {
+  const isValid  = (email: string, password: string): boolean => {
       if (!email) {
         toast.error("Email required");
-        return;
+        return false;
       }
 
       if (!password) {
         toast.error("Password required");
-        return;
+        return false;
       }
 
       if (/\s/g.test(email)) {
         toast.error("Email must not contain white space");
-        return;
+        return false;
       }
+
+      return true;
   }
 
   return (
@@ -67,11 +69,11 @@ const LoginPage = () => {
         <form>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Email Address: </div>
-            <input id="email-input" type="email" placeholder="Enter your email" name="email" />
+            <input id="email-input" type="email" placeholder="Enter your email" name="email" onChange={ (event) => setEmail(document.getElementById("email-input").value) }/>
           </div>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Password: </div>
-            <input id="password-input" type="password" placeholder="Enter your password" name="password" />
+            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(document.getElementById("password-input").value) } />
           </div>
           <input className={styles.loginBtn} type="button" value="Submit" onClick={() => login() } />
         </form>

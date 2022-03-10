@@ -20,8 +20,7 @@ const Signupage = () => {
   const [dogUrl, setDogUrl] = useState('');
 
   const encryptPassword = (password) => {
-    const realPassword = password;
-    var encryptedPassword = crypto.AES.encrypt(realPassword, 'poodle').toString();
+    var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
     setPassword(encryptedPassword);
   }
 
@@ -60,7 +59,7 @@ const Signupage = () => {
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Password: </div>
-              <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(document.getElementById("email-input").value) }/>
+              <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(document.getElementById("password-input").value) }/>
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Dog Name: </div>
