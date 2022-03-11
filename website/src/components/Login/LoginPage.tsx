@@ -10,14 +10,19 @@ const LoginPage = () => {
 
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const endPointUrl = "http://localhost:8080";
 
   const encryptPassword = (password) => {
+    if (password == "") {
+      setPassword("");
+      return;
+    }
     var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
     setPassword(encryptedPassword);
+    console.log(encryptedPassword);
   }
 
   const login = async () => {
@@ -28,12 +33,12 @@ const LoginPage = () => {
     // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
     // console.log("decrypted: " + decryptedPassword);
 
-    if (!isValid(email, password)){
+    if (!isValid(username, password)){
       return;
     }
 
     const response = await axios.post(endPointUrl + "/login", {
-      email: email,
+      username: username,
       password: password
     }
     ).then(response => {
@@ -48,9 +53,9 @@ const LoginPage = () => {
     
   }
 
-  const isValid  = (email: string, password: string): boolean => {
-      if (!email) {
-        toast.error("Email required");
+  const isValid  = (username: string, password: string): boolean => {
+      if (!username) {
+        toast.error("Username required");
         return false;
       }
 
@@ -59,8 +64,8 @@ const LoginPage = () => {
         return false;
       }
 
-      if (/\s/g.test(email)) {
-        toast.error("Email must not contain white space");
+      if (/\s/g.test(username)) {
+        toast.error("Username must not contain white space");
         return false;
       }
 
@@ -73,8 +78,8 @@ const LoginPage = () => {
         <h1>Fetch</h1>
         <form>
           <div className={styles.labelSection}>
-            <div className={styles.loginLabel} >Email Address: </div>
-            <input id="email-input" type="email" placeholder="Enter your email" name="email" onChange={ (event) => setEmail(event.target.value) }/>
+            <div className={styles.loginLabel} >Username: </div>
+            <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={ (event) => setUsername(event.target.value) }/>
           </div>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Password: </div>
