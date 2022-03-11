@@ -74,11 +74,11 @@ const LoginPage = () => {
         <form>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Email Address: </div>
-            <input id="email-input" type="email" placeholder="Enter your email" name="email" onChange={ (event) => setEmail(document.getElementById("email-input").value) }/>
+            <input id="email-input" type="email" placeholder="Enter your email" name="email" onChange={ (event) => setEmail(event.target.value) }/>
           </div>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Password: </div>
-            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(document.getElementById("password-input").value) } />
+            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(event.target.value) } />
           </div>
           <input className={styles.loginBtn} type="button" value="Submit" onClick={() => login() } />
         </form>
