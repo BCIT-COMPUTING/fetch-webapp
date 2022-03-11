@@ -58,10 +58,12 @@ const ensureTables = () => {
           const { dogResults, dogFields } = await query(
               `CREATE TABLE IF NOT EXISTS dogProfile (
                 id INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
+                usernameOwner varchar(30) not null,
                 name varchar(30) not null,
                 age INT( 11 ) not null,
                 gender varchar(6) not null,
-                url varchar(255) not null
+                url varchar(255) not null,
+                CONSTRAINT FK_usernameDog FOREIGN KEY (usernameOwner) REFERENCES userProfile(username)
               );`, { connection: conn, }
           );
 

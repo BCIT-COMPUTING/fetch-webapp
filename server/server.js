@@ -83,8 +83,8 @@ server.post("/signup", function (req, res) {
         );
   
         const { dogResults, dogFields } = await query(
-          `INSERT INTO dogProfile(name, age, gender, url)
-          VALUES("${req.body.dogName}", "${req.body.dogAge}", "${req.body.dogGender}", "${req.body.dogUrl}");
+          `INSERT INTO dogProfile(usernameOwner, name, age, gender, url)
+          VALUES("${req.body.username}", "${req.body.dogName}", "${req.body.dogAge}", "${req.body.dogGender}", "${req.body.dogUrl}");
           `, { connection: conn, }
         );
   
