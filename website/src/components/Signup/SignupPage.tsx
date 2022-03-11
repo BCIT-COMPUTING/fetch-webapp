@@ -12,6 +12,7 @@ const Signupage = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [dogName, setDogName] = useState('');
@@ -28,12 +29,19 @@ const Signupage = () => {
     const response = await axios.post(endPointUrl + "/signup", {
       firstName: firstName,
       lastName: lastName,
+      username: username,
       email: email,
       password: password,
       dogName: dogName,
       dogAge: dogAge,
       dogGender: dogGender,
       dogUrl: dogUrl
+    })
+    console.log(response.data);
+  }
+
+  const getdb = async () => {
+    const response = await axios.get(endPointUrl + "/getdb", {
     })
     console.log(response.data);
   }
@@ -52,6 +60,10 @@ const Signupage = () => {
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Last Name: </div>
               <input id="last-name-input" type="text" placeholder="Enter your Last Name" name="lastName" onChange={ (event) => setLastName(event.target.value) } />
+            </div>
+            <div className={styles.labelSection}>
+              <div className={styles.signupLabel} >Username: </div>
+              <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={ (event) => setUsername(event.target.value) } />
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Email Address: </div>
@@ -82,6 +94,9 @@ const Signupage = () => {
               <input id="dog-picture-input" type="text" placeholder="http://imgur...etc" name="dogPicture" onChange={ (event) => setDogUrl(event.target.value) }/>
             </div>
             <input className={styles.signupBtn} type="button" value="Signup" onClick={() => signup()}/>
+
+
+            <input className={styles.signupBtn} type="button" value="test get db" onClick={() => getdb()}/>
           </form>
         </div>
       </div>
