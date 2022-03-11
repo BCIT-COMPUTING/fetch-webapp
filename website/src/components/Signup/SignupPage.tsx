@@ -20,10 +20,8 @@ const Signupage = () => {
   const [dogGender, setDogGender] = useState('');
   const [dogUrl, setDogUrl] = useState('');
 
-  const encryptPassword = (password) => {
-    // var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
-    var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
-    setPassword(encryptedPassword);
+  const encryptPassword = (pw) => {
+    setPassword(crypto.SHA256(pw).toString());
   }
 
   const signup = async () => {

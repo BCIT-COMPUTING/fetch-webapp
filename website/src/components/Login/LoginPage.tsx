@@ -15,13 +15,12 @@ const LoginPage = () => {
 
   const endPointUrl = "http://localhost:8080";
 
-  const encryptPassword = (password) => {
-    if (password == "") {
+  const encryptPassword = (pw) => {
+    if (pw == "") {
       setPassword("");
       return;
     }
-    var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
-    setPassword(encryptedPassword);
+    setPassword(crypto.SHA256(pw).toString());
   }
 
   const login = async () => {
