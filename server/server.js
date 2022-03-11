@@ -38,38 +38,39 @@ server.post("/login", function (req, res) {
 
 server.post("/signup", function (req, res) {
   console.log("signup hit");
-  console.log(req.body);
-  console.log(req.body.username);
-  console.log(req.body.email);
-  console.log(req.body.password);
-  res.send("hi from the server (signup)");
+
+
 
   const conn = createConn();
   conn.beginTransaction(async (err) => {
     if (err) { throw err; }
 
     try {
-        const { results, fields } = await query(
-            `INSERT INTO UserProfile(username, email, password)
-            VALUES("${req.body.username}", "${req.body.email}", "${req.body.password}");
+        const { userResults, userFields } = await query(
+            `INSERT INTO UserProfile(firstname, lastname, username, email, password)
+            VALUES("${req.body.firstName}", "${req.body.lastName}", "${req.body.username}", "${req.body.email}", "${req.body.password}");
             `, { connection: conn, }
         );
 
-        console.log(results, fields);
-        console.log('Table userProfile table creation is ensured...');
+        const { dogResults, dogFields } = await query(
+            `INSERT INTO dogProfile(name, age, gender, url)
+            VALUES("${req.body.dogName}", "${req.body.dogAge}", "${req.body.dogGender}", "${req.body.dogUrl}");
+            `, { connection: conn, }
+        );
 
-        // const createTablesResult = query(
-        //     'CR INTO log SET data=?',
-        //     { values: databaseName, connection: conn, }
-        // );
+        console.log(userResults, userFields);
+        console.log(dogResults, dogFields);
 
         conn.commit(function (err) {
             if (err) throw err;
-            console.log('succdfdsfadfess!');
+            console.log("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
             conn.end();
         });
 
+        res.send("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
+
     } catch (err) {
+        res.send("Failed to register: " + req.body.firstName + " + " + req.body.dogName);
         console.error(err);
         conn.rollback();
     }

@@ -44,18 +44,30 @@ const ensureTables = () => {
       if (err) { throw err; }
 
       try {
-          const { results, fields } = await query(
+          const { userResults, userFields } = await query(
               `CREATE TABLE IF NOT EXISTS userProfile (
                   id INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
-                  username varchar(30),
-                  email varchar(50),
-                  password varchar(128),
+                  firstname varchar(30) not null,
+                  lastname varchar(30) not null,
+                  username varchar(30) not null,
+                  email varchar(50) not null,
+                  password varchar(128) not null,
                   UNIQUE KEY username ( username )
-              )`, { connection: conn, }
+              );`, { connection: conn, }
+          );
+          const { dogResults, dogFields } = await query(
+              `CREATE TABLE IF NOT EXISTS dogProfile (
+                id INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
+                name varchar(30) not null,
+                age INT( 11 ) not null,
+                gender varchar(6) not null,
+                url varchar(255) not null
+              );`, { connection: conn, }
           );
 
-          console.log(results, fields);
-          console.log('Table userProfile table creation is ensured...');
+          console.log(userResults, userFields);
+          console.log(dogResults, dogFields);
+          console.log('userProfile + dogProfile table creation is ensured...');
 
           // const createTablesResult = query(
           //     'CR INTO log SET data=?',
