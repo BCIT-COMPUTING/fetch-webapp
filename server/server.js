@@ -14,6 +14,14 @@ server.use(bodyParser.json());
 
 ensureTables();
 
+const stats = {
+  numOfLoginAttempts: 0,
+  numOfSuccessfulLogins: 0,
+  numOfFailedLogins: 0,
+  numOfUsers: 0,
+  numOfTimesVisitedStatPage: 0,
+}
+
 server.get('/', function (req, res) {
   // TODO: implement login endpoint
   // try {
@@ -32,7 +40,10 @@ server.post("/login", function (req, res) {
 
   const conn = createConn();
   conn.beginTransaction(async (err) => {
-    if (err) { throw err; }
+    if (err) { 
+      stats.numOfFailedLogins++;
+      throw err;
+    }
 
     try {
       let username = req.body.username;
@@ -44,17 +55,22 @@ server.post("/login", function (req, res) {
       );
 
       if (results.length > 0) {
+        stats.numOfSuccessfulLogins++;
         res.status(200).send("Successfully signed in: " + username);
         conn.end();
 			} else {
+        stats.numOfFailedLogins++;
         res.status(403).send('Incorrect Username and/or Password!');
         conn.end();
 			}	
     
     } catch (err) {
+      stats.numOfFailedLogins++;
       res.status(403).send("Failed to log in: " + username);
       console.error(err);
       conn.rollback();
+    } finally {
+      stats.numOfLoginAttempts++;
     }
   });
 });
@@ -109,5 +125,11 @@ server.post("/signup", function (req, res) {
     }
   });
 });
+
+server.get("/admin", function(req, res) {
+  stats.numOfTimesVisitedStatPage++;
+  console.log("stats hit");
+  res.status(200).send(stats);
+})
 
 server.listen(PORT, () => console.log(`Listening at: http://localhost:${PORT}`));
