@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 server.use(cors());
 server.use(bodyParser.json());
 
-ensureTables();
+// ensureTables();
 
 
 server.get('/', function (req, res) {
@@ -32,12 +32,33 @@ server.get('/', function (req, res) {
 
 });
 
-server.get('/login', function (req, res) {
+server.post("/login", function (req, res) {
+  console.log("login hit");
+  console.log(req.body);
+  res.send("hi from the server (login)");
+  
   // TODO: implement login endpoint
   // try {
   //   const { results, conn, fields } = query('SHOW TABLES FROM mysql');
   //   console.log("results", results);
   //   res.send("Hello world!" + JSON.stringify(results));
+  //   conn.end();
+  // } catch (err) {
+  //   console.error(err);
+  //   res.send("There was some errors.");
+  // }
+});
+
+server.post("/signup", function (req, res) {
+  console.log("signup hit");
+  console.log(req.body);
+  res.send("hi from the server (signup)");
+
+  // TODO: implement login endpoint
+  // try {
+  //   const { results, conn, fields } = query('SHOW TABLES FROM mysql');
+  //   console.log("results", results);
+    // res.send("Hello world!" + JSON.stringify(results));
   //   conn.end();
   // } catch (err) {
   //   console.error(err);
