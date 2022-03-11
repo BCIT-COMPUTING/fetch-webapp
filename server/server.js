@@ -6,16 +6,13 @@ const mysql = require("mysql");
 const { query, ensureTables, createConn } = require("./connectionUtils");
 // const bcrypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
-
 const server = express();
 const PORT = process.env.PORT || 8080;
-
 
 server.use(cors());
 server.use(bodyParser.json());
 
 ensureTables();
-
 
 server.get('/', function (req, res) {
   // TODO: implement login endpoint
@@ -40,21 +37,13 @@ server.post("/login", function (req, res) {
     try {
       let username = req.body.username;
       let password = req.body.password;
-      console.log(username);
-      console.log(password);
+
       const { results, fields } = await query(
         `SELECT * FROM userProfile WHERE username = "${username}" AND password = "${password}"
         `, { connection: conn, }
       );
-      // if (error) throw error;
-      console.log(results);
+
       if (results.length > 0) {
-				// Authenticate the user
-				// request.session.loggedin = true;
-				// request.session.username = username;
-				// Redirect to home page
-        // res.redirect('/signin');
-        console.log('signed in: ' + username);
         res.status(200).send("Successfully signed in: " + username);
         conn.end();
 			} else {
@@ -62,17 +51,6 @@ server.post("/login", function (req, res) {
         conn.end();
 			}	
     
-
-      // console.log(results, fields);
-
-      // conn.commit(function (err) {
-      //   if (err) throw err;
-      //   console.log("Successfully logged in: " + req.body.username);
-      //   conn.end();
-      // });
-
-      // res.send("Successfully logged in: " + req.body.username);
-
     } catch (err) {
       res.status(403).send("Failed to log in: " + username);
       console.error(err);
@@ -90,12 +68,12 @@ server.post("/signup", function (req, res) {
 
     try {
       let username = req.body.username;
-      console.log(username);
+
       const { results, fields } = await query(
         `SELECT * FROM userProfile WHERE username = "${username}"
         `, { connection: conn, }
       );
-      // if (error) throw error;
+
       console.log(results);
       if (results.length == 0) {
         const { userResults, userFields } = await query(
@@ -114,19 +92,15 @@ server.post("/signup", function (req, res) {
         console.log(dogResults, dogFields);
   
         conn.commit(function (err) {
-          if (err) throw err;
-          console.log("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
+          if (err) { throw err; }
+          res.status(200).send("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
           conn.end();
         });
   
-        res.status(200).send("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
-
 			} else {
         res.status(409).send('Username already taken!');
         conn.end();
 			}	
-
-
 
     } catch (err) {
       res.status(409).send("Failed to register: " + req.body.firstName + " + " + req.body.dogName);
