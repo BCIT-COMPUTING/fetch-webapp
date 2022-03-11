@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 import styles from './LoginPage.module.css';
 import * as crypto from "crypto-js";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
 
@@ -12,6 +13,7 @@ const LoginPage = () => {
   const { isLoggedIn } = state;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const endPointUrl = "http://localhost:8080";
 
@@ -44,6 +46,10 @@ const LoginPage = () => {
       toast.success("Login successful");
 
       //TODO: REDIRECT TO Home Page
+      if (response.data == ("Successfully signed in: " + username)) {
+        navigate("/dogInfo");
+      }
+      
       
     }).catch(error => {
       toast.error(error.response.data);
