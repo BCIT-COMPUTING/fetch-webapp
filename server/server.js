@@ -43,7 +43,8 @@ server.post("/login", function (req, res) {
       console.log(username);
       console.log(password);
       const { results, fields } = await query(
-        `SELECT * FROM userProfile;`, { connection: conn, }
+        `SELECT * FROM userProfile WHERE username = ? AND password = ?
+        `, [username, password], { connection: conn, }
       );
       if (error) throw error;
       if (results.length > 0) {
@@ -56,6 +57,7 @@ server.post("/login", function (req, res) {
 				response.send('Incorrect Username and/or Password!');
 			}	
       response.end();
+      conn.end();
 
       // console.log(results, fields);
 
