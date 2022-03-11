@@ -55,10 +55,10 @@ server.post("/login", function (req, res) {
 				// Redirect to home page
         // res.redirect('/signin');
         console.log('signed in: ' + username);
-        res.send("Successfully signed in: " + username);
+        res.status(200).send("Successfully signed in: " + username);
         conn.end();
 			} else {
-        res.send('Incorrect Username and/or Password!');
+        res.status(403).send('Incorrect Username and/or Password!');
         conn.end();
 			}	
     
@@ -74,7 +74,7 @@ server.post("/login", function (req, res) {
       // res.send("Successfully logged in: " + req.body.username);
 
     } catch (err) {
-      res.send("Failed to log in: " + req.body.username);
+      res.status(403).send("Failed to log in: " + username);
       console.error(err);
       conn.rollback();
     }
@@ -89,31 +89,47 @@ server.post("/signup", function (req, res) {
     if (err) { throw err; }
 
     try {
-      const { userResults, userFields } = await query(
-        `INSERT INTO UserProfile(firstname, lastname, username, email, password)
-        VALUES("${req.body.firstName}", "${req.body.lastName}", "${req.body.username}", "${req.body.email}", "${req.body.password}");
+      let username = req.body.username;
+      console.log(username);
+      const { results, fields } = await query(
+        `SELECT * FROM userProfile WHERE username = "${username}"
         `, { connection: conn, }
       );
+      // if (error) throw error;
+      console.log(results);
+      if (results.length == 0) {
+        const { userResults, userFields } = await query(
+          `INSERT INTO UserProfile(firstname, lastname, username, email, password)
+          VALUES("${req.body.firstName}", "${req.body.lastName}", "${req.body.username}", "${req.body.email}", "${req.body.password}");
+          `, { connection: conn, }
+        );
+  
+        const { dogResults, dogFields } = await query(
+          `INSERT INTO dogProfile(name, age, gender, url)
+          VALUES("${req.body.dogName}", "${req.body.dogAge}", "${req.body.dogGender}", "${req.body.dogUrl}");
+          `, { connection: conn, }
+        );
+  
+        console.log(userResults, userFields);
+        console.log(dogResults, dogFields);
+  
+        conn.commit(function (err) {
+          if (err) throw err;
+          console.log("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
+          conn.end();
+        });
+  
+        res.status(200).send("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
 
-      const { dogResults, dogFields } = await query(
-        `INSERT INTO dogProfile(name, age, gender, url)
-        VALUES("${req.body.dogName}", "${req.body.dogAge}", "${req.body.dogGender}", "${req.body.dogUrl}");
-        `, { connection: conn, }
-      );
-
-      console.log(userResults, userFields);
-      console.log(dogResults, dogFields);
-
-      conn.commit(function (err) {
-        if (err) throw err;
-        console.log("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
+			} else {
+        res.status(409).send('Username already taken!');
         conn.end();
-      });
+			}	
 
-      res.send("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
+
 
     } catch (err) {
-      res.send("Failed to register: " + req.body.firstName + " + " + req.body.dogName);
+      res.status(409).send("Failed to register: " + req.body.firstName + " + " + req.body.dogName);
       console.error(err);
       conn.rollback();
     }
