@@ -24,12 +24,32 @@ const Signupage = () => {
   const [dogGender, setDogGender] = useState('');
   const [dogUrl, setDogUrl] = useState('');
 
-  const encryptPassword = (pw) => {
+  const encryptPassword = (pw: string): void => {
     setPassword(crypto.SHA256(pw).toString());
+    console.log(password);
+  }
+
+  const isValid  = (username: string, password: string): boolean => {
+    if (!username) {
+      toast.error("Username required");
+      return false;
+    }
+    if (!password || document.getElementById("password-input").value == "") {
+      toast.error("Password required");
+      return false;
+    }
+    if (/\s/g.test(username)) {
+      toast.error("Username must not contain white space");
+      return false;
+    }
+    return true;
   }
 
   const signup = async () => {
-
+    if (!isValid(username, password)){
+      return;
+    }
+    
     const response = await axios.post(endPointUrl + "/signup", {
       firstName: firstName,
       lastName: lastName,
@@ -42,28 +62,13 @@ const Signupage = () => {
       dogUrl: dogUrl
     }
     ).then(response => {
-      console.log(response.data);
-
-      //TODO: REDIRECT TO Home Page
       if (response.status == 200) {
         toast.success("Signup successful");
         navigate("/login");
       }
-      
-      
     }).catch(error => {
       toast.error(error.response.data);
     })
-
-
-
-    
-  }
-
-  const getdb = async () => {
-    const response = await axios.get(endPointUrl + "/getdb", {
-    })
-    console.log(response.data);
   }
 
   return (
@@ -82,12 +87,12 @@ const Signupage = () => {
               <input id="last-name-input" type="text" placeholder="Enter your Last Name" name="lastName" onChange={ (event) => setLastName(event.target.value) } />
             </div>
             <div className={styles.labelSection}>
-              <div className={styles.signupLabel} >Username: </div>
-              <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={ (event) => setUsername(event.target.value) } />
-            </div>
-            <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Email Address: </div>
               <input id="email-input" type="email" placeholder="Enter your email" name="email" onChange={ (event) => setEmail(event.target.value) }/>
+            </div>
+            <div className={styles.labelSection}>
+              <div className={styles.signupLabel} >Username: </div>
+              <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={ (event) => setUsername(event.target.value) } />
             </div>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel} >Password: </div>
@@ -114,7 +119,6 @@ const Signupage = () => {
               <input id="dog-picture-input" type="text" placeholder="http://imgur...etc" name="dogPicture" onChange={ (event) => setDogUrl(event.target.value) }/>
             </div>
             <input className={styles.signupBtn} type="button" value="Signup" onClick={() => signup()}/>
-            {/* <input className={styles.signupBtn} type="button" value="test get db" onClick={() => getdb()}/> */}
           </form>
         </div>
       </div>

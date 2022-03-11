@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const endPointUrl = "http://localhost:8080";
 
-  const encryptPassword = (pw) => {
+  const encryptPassword = (pw: string): void => {
     if (pw == "") {
       setPassword("");
       return;
@@ -42,20 +42,13 @@ const LoginPage = () => {
       password: password
     }
     ).then(response => {
-      console.log(response.data);
-
-
-      //TODO: REDIRECT TO Home Page
       if (response.status == 200) {
         toast.success("Login successful");
         navigate("/dogInfo");
       }
-      
-      
     }).catch(error => {
       toast.error(error.response.data);
     })
-    
   }
 
   const isValid  = (username: string, password: string): boolean => {
@@ -63,17 +56,14 @@ const LoginPage = () => {
         toast.error("Username required");
         return false;
       }
-
-      if (!password) {
+      if (!password || document.getElementById("password-input").value == "") {
         toast.error("Password required");
         return false;
       }
-
       if (/\s/g.test(username)) {
         toast.error("Username must not contain white space");
         return false;
       }
-
       return true;
   }
 
