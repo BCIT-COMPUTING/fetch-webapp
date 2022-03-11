@@ -53,7 +53,7 @@ server.post("/login", function (req, res) {
 				// request.session.loggedin = true;
 				// request.session.username = username;
 				// Redirect to home page
-        // response.redirect('/home');
+        // res.redirect('/signin');
         console.log('signed in: ' + username);
         res.send("Successfully signed in: " + username);
         conn.end();
