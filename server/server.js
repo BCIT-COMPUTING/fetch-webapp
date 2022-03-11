@@ -43,21 +43,25 @@ server.post("/login", function (req, res) {
       console.log(username);
       console.log(password);
       const { results, fields } = await query(
-        `SELECT * FROM userProfile WHERE username = ? AND password = ?
-        `, [username, password], { connection: conn, }
+        `SELECT * FROM userProfile WHERE username = "${username}" AND password = "${password}"
+        `, { connection: conn, }
       );
-      if (error) throw error;
+      // if (error) throw error;
+      console.log(results);
       if (results.length > 0) {
 				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = username;
+				// request.session.loggedin = true;
+				// request.session.username = username;
 				// Redirect to home page
-				response.redirect('/home');
+        // response.redirect('/home');
+        console.log('signed in: ' + username);
+        res.send("Successfully signed in: " + username);
+        conn.end();
 			} else {
-				response.send('Incorrect Username and/or Password!');
+        res.send('Incorrect Username and/or Password!');
+        conn.end();
 			}	
-      response.end();
-      conn.end();
+    
 
       // console.log(results, fields);
 
