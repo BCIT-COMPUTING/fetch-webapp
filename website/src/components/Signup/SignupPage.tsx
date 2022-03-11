@@ -26,7 +26,6 @@ const Signupage = () => {
 
   const encryptPassword = (pw: string): void => {
     setPassword(crypto.SHA256(pw).toString());
-    console.log(password);
   }
 
   const isValid  = (username: string, password: string): boolean => {
