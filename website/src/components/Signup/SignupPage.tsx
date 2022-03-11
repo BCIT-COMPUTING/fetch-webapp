@@ -3,8 +3,12 @@ import { useState } from 'react';
 import styles from './SignupPage.module.css';
 import axios from "axios";
 import * as crypto from "crypto-js";
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Signupage = () => {
+  
+  const navigate = useNavigate();
 
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
@@ -25,6 +29,7 @@ const Signupage = () => {
   }
 
   const signup = async () => {
+
     const response = await axios.post(endPointUrl + "/signup", {
       firstName: firstName,
       lastName: lastName,
@@ -35,8 +40,24 @@ const Signupage = () => {
       dogAge: dogAge,
       dogGender: dogGender,
       dogUrl: dogUrl
+    }
+    ).then(response => {
+      console.log(response.data);
+
+      //TODO: REDIRECT TO Home Page
+      if (response.status == 200) {
+        toast.success("Signup successful");
+        navigate("/login");
+      }
+      
+      
+    }).catch(error => {
+      toast.error(error.response.data);
     })
-    console.log(response.data);
+
+
+
+    
   }
 
   const getdb = async () => {

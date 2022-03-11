@@ -42,11 +42,12 @@ const LoginPage = () => {
       password: password
     }
     ).then(response => {
-      console.log(response);
-      toast.success("Login successful");
+      console.log(response.data);
+
 
       //TODO: REDIRECT TO Home Page
-      if (response.data == ("Successfully signed in: " + username)) {
+      if (response.status == 200) {
+        toast.success("Login successful");
         navigate("/dogInfo");
       }
       
@@ -89,7 +90,7 @@ const LoginPage = () => {
             <div className={styles.loginLabel} >Password: </div>
             <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(event.target.value) } />
           </div>
-          <input className={styles.loginBtn} type="button" value="Submit" onClick={() => login() } />
+          <input className={styles.loginBtn} type="button" value="Login" onClick={() => login() } />
         </form>
       </div>
     </div>

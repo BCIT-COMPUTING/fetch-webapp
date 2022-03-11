@@ -17,7 +17,7 @@ const HomePage = () => {
             <input className={styles.homeBtn} type="button" value="Login" />
           </Link>
           <Link to="/signup">
-            <input className={styles.homeBtn} type="button" value="Register" />
+            <input className={styles.homeBtn} type="button" value="Sign Up" />
           </Link>
           </form>
         </div>
