@@ -22,7 +22,6 @@ const LoginPage = () => {
     }
     var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
     setPassword(encryptedPassword);
-    console.log(encryptedPassword);
   }
 
   const login = async () => {

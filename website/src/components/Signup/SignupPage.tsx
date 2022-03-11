@@ -21,6 +21,7 @@ const Signupage = () => {
   const [dogUrl, setDogUrl] = useState('');
 
   const encryptPassword = (password) => {
+    // var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
     var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
     setPassword(encryptedPassword);
   }
@@ -94,9 +95,7 @@ const Signupage = () => {
               <input id="dog-picture-input" type="text" placeholder="http://imgur...etc" name="dogPicture" onChange={ (event) => setDogUrl(event.target.value) }/>
             </div>
             <input className={styles.signupBtn} type="button" value="Signup" onClick={() => signup()}/>
-
-
-            <input className={styles.signupBtn} type="button" value="test get db" onClick={() => getdb()}/>
+            {/* <input className={styles.signupBtn} type="button" value="test get db" onClick={() => getdb()}/> */}
           </form>
         </div>
       </div>
