@@ -6,11 +6,11 @@ const databaseName = "fetchWebapp";
 
 const createConn = (database = databaseName) => {
   return mysql.createConnection({
-      host: mysqlConfig.HOST,
-      port: mysqlConfig.PORT,
-      user: credentials.user,
-      password: credentials.password,
-      database: database
+    host: mysqlConfig.HOST,
+    port: mysqlConfig.PORT,
+    user: credentials.user,
+    password: credentials.password,
+    database: database
   });
 }
 
@@ -29,10 +29,10 @@ const createConn = (database = databaseName) => {
 const query = (queryStr, { values, connection = createConn() }) => {
 
   const prom = new Promise((resolve, reject) => {
-      connection.query(queryStr, values, (err, results, fields) => {
-          if (err) reject(err);
-          resolve({ results, fields, conn: connection });
-      })
+    connection.query(queryStr, values, (err, results, fields) => {
+      if (err) reject(err);
+      resolve({ results, fields, conn: connection });
+    })
   })
   return prom;
 }
@@ -41,11 +41,12 @@ const query = (queryStr, { values, connection = createConn() }) => {
 const ensureTables = () => {
   const conn = createConn();
   conn.beginTransaction(async (err) => {
-      if (err) { throw err; }
+    try {
+      if (err) throw err;
 
-      try {
-          const { userResults, userFields } = await query(
-              `CREATE TABLE IF NOT EXISTS userProfile (
+
+      const { userResults, userFields } = await query(
+        `CREATE TABLE IF NOT EXISTS userProfile (
                   id INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
                   firstname varchar(30) not null,
                   lastname varchar(30) not null,
@@ -54,9 +55,9 @@ const ensureTables = () => {
                   password varchar(128) not null,
                   UNIQUE KEY username ( username )
               );`, { connection: conn, }
-          );
-          const { dogResults, dogFields } = await query(
-              `CREATE TABLE IF NOT EXISTS dogProfile (
+      );
+      const { dogResults, dogFields } = await query(
+        `CREATE TABLE IF NOT EXISTS dogProfile (
                 id INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
                 usernameOwner varchar(30) not null,
                 name varchar(30) not null,
@@ -65,27 +66,32 @@ const ensureTables = () => {
                 url varchar(255) not null,
                 CONSTRAINT FK_usernameDog FOREIGN KEY (usernameOwner) REFERENCES userProfile(username)
               );`, { connection: conn, }
-          );
+      );
 
-          console.log(userResults, userFields);
-          console.log(dogResults, dogFields);
-          console.log('userProfile + dogProfile table creation is ensured...');
+      console.log(userResults, userFields);
+      console.log(dogResults, dogFields);
+      console.log('userProfile + dogProfile table creation is ensured...');
 
-          // const createTablesResult = query(
-          //     'CR INTO log SET data=?',
-          //     { values: databaseName, connection: conn, }
-          // );
+      // const createTablesResult = query(
+      //     'CR INTO log SET data=?',
+      //     { values: databaseName, connection: conn, }
+      // );
 
-          conn.commit(function (err) {
-              if (err) throw err;
-              console.log('success!');
-              conn.end();
-          });
+      conn.commit(function (err) {
+        if (err) throw err;
+        console.log('success!');
+        conn.end();
+      });
 
-      } catch (err) {
-          console.error(err);
-          conn.rollback();
+    } catch (err) {
+
+      conn.rollback();
+      if (err.code === 'ECONNREFUSED') {
+        console.error("\nMysql connection refused, check if your database is running.\n");
+      } else {
+        console.error(err);
       }
+    }
   });
 }
 
