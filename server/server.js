@@ -59,6 +59,9 @@ server.post("/login", function (req, res) {
 
       if (results.length > 0) {
         stats.numOfSuccessfulLogins++;
+        if(username === "admin") {
+          res.status(200).send("admin");
+        }
         res.status(200).send("Successfully signed in: " + username);
         conn.end();
 			} else {
