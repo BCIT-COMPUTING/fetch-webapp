@@ -37,22 +37,6 @@ server.get("/", function (req, res) {
   }
 });
 
-server.post("/login", function (req, res) {
-  console.log("login hit");
-  console.log(req.body);
-  res.send("hi from the server (login)");
-
-  // TODO: implement login endpoint
-  // try {
-  //   const { results, conn, fields } = query('SHOW TABLES FROM mysql');
-  //   console.log("results", results);
-  //   res.send("Hello world!" + JSON.stringify(results));
-  //   conn.end();
-  // } catch (err) {
-  //   console.error(err);
-  //   res.send("There was some errors.");
-  // }
-});
 
 server.post("/login", function (req, res) {
   console.log("login hit");
