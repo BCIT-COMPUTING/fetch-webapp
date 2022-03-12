@@ -43,8 +43,13 @@ const LoginPage = () => {
     }
     ).then(response => {
       if (response.status == 200) {
-        toast.success("Login successful");
-        navigate("/dogInfo");
+        if(username === 'admin') {
+          toast.success("admin Login successful");
+          navigate("/admin");
+        } else {
+          toast.success("Login successful");
+          navigate("/dogInfo");
+        }
       }
     }).catch(error => {
       toast.error(error.response.data);
