@@ -1,17 +1,29 @@
 const mysql = require('mysql');
-const { mysqlConfig } = require('./configs/mysqlConfig');
-const credentials = require('./configs/credentials');
+const { mysqlConfig } = require('./mysqlConfig');
+const credentials = require('./credentials');
+const fs = require("fs");
+const path = require('path');
+
 
 const databaseName = "fetchWebapp";
+const isDevEnv = process.env.NODE_ENV === "development";
+const certFilePath = path.resolve(__dirname, `DigiCertGlobalRootCA.crt.pem`);
 
 const createConn = (database = databaseName) => {
-  return mysql.createConnection({
+  const certificateFile = fs.readFileSync(certFilePath, "utf8");
+  const conn = mysql.createConnection({
     host: mysqlConfig.HOST,
     port: mysqlConfig.PORT,
     user: credentials.user,
     password: credentials.password,
-    database: database
+    database: database,
+    connectTimeout: 20000,
+    ssl: isDevEnv ? {} : {
+      ca: certificateFile
+    },
   });
+  console.log("Connection created with config:", conn.config);
+  return conn;
 }
 
 /**
