@@ -1,27 +1,26 @@
-
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const { query, ensureTables } = require("./connectionUtils");
+const swaggerUI = require("swagger-ui-express");
+swaggerDocument = require("./swagger.json");
 // const bcrypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
 
 const server = express();
 const PORT = process.env.PORT || 8080;
 
-
 server.use(cors());
+server.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 server.use(bodyParser.json());
 
 // ensureTables();
 
-
-server.get('/', function (req, res) {
-
+server.get("/", function (req, res) {
   // THIS IS FOR TESTING
   try {
-    const { results, conn, fields } = query('SHOW TABLES FROM mysql');
+    const { results, conn, fields } = query("SHOW TABLES FROM mysql");
     console.log("results", results);
     res.send("Hello world!" + JSON.stringify(results));
     conn.end();
@@ -29,14 +28,13 @@ server.get('/', function (req, res) {
     console.error(err);
     res.send("There was some errors.");
   }
-
 });
 
 server.post("/login", function (req, res) {
   console.log("login hit");
   console.log(req.body);
   res.send("hi from the server (login)");
-  
+
   // TODO: implement login endpoint
   // try {
   //   const { results, conn, fields } = query('SHOW TABLES FROM mysql');
@@ -58,7 +56,7 @@ server.post("/signup", function (req, res) {
   // try {
   //   const { results, conn, fields } = query('SHOW TABLES FROM mysql');
   //   console.log("results", results);
-    // res.send("Hello world!" + JSON.stringify(results));
+  // res.send("Hello world!" + JSON.stringify(results));
   //   conn.end();
   // } catch (err) {
   //   console.error(err);
@@ -66,4 +64,6 @@ server.post("/signup", function (req, res) {
   // }
 });
 
-server.listen(PORT, () => console.log(`Listening at: http://localhost:${PORT}`));
+server.listen(PORT, () =>
+  console.log(`Listening at: http://localhost:${PORT}`)
+);
