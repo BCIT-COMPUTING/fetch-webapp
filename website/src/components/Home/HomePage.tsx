@@ -1,10 +1,10 @@
-import { useAppContext } from "../../store/appContext";
+import { useAppStore } from "../../store/appContext";
 import styles from './HomePage.module.css';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
 
-  const { state, setState } = useAppContext();
+  const { state, setState } = useAppStore();
   const { isLoggedIn } = state;
 
   return (

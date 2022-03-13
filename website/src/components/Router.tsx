@@ -1,5 +1,5 @@
 
-import { AppContext, useAppContext } from "../store/appContext";
+import { ContextProvider } from "../store/appContext";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,12 +12,11 @@ import DogInfoPage from "./DogInfo/DogInfoPage";
 import AdminPage from "./Admin/AdminPage";
 
 function AppRouter() {
-  const appContext = useAppContext();
 
   return (
-    <AppContext.Provider value={appContext.state}>
+    <ContextProvider>
       <ToastContainer draggable={false} pauseOnHover={false} autoClose={3000} position="bottom-right"/>
-      <BrowserRouter>
+      <BrowserRouter >
         <Routes>
           <Route path="/test" element={<TestPage />} />
           <Route path="/" element={<HomePage />} />
@@ -27,7 +26,7 @@ function AppRouter() {
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </BrowserRouter >
-    </AppContext.Provider>
+    </ContextProvider>
   );
 }
 

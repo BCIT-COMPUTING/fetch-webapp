@@ -1,4 +1,4 @@
-import { useAppContext } from "../../store/appContext";
+import { useAppStore } from "../../store/appContext";
 import { useState } from 'react';
 import styles from './SignupPage.module.css';
 import axios from "axios";
@@ -10,7 +10,7 @@ const Signupage = () => {
   
   const navigate = useNavigate();
 
-  const { state, setState } = useAppContext();
+  const { state, setState } = useAppStore();
   const { isLoggedIn } = state;
   const endPointUrl = "https://fetch-be.azurewebsites.net";
 

@@ -1,9 +1,9 @@
 
-import { useAppContext } from "../../store/appContext";
+import { useAppStore } from "../../store/appContext";
 
 const TestPage = () => {
 
-  const { state, setState } = useAppContext();
+  const { state, setState } = useAppStore();
   const { isLoggedIn } = state;
 
   return (
