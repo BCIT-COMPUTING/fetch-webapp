@@ -12,7 +12,7 @@ const Signupage = () => {
 
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
-  const endPointUrl = "http://localhost:8080";
+  const endPointUrl = "https://fetch-be.azurewebsites.net";
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');

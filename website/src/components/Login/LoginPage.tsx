@@ -15,7 +15,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const endPointUrl = "http://localhost:8080";
+  const endPointUrl = "https://fetch-be.azurewebsites.net";
 
   const encryptPassword = (pw: string): void => {
     if (pw == "") {
