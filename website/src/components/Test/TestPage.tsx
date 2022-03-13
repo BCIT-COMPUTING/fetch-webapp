@@ -1,5 +1,6 @@
 
 import { useAppContext } from "../../store/appContext";
+import Nav from "../Nav/Nav";
 
 const TestPage = () => {
 
@@ -8,6 +9,7 @@ const TestPage = () => {
 
   return (
     <div>
+      <Nav />
       TestPage: {isLoggedIn ? "T" : "F"}
       <button onClick={e => setState({isLoggedIn: !isLoggedIn})}>Change</button>
     </div>
