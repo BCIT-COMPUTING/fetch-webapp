@@ -2,7 +2,6 @@
 import { useAppStore } from "../../store/appContext";
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import axios from "axios";
 import styles from './LoginPage.module.css';
 import * as crypto from "crypto-js";
 import { useNavigate } from 'react-router-dom';
