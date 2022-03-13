@@ -24,10 +24,10 @@ const stats = {
   numOfTimesVisitedStatPage: 0,
 }
 
-server.get("/", function (req, res) {
+server.get("/", async (req, res) => {
   // THIS IS FOR TESTING
   try {
-    const { results, conn, fields } = query("SHOW TABLES FROM mysql");
+    const { results, conn, fields } = await query("SHOW TABLES FROM mysql");
     console.log("results", results);
     res.send("Hello world!" + JSON.stringify(results));
     conn.end();

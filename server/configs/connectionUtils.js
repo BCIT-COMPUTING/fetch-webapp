@@ -11,6 +11,7 @@ const certFilePath = path.resolve(__dirname, `DigiCertGlobalRootCA.crt.pem`);
 
 const createConn = (database = databaseName) => {
   const certificateFile = fs.readFileSync(certFilePath, "utf8");
+
   const conn = mysql.createConnection({
     host: mysqlConfig.HOST,
     port: mysqlConfig.PORT,
@@ -38,7 +39,9 @@ const createConn = (database = databaseName) => {
 *  conn: mysql.Connection,
 * }}
 */
-const query = (queryStr, { values, connection = createConn() }) => {
+const query = (queryStr, options) => {
+  const values = options?.values;
+  const connection = options?.connection ?? createConn();
 
   const prom = new Promise((resolve, reject) => {
     connection.query(queryStr, values, (err, results, fields) => {
