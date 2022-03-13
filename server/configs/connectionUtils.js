@@ -12,6 +12,20 @@ const certFilePath = path.resolve(__dirname, `DigiCertGlobalRootCA.crt.pem`);
 const createConn = (database = databaseName) => {
   const certificateFile = fs.readFileSync(certFilePath, "utf8");
 
+  // const hostConfig = mysql.createConnection({
+  //   host: "comp4537.mysql.database.azure.com",
+  //   port: mysqlConfig.PORT,
+  //   user: "myadmin",
+  //   password: "fetch1234.",
+  //   database: database,
+  //   connectTimeout: 20000,
+  //   ssl: isDevEnv ? {} : {
+  //     ca: certificateFile
+  //   },
+  // });
+  // console.log("Connection created with config:", hostConfig.config);
+  // return hostConfig;
+
   const conn = mysql.createConnection({
     host: mysqlConfig.HOST,
     port: mysqlConfig.PORT,

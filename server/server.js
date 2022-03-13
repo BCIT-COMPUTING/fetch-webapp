@@ -4,14 +4,22 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const { query, ensureTables, createConn } = require("./configs/connectionUtils");
 const swaggerUI = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
+const swaggerDocument = require("./public/swagger.json");
 // const bcrypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
 const server = express();
 const PORT = process.env.PORT || 8080;
 
-server.use(cors());
-server.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+// server.use(cors());
+server.use("/documentation", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+});
+server.use('/static', express.static('public'))
 server.use(bodyParser.json());
 
 ensureTables();
