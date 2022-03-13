@@ -1,10 +1,11 @@
 
-import { createContext, PropsWithChildren, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 
 export const initState = {
   // add your fields to use in the app
-  isLoggedIn: true,
+  isLoggedIn: false,
+  isAdmin: false
 };
 
 interface AppContextType {

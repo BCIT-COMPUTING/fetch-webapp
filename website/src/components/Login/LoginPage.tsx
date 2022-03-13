@@ -1,11 +1,12 @@
 
 import { useAppStore } from "../../store/appContext";
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from "axios";
 import styles from './LoginPage.module.css';
 import * as crypto from "crypto-js";
 import { useNavigate } from 'react-router-dom';
+import { endPointBaseUrl } from "../../appConfigs";
 
 const LoginPage = () => {
 
@@ -14,8 +15,6 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const endPointUrl = "https://fetch-be.azurewebsites.net";
 
   const encryptPassword = (pw: string): void => {
     if (pw == "") {
@@ -37,16 +36,24 @@ const LoginPage = () => {
       return;
     }
 
-    const response = await axios.post(endPointUrl + "/login", {
-      username: username,
-      password: password
-    }
-    ).then(response => {
+    fetch(endPointBaseUrl + "/login", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username,
+        password
+      })
+    }).then(response => {
       if (response.status == 200) {
         if (username === 'admin') {
+          setState({ isLoggedIn: true, isAdmin: true });
           toast.success("admin Login successful");
           navigate("/admin");
         } else {
+          setState({ isLoggedIn: true, isAdmin: false });
           toast.success("Login successful");
           navigate("/dogInfo");
         }
@@ -61,7 +68,7 @@ const LoginPage = () => {
       toast.error("Username required");
       return false;
     }
-    if (!password || document.getElementById("password-input").value == "") {
+    if (password === "" || !password) {
       toast.error("Password required");
       return false;
     }

@@ -20,7 +20,9 @@ server.use((req, res, next) => {
   next();
 });
 server.use('/static', express.static('public'))
+server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
+server.use(bodyParser.raw());
 
 ensureTables();
 
@@ -49,17 +51,16 @@ server.get("/", async (req, res) => {
 server.post("/login", function (req, res) {
   console.log("login hit");
 
+  const username = req.body.username;
+  const password = req.body.password;
   const conn = createConn();
   conn.beginTransaction(async (err) => {
-    if (err) { 
+    if (err) {
       stats.numOfFailedLogins++;
       throw err;
     }
 
     try {
-      let username = req.body.username;
-      let password = req.body.password;
-
       const { results, fields } = await query(
         `SELECT * FROM userProfile WHERE username = "${username}" AND password = "${password}"
         `, { connection: conn, }
@@ -67,17 +68,18 @@ server.post("/login", function (req, res) {
 
       if (results.length > 0) {
         stats.numOfSuccessfulLogins++;
-        if(username === "admin") {
+        if (username === "admin") {
           res.status(200).send("admin");
+          return;
         }
         res.status(200).send("Successfully signed in: " + username);
         conn.end();
-			} else {
+      } else {
         stats.numOfFailedLogins++;
         res.status(403).send('Incorrect Username and/or Password!');
         conn.end();
-			}	
-    
+      }
+
     } catch (err) {
       stats.numOfFailedLogins++;
       res.status(403).send("Failed to log in: " + username);
@@ -111,26 +113,26 @@ server.post("/signup", function (req, res) {
           VALUES("${req.body.firstName}", "${req.body.lastName}", "${req.body.username}", "${req.body.email}", "${req.body.password}");
           `, { connection: conn, }
         );
-  
+
         const { dogResults, dogFields } = await query(
           `INSERT INTO dogProfile(usernameOwner, name, age, gender, url)
           VALUES("${req.body.username}", "${req.body.dogName}", "${req.body.dogAge}", "${req.body.dogGender}", "${req.body.dogUrl}");
           `, { connection: conn, }
         );
-  
+
         console.log(userResults, userFields);
         console.log(dogResults, dogFields);
-  
+
         conn.commit(function (err) {
           if (err) { throw err; }
           res.status(200).send("Successfully registered: " + req.body.firstName + " + " + req.body.dogName);
           conn.end();
         });
-  
-			} else {
+
+      } else {
         res.status(409).send('Username already taken!');
         conn.end();
-			}	
+      }
 
     } catch (err) {
       res.status(409).send("Failed to register: " + req.body.firstName + " + " + req.body.dogName);
@@ -140,7 +142,7 @@ server.post("/signup", function (req, res) {
   });
 });
 
-server.get("/admin", function(req, res) {
+server.get("/admin", function (req, res) {
   stats.numOfTimesVisitedStatPage++;
   console.log("stats hit");
   res.status(200).send(stats);

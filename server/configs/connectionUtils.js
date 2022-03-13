@@ -37,7 +37,7 @@ const createConn = (database = databaseName) => {
       ca: certificateFile
     },
   });
-  console.log("Connection created with config:", conn.config);
+  // console.log("Connection created with config:", conn.config);
   return conn;
 }
 

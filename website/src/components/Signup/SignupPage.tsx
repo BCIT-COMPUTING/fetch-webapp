@@ -5,14 +5,14 @@ import axios from "axios";
 import * as crypto from "crypto-js";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { endPointBaseUrl } from "../../appConfigs";
 
-const Signupage = () => {
+const SignupPage = () => {
   
   const navigate = useNavigate();
 
   const { state, setState } = useAppStore();
   const { isLoggedIn } = state;
-  const endPointUrl = "https://fetch-be.azurewebsites.net";
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -33,7 +33,7 @@ const Signupage = () => {
       toast.error("Username required");
       return false;
     }
-    if (!password || document.getElementById("password-input").value == "") {
+    if (password === "" || !password) {
       toast.error("Password required");
       return false;
     }
@@ -49,7 +49,7 @@ const Signupage = () => {
       return;
     }
     
-    const response = await axios.post(endPointUrl + "/signup", {
+    const response = await axios.post(endPointBaseUrl + "/signup", {
       firstName: firstName,
       lastName: lastName,
       username: username,
@@ -125,4 +125,4 @@ const Signupage = () => {
   )
 }
 
-export default Signupage;
+export default SignupPage;

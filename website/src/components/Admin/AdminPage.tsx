@@ -1,17 +1,38 @@
 
-import axios from "axios";
 import styles from './AdminPage.module.css';
 import { useState, useEffect } from 'react';
+import { endPointBaseUrl } from '../../appConfigs';
+import { useAppStore } from '../../store/appContext';
+import { useNavigate } from 'react-router';
+
 
 const AdminPage = () => {
-  const [stats, setStats] = useState({});
-  const endPointUrl = "https://fetch-be.azurewebsites.net";
+  const navigate = useNavigate();
+  const { state } = useAppStore();
+  const [stats, setStats] = useState({
+    numOfSuccessfulLogins: 0,
+    numOfFailedLogins: 0,
+    numOfLoginAttempts: 0,
+    numOfUsers: 0,
+    numOfTimesVisitedStatPage: 0,
+  });
+
+  const hasCredentials = state.isLoggedIn && state.isAdmin;
+
 
   useEffect(() => {
-    axios.get(endPointUrl + "/admin").then(response => {
-      setStats(response.data);
-      console.log(response.data);
-    });
+    if(hasCredentials === false) {
+      navigate('/login');
+      return;
+    }
+
+    fetch(endPointBaseUrl + "/admin", {
+      method: "GET"
+    }).then(response => response.json())
+      .then(data => {
+        setStats(data);
+        console.log(data);
+      });
   }, [])
 
   return (
