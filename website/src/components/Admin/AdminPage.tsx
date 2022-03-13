@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const AdminPage = () => {
   const [stats, setStats] = useState({});
-  const endPointUrl = "http://localhost:8080";
+  const endPointUrl = "https://fetch-be.azurewebsites.net";
 
   useEffect(() => {
     axios.get(endPointUrl + "/admin").then(response => {
