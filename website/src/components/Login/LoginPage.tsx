@@ -5,19 +5,24 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 import styles from './LoginPage.module.css';
 import * as crypto from "crypto-js";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
 
   const { state, setState } = useAppContext();
   const { isLoggedIn } = state;
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const endPointUrl = "http://localhost:8080";
 
-  const encryptPassword = (password) => {
-    var encryptedPassword = crypto.AES.encrypt(password, 'poodle').toString();
-    setPassword(encryptedPassword);
+  const encryptPassword = (pw: string): void => {
+    if (pw == "") {
+      setPassword("");
+      return;
+    }
+    setPassword(crypto.SHA256(pw).toString());
   }
 
   const login = async () => {
@@ -28,42 +33,42 @@ const LoginPage = () => {
     // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
     // console.log("decrypted: " + decryptedPassword);
 
-    if (!isValid(email, password)){
+    if (!isValid(username, password)){
       return;
     }
 
     const response = await axios.post(endPointUrl + "/login", {
-      email: email,
+      username: username,
       password: password
     }
     ).then(response => {
-      console.log(response);
-      toast.success("Login successful");
-
-      //TODO: REDIRECT TO Home Page
-      
+      if (response.status == 200) {
+        if(username === 'admin') {
+          toast.success("admin Login successful");
+          navigate("/admin");
+        } else {
+          toast.success("Login successful");
+          navigate("/dogInfo");
+        }
+      }
     }).catch(error => {
       toast.error(error.response.data);
     })
-    
   }
 
-  const isValid  = (email: string, password: string): boolean => {
-      if (!email) {
-        toast.error("Email required");
+  const isValid  = (username: string, password: string): boolean => {
+      if (!username) {
+        toast.error("Username required");
         return false;
       }
-
-      if (!password) {
+      if (!password || document.getElementById("password-input").value == "") {
         toast.error("Password required");
         return false;
       }
-
-      if (/\s/g.test(email)) {
-        toast.error("Email must not contain white space");
+      if (/\s/g.test(username)) {
+        toast.error("Username must not contain white space");
         return false;
       }
-
       return true;
   }
 
@@ -73,14 +78,14 @@ const LoginPage = () => {
         <h1>Fetch</h1>
         <form>
           <div className={styles.labelSection}>
-            <div className={styles.loginLabel} >Email Address: </div>
-            <input id="email-input" type="email" placeholder="Enter your email" name="email" onChange={ (event) => setEmail(document.getElementById("email-input").value) }/>
+            <div className={styles.loginLabel} >Username: </div>
+            <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={ (event) => setUsername(event.target.value) }/>
           </div>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Password: </div>
-            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(document.getElementById("password-input").value) } />
+            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(event.target.value) } />
           </div>
-          <input className={styles.loginBtn} type="button" value="Submit" onClick={() => login() } />
+          <input className={styles.loginBtn} type="button" value="Login" onClick={() => login() } />
         </form>
       </div>
     </div>

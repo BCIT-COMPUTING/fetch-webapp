@@ -9,6 +9,7 @@ import HomePage from "./Home/HomePage";
 import SignupPage from "./Signup/SignupPage";
 import LoginPage from "./Login/LoginPage";
 import DogInfoPage from "./DogInfo/DogInfoPage";
+import AdminPage from "./Admin/AdminPage";
 
 function AppRouter() {
   const appContext = useAppContext();
@@ -23,6 +24,7 @@ function AppRouter() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dogInfo" element={<DogInfoPage />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </BrowserRouter >
     </AppContext.Provider>
