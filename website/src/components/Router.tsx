@@ -1,5 +1,5 @@
 import { AppContext, useAppContext } from "../store/appContext";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,7 +13,7 @@ import AdminPage from "./Admin/AdminPage";
 function AppRouter() {
   const appContext = useAppContext();
   const admin = appContext.state.isAdmin;
-  const loggedIn = appContext.state.isLoggedIn;
+  const isloggedIn = appContext.state.isLoggedIn;
 
   return (
     <AppContext.Provider value={appContext.state}>
@@ -26,13 +26,22 @@ function AppRouter() {
       <BrowserRouter>
         <Routes>
           <Route path="/test" element={<TestPage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/dogInfo" element={<DogInfoPage />} />
+          <Route path="/" element={isloggedIn ? <HomePage /> : <LoginPage />} />
+          <Route
+            path="/signup"
+            element={isloggedIn ? <Navigate replace to="/" /> : <SignupPage />}
+          />
+          <Route
+            path="/login"
+            element={isloggedIn ? <Navigate replace to="/" /> : <LoginPage />}
+          />
+          <Route
+            path="/dogInfo"
+            element={isloggedIn ? <DogInfoPage /> : <LoginPage />}
+          />
           <Route
             path="/admin"
-            element={admin && loggedIn ? <AdminPage /> : <LoginPage />}
+            element={admin && isloggedIn ? <AdminPage /> : <LoginPage />}
           />
         </Routes>
       </BrowserRouter>
