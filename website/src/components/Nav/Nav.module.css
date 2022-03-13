@@ -22,11 +22,12 @@
 
 .ul {
   display: none;
-  padding: 2% 5%;
+  padding: 0;
+  margin: 0;
 }
 
 .li {
-  padding: 3% 1%;
+  padding: 3% 5%;
   list-style: none;
 }
 
@@ -75,13 +76,18 @@
   .ul {
     margin: 0;
     display: inline-flex;
+    padding: 2% 4%;
   }
   
   .li {
-    margin-right: 10%;
+    margin-right: 2%;
+    display: inline-flex;
+    padding: 1%;
+    margin: 2% 5%;
   }
 
-  .a {
-    display: flex;
+  .li:hover {
+    background-color: #B2F7EF;
+    border-bottom: 1px solid #000;
   }
 }
