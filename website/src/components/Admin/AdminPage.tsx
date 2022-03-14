@@ -1,14 +1,13 @@
-
-import styles from './AdminPage.module.css';
-import { useState, useEffect } from 'react';
-import { endPointBaseUrl } from '../../appConfigs';
-import { useAppStore } from '../../store/appContext';
-import { useNavigate } from 'react-router';
-
+import styles from "./AdminPage.module.css";
+import { useState, useEffect } from "react";
+import { useAppStore } from "../../store/appContext";
+import { useNavigate } from "react-router";
+import { userRequest } from "../../appConfigs";
 
 const AdminPage = () => {
   const navigate = useNavigate();
   const { state } = useAppStore();
+  const currentUser = state.user;
   const [stats, setStats] = useState({
     numOfSuccessfulLogins: 0,
     numOfFailedLogins: 0,
@@ -17,23 +16,23 @@ const AdminPage = () => {
     numOfTimesVisitedStatPage: 0,
   });
 
-  const hasCredentials = state.isLoggedIn && state.isAdmin;
+  const hasCredentials = state.isLoggedIn && currentUser.isAdmin;
 
+  const getStats = async () => {
+    //pass token here
+    await userRequest.get("/admin").then((response) => {
+      setStats(response.data);
+      console.log(response.data);
+    });
+  };
 
   useEffect(() => {
-    if(hasCredentials === false) {
-      navigate('/login');
+    if (hasCredentials === false) {
+      navigate("/login");
       return;
     }
-
-    fetch(endPointBaseUrl + "/admin", {
-      method: "GET"
-    }).then(response => response.json())
-      .then(data => {
-        setStats(data);
-        console.log(data);
-      });
-  }, [])
+    getStats();
+  }, []);
 
   return (
     <div className={styles.adminPageContainer}>
@@ -66,7 +65,7 @@ const AdminPage = () => {
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default AdminPage;
