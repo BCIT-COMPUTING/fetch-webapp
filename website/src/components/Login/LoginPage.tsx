@@ -1,21 +1,19 @@
 
-import { useAppContext } from "../../store/appContext";
+import { useAppStore } from "../../store/appContext";
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import axios from "axios";
 import styles from './LoginPage.module.css';
 import * as crypto from "crypto-js";
 import { useNavigate } from 'react-router-dom';
+import { endPointBaseUrl } from "../../appConfigs";
 
 const LoginPage = () => {
 
-  const { state, setState } = useAppContext();
+  const { state, setState } = useAppStore();
   const { isLoggedIn } = state;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const endPointUrl = "https://fetch-be.azurewebsites.net";
 
   const encryptPassword = (pw: string): void => {
     if (pw == "") {
@@ -33,20 +31,28 @@ const LoginPage = () => {
     // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
     // console.log("decrypted: " + decryptedPassword);
 
-    if (!isValid(username, password)){
+    if (!isValid(username, password)) {
       return;
     }
 
-    const response = await axios.post(endPointUrl + "/login", {
-      username: username,
-      password: password
-    }
-    ).then(response => {
+    fetch(endPointBaseUrl + "/login", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username,
+        password
+      })
+    }).then(response => {
       if (response.status == 200) {
-        if(username === 'admin') {
+        if (username === 'admin') {
+          setState({ isLoggedIn: true, isAdmin: true });
           toast.success("admin Login successful");
           navigate("/admin");
         } else {
+          setState({ isLoggedIn: true, isAdmin: false });
           toast.success("Login successful");
           navigate("/dogInfo");
         }
@@ -56,20 +62,20 @@ const LoginPage = () => {
     })
   }
 
-  const isValid  = (username: string, password: string): boolean => {
-      if (!username) {
-        toast.error("Username required");
-        return false;
-      }
-      if (!password || document.getElementById("password-input").value == "") {
-        toast.error("Password required");
-        return false;
-      }
-      if (/\s/g.test(username)) {
-        toast.error("Username must not contain white space");
-        return false;
-      }
-      return true;
+  const isValid = (username: string, password: string): boolean => {
+    if (!username) {
+      toast.error("Username required");
+      return false;
+    }
+    if (password === "" || !password) {
+      toast.error("Password required");
+      return false;
+    }
+    if (/\s/g.test(username)) {
+      toast.error("Username must not contain white space");
+      return false;
+    }
+    return true;
   }
 
   return (
@@ -79,13 +85,13 @@ const LoginPage = () => {
         <form>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Username: </div>
-            <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={ (event) => setUsername(event.target.value) }/>
+            <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={(event) => setUsername(event.target.value)} />
           </div>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Password: </div>
-            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={ (event) => encryptPassword(event.target.value) } />
+            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={(event) => encryptPassword(event.target.value)} />
           </div>
-          <input className={styles.loginBtn} type="button" value="Login" onClick={() => login() } />
+          <input className={styles.loginBtn} type="button" value="Login" onClick={() => login()} />
         </form>
       </div>
     </div>

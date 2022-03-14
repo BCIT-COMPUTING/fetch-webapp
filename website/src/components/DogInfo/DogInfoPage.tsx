@@ -1,8 +1,9 @@
 import styles from './DogInfoPage.module.css';
 import { DogInfo } from './data';
+import { useAppStore } from '../../store/appContext';
 
 const DogInfoPage = () => {
-
+  const { state, setState } = useAppStore();
   return (
   <div className={styles.container}>
     <button className={styles.btn}>Back</button>
