@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./SignupPage.module.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { endPointBaseUrl, publicRequest } from "../../appConfigs";
+import { publicRequest } from "../../appConfigs";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -35,17 +35,17 @@ const SignupPage = () => {
     if (!isValid(username, password)) {
       return;
     }
-
     const res = await publicRequest
-      .post(endPointBaseUrl + "/register", {
+      .post("/auth/register", {
+        username: username,
         firstname: firstName,
         lastname: lastName,
-        username: username,
         email: email,
         password: password,
       })
       .then((response) => {
-        if (response.status == 200) {
+        console.log(response);
+        if (response.status == 201) {
           console.log(response.data);
           setState({ isLoggedIn: true, user: response.data });
           toast.success("Signup successful");
@@ -53,6 +53,7 @@ const SignupPage = () => {
         }
       })
       .catch((error) => {
+        console.log(error);
         toast.error(error.response.data);
       });
   };
