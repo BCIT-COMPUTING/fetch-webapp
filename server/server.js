@@ -1,11 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const mysql = require("mysql");
-// const {
-//   query,
-//   ensureTables,
-//   createConn,
-// } = require("./configs/connectionUtils");
 const swaggerUI = require("swagger-ui-express");
 const swaggerDocument = require("./public/swagger.json");
 const server = express();

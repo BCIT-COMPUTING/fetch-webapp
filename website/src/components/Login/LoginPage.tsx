@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import styles from "./LoginPage.module.css";
 import * as crypto from "crypto-js";
 import { useNavigate } from "react-router-dom";
-import { endPointBaseUrl, publicRequest } from "../../appConfigs";
+import { publicRequest } from "../../appConfigs";
 
 const LoginPage = () => {
   const { state, setState } = useAppStore();
@@ -51,46 +51,6 @@ const LoginPage = () => {
         toast.error(err.response.data);
       });
   };
-  // const login = async () => {
-  //   // console.log("my .env variable: " + process.env.REACT_APP_USER_ID);
-
-  //   //FOR DECRYPTING PURPOSES
-  //   // var bytes  = crypto.AES.decrypt(encryptedPassword, 'poodle');
-  //   // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
-  //   // console.log("decrypted: " + decryptedPassword);
-
-  //   if (!isValid(username, password)) {
-  //     return;
-  //   }
-
-  //   fetch(endPointBaseUrl + "/login", {
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       username,
-  //       password,
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (response.status == 200) {
-  //         if (username === "admin") {
-  //           setState({ isLoggedIn: true, isAdmin: true });
-  //           toast.success("admin Login successful");
-  //           navigate("/admin");
-  //         } else {
-  // setState({ isLoggedIn: true, isAdmin: false });
-  //           toast.success("Login successful");
-  //           navigate("/dogInfo");
-  //         }
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error.response.data);
-  //     });
-  // };
 
   return (
     <div className={styles.loginPageContainer}>
