@@ -1,10 +1,10 @@
-import { useAppContext } from "../../store/appContext";
+import { useAppStore } from "../../store/appContext";
 import styles from './HomePage.module.css';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
 
-  const { state, setState } = useAppContext();
+  const { state, setState } = useAppStore();
   const { isLoggedIn } = state;
 
   return (
@@ -16,8 +16,8 @@ const HomePage = () => {
           <Link to="/login">
             <input className={styles.homeBtn} type="button" value="Login" />
           </Link>
-          <Link to="/register">
-            <input className={styles.homeBtn} type="button" value="Register" />
+          <Link to="/signup">
+            <input className={styles.homeBtn} type="button" value="Sign Up" />
           </Link>
           </form>
         </div>

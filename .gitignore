@@ -104,3 +104,6 @@ dist
 .tern-port
 website/package-lock.json
 server/package-lock.json
+server/configs/credentials.js
+server/configs/DigiCertGlobalRootCA.crt.pem
+server/.vscode/settings.json

@@ -1,47 +1,81 @@
 
-import { useAppContext } from "../../store/appContext";
-import { ToastContainer, toast } from 'react-toastify';
-import axios from "axios";
+import { useAppStore } from "../../store/appContext";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import styles from './LoginPage.module.css';
+import * as crypto from "crypto-js";
+import { useNavigate } from 'react-router-dom';
+import { endPointBaseUrl } from "../../appConfigs";
 
 const LoginPage = () => {
 
-  const { state, setState } = useAppContext();
+  const { state, setState } = useAppStore();
   const { isLoggedIn } = state;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  async function login () {
-    const email = (document.getElementById("email-input") as HTMLInputElement).value;
-    const password = (document.getElementById("password-input") as HTMLInputElement).value;
-    checkCredentials(email, password);
+  const encryptPassword = (pw: string): void => {
+    if (pw == "") {
+      setPassword("");
+      return;
+    }
+    setPassword(crypto.SHA256(pw).toString());
+  }
 
-    const response = await axios.post("http://localhost:3000/login", {
-        email: email,
-        password: password
+  const login = async () => {
+    // console.log("my .env variable: " + process.env.REACT_APP_USER_ID);
+
+    //FOR DECRYPTING PURPOSES
+    // var bytes  = crypto.AES.decrypt(encryptedPassword, 'poodle');
+    // var decryptedPassword = bytes.toString(crypto.enc.Utf8);
+    // console.log("decrypted: " + decryptedPassword);
+
+    if (!isValid(username, password)) {
+      return;
+    }
+
+    fetch(endPointBaseUrl + "/login", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username,
+        password
+      })
+    }).then(response => {
+      if (response.status == 200) {
+        if (username === 'admin') {
+          setState({ isLoggedIn: true, isAdmin: true });
+          toast.success("admin Login successful");
+          navigate("/admin");
+        } else {
+          setState({ isLoggedIn: true, isAdmin: false });
+          toast.success("Login successful");
+          navigate("/dogInfo");
+        }
       }
-    ).then(response => {
-      // localStorage.setItem("jwtoken", response.data);
-      console.log(response);
-      toast.success("Login successful");
     }).catch(error => {
       toast.error(error.response.data);
     })
   }
 
-  const checkCredentials = (email: string, password: string): void => {
-      if (!email) {
-        toast.error("Email required");
-        return;
-      }
-
-      if (!password) {
-        toast.error("Password required");
-        return;
-      }
-
-      if (/\s/g.test(email)) {
-        toast.error("Email must not contain white space");
-        return;
-      }
+  const isValid = (username: string, password: string): boolean => {
+    if (!username) {
+      toast.error("Username required");
+      return false;
+    }
+    if (password === "" || !password) {
+      toast.error("Password required");
+      return false;
+    }
+    if (/\s/g.test(username)) {
+      toast.error("Username must not contain white space");
+      return false;
+    }
+    return true;
   }
 
   return (
@@ -50,14 +84,14 @@ const LoginPage = () => {
         <h1>Fetch</h1>
         <form>
           <div className={styles.labelSection}>
-            <div className={styles.loginLabel} >Email Address: </div>
-            <input id="email-input" type="email" placeholder="Enter your email" name="email" />
+            <div className={styles.loginLabel} >Username: </div>
+            <input id="username-input" type="text" placeholder="Enter your Username" name="username" onChange={(event) => setUsername(event.target.value)} />
           </div>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel} >Password: </div>
-            <input id="password-input" type="password" placeholder="Enter your password" name="password" />
+            <input id="password-input" type="password" placeholder="Enter your password" name="password" onChange={(event) => encryptPassword(event.target.value)} />
           </div>
-          <input className={styles.loginBtn} type="button" value="Submit" onClick={() => login() } />
+          <input className={styles.loginBtn} type="button" value="Login" onClick={() => login()} />
         </form>
       </div>
     </div>
