@@ -8,6 +8,7 @@ import TestPage from "./Test/TestPage";
 import HomePage from "./Home/HomePage";
 import SignupPage from "./Signup/SignupPage";
 import LoginPage from "./Login/LoginPage";
+import Navbar from "./Nav/Nav";
 
 function AppRouter() {
   const appContext = useAppContext();
@@ -15,6 +16,7 @@ function AppRouter() {
   return (
     <AppContext.Provider value={appContext.state}>
       <ToastContainer draggable={false} pauseOnHover={false} autoClose={3000} position="bottom-right"/>
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route path="/test" element={<TestPage />} />
