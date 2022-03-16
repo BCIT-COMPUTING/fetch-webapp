@@ -35,6 +35,7 @@ const SignupPage = () => {
     if (!isValid(username, password)) {
       return;
     }
+    
     const res = await publicRequest
       .post("/auth/register", {
         username: username,
@@ -54,7 +55,7 @@ const SignupPage = () => {
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.response.data);
+        toast.error("Server down");
       });
   };
 
