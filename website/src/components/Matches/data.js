@@ -27,5 +27,25 @@ export const MatchInfo = [
     dateMatched: "22222",
     image: "https://www.smalldogplace.com/images/american-eskimo-dog-250.jpg"
   },
-
+  {
+    name: "Snoopy",
+    age: 20,
+    sex: "M",
+    dateMatched: "33333",
+    image: "https://www.smalldogplace.com/images/american-eskimo-dog-250.jpg"
+  },
+  {
+    name: "Clifford",
+    age: 15,
+    sex: "M",
+    dateMatched: "44444",
+    image: "https://www.smalldogplace.com/images/american-eskimo-dog-250.jpg"
+  },
+  {
+    name: "Ellie",
+    age: 5,
+    sex: "F",
+    dateMatched: "55555",
+    image: "https://www.smalldogplace.com/images/american-eskimo-dog-250.jpg"
+  },
 ]
