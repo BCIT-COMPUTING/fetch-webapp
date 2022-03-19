@@ -54,7 +54,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginPageContainer}>
-      <div className={styles.loginContainer}>
+      <div className={styles.loginContent}>
         <h1>Fetch</h1>
         <form>
           <div className={styles.labelSection}>
