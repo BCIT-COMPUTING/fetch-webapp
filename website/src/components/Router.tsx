@@ -20,7 +20,7 @@ function AppRouter() {
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dogInfo" element={<DogInfoPage />} />
+          <Route path="/dog-info" element={<DogInfoPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </BrowserRouter >
