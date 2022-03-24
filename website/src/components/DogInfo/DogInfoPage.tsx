@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useAppStore } from '../../store/appContext';
 //import { useLocation } from "react-router";
 import { useNavigate } from 'react-router-dom';
+import { DogInfo } from "./data";
+import { useEffect } from "react";
 
 const DogInfoPage = () => {
   const { state, setState } = useAppStore();
@@ -15,6 +17,13 @@ const DogInfoPage = () => {
   const [gender, setGender] = useState('Female');
   const [age, setAge] = useState(5);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (state.isLoggedIn === false) {
+      navigate("/login");
+      return;
+    }
+  }, []);
 
   return (
   <div className={styles.container}>
@@ -31,7 +40,7 @@ const DogInfoPage = () => {
           <h2 className={styles.title}>Age: <span className={styles.info}>{age} years old</span></h2>
         </div>
     </div>
-  )
+  );
 };
 
 export default DogInfoPage;
