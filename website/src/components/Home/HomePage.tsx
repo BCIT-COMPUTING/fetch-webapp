@@ -9,9 +9,10 @@ const HomePage = () => {
   return (
     <>
       <div className={styles.homePageContainer}>
-        <div className={styles.homeContainer}>
+        <div className={styles.homeContent}>
           <h1>Fetch</h1>
-          <form>
+          <img src="./shiba.png" />
+          <form className={styles.homeBtnContainer}>
             <Link to="/login">
               <input className={styles.homeBtn} type="button" value="Login" />
             </Link>

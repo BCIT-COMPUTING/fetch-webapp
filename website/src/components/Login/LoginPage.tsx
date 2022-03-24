@@ -54,8 +54,8 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginPageContainer}>
-      <div className={styles.loginContainer}>
-        <h1>Fetch</h1>
+      <div className={styles.loginContent}>
+        <h2>Login</h2>
         <form>
           <div className={styles.labelSection}>
             <div className={styles.loginLabel}>Username: </div>
@@ -80,10 +80,9 @@ const LoginPage = () => {
           <button
             className={styles.loginBtn}
             type="button"
-            value="Login"
             onClick={handleClick}
           >
-            Login
+            Go!
           </button>
         </form>
       </div>
