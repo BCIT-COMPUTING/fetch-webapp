@@ -9,6 +9,7 @@ import SignupPage from "./Signup/SignupPage";
 import LoginPage from "./Login/LoginPage";
 import DogInfoPage from "./DogInfo/DogInfoPage";
 import AdminPage from "./Admin/AdminPage";
+import MatchesPage from "./Matches/MatchesPage";
 import Navbar from "./Nav/Nav";
 
 function AppRouter() {
@@ -24,6 +25,7 @@ function AppRouter() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dogInfo" element={<DogInfoPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/matches" element={<MatchesPage />} />
         </Routes>
       </BrowserRouter >
     </ContextProvider>
