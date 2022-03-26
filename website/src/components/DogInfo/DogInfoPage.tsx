@@ -3,19 +3,21 @@ import React, { useState } from 'react';
 import { useAppStore } from '../../store/appContext';
 //import { useLocation } from "react-router";
 import { useNavigate } from 'react-router-dom';
-import { DogInfo } from "./data";
 import { useEffect } from "react";
+import { getDogByID } from '../../database/dogs';
+import type { Dog } from '../../database/dogs';
 
 const DogInfoPage = () => {
   const { state, setState } = useAppStore();
   //let data = useLocation();
-  //data.state.name
-  //TODO set the default data to data.state the data from prev page
-  const [name, setName] = useState('Molly');
-  const [dogImg, setDogImg] = useState('https://molly.izzy0404.repl.co/images/molly.png');
-  const [description, setDescription] = useState('default description');
-  const [gender, setGender] = useState('Female');
-  const [age, setAge] = useState(5);
+  //testing the id 623e05239456782e58dcb18d need to setID later passing from previous page
+  const [id, setID] = useState('623e5cf796fb4571ba4b9544');
+  const [name, setName] = useState('');
+  const [photo, setPhoto] = useState('');
+  const [description, setDescription] = useState('');
+  const [breed, setBreed] = useState('');
+  const [gender, setGender] = useState('');
+  const [age, setAge] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +25,16 @@ const DogInfoPage = () => {
       navigate("/login");
       return;
     }
+    (async ()=> {
+      const result: Dog = await getDogByID(id);
+      const { name, photo, gender, description, age, breed } = result;
+      setName(name.toString());
+      setPhoto(photo.toString());
+      setBreed(breed.toString());
+      setDescription(description.toString());
+      setGender(gender.toString());
+      setAge(age);
+    })();
   }, []);
 
   return (
@@ -31,7 +43,9 @@ const DogInfoPage = () => {
     <button onClick={() => navigate('/')} className={styles.btn}>Back</button>
         <div className={styles.dogInfo}>
           <h2 className={styles.name}>{name}</h2>
-          <img className={styles.dogImg} src={dogImg} alt="dog image"/>
+          <img className={styles.dogImg} src={photo} alt="dog image"/>
+          <h2 className={styles.title}>Breed</h2>
+          <p className={styles.info}>{breed}</p>
           <h2 className={styles.title} >Description</h2>
           <p className={styles.info}>
            {description}

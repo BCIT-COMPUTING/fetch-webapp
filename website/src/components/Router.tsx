@@ -11,6 +11,7 @@ import DogInfoPage from "./DogInfo/DogInfoPage";
 import AdminPage from "./Admin/AdminPage";
 import MatchesPage from "./Matches/MatchesPage";
 import Navbar from "./Nav/Nav";
+import Temp from "./DogInfo/temp";
 
 function AppRouter() {
 
@@ -23,9 +24,10 @@ function AppRouter() {
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dogInfo" element={<DogInfoPage />} />
+          <Route path="/dog-info/:id" element={<DogInfoPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/matches" element={<MatchesPage />} />
+          <Route path="/temp" element={<Temp />} />
         </Routes>
       </BrowserRouter >
     </ContextProvider>
