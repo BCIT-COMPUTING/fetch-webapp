@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 const authRoute = require("./routes/auth");
+const dogRoute = require("./routes/dog");
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -26,11 +27,12 @@ server.use((req, res, next) => {
   next();
 });
 server.use("/static", express.static("public"));
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(bodyParser.json());
-server.use(bodyParser.raw());
+server.use(bodyParser.json({ limit: '50mb' }));
+server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+server.use(bodyParser.raw({ limit: '50mb' }));
 
 server.use("/api/v1/auth", authRoute);
+server.use("/dog", dogRoute);
 
 // ensureTables();
 

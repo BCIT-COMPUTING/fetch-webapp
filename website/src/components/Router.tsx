@@ -9,10 +9,12 @@ import SignupPage from "./Signup/SignupPage";
 import LoginPage from "./Login/LoginPage";
 import DogInfoPage from "./DogInfo/DogInfoPage";
 import AdminPage from "./Admin/AdminPage";
+import MatchesPage from "./Matches/MatchesPage";
 import Navbar from "./Nav/Nav";
 import Logout from "./Logout/Logout";
 import { useEffect } from "react";
 import { getStorageValue } from "../store/localStorageHook";
+import Temp from "./DogInfo/temp";
 
 function AppRouter() {
   const { user, setUser } = useAppStore();

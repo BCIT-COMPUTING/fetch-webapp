@@ -107,3 +107,4 @@ server/package-lock.json
 server/configs/credentials.js
 server/configs/DigiCertGlobalRootCA.crt.pem
 server/.vscode/settings.json
+.DS_Store

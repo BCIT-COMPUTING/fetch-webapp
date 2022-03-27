@@ -67,8 +67,7 @@ const SignupPage = () => {
     <>
       <div className={styles.signupPageContainer}>
         <div className={styles.signupContainer}>
-          <h1>Fetch</h1>
-          <h2>Signup</h2>
+          <h2>Sign up</h2>
           <form>
             <div className={styles.labelSection}>
               <div className={styles.signupLabel}>First Name: </div>
@@ -126,7 +125,7 @@ const SignupPage = () => {
               value="Signup"
               onClick={signup}
             >
-              SignUp
+              Let's go!
             </button>
           </form>
         </div>

@@ -1,30 +1,64 @@
 import styles from "./DogInfoPage.module.css";
-import { DogInfo } from "./data";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
 import { useAppStore } from "../../store/appContext";
+//import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getDogByID } from "../../api/dogs";
+import type { Dog } from "../../api/dogs";
 
 const DogInfoPage = () => {
+  const { state, setState } = useAppStore();
+  //let data = useLocation();
+  //testing the id 623e05239456782e58dcb18d need to setID later passing from previous page
+  const [id, setID] = useState("623e5d3796fb4571ba4b9548");
+  const [name, setName] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [description, setDescription] = useState("");
+  const [breed, setBreed] = useState("");
+  const [gender, setGender] = useState("");
+  const [age, setAge] = useState(0);
   const navigate = useNavigate();
   const { user } = useAppStore();
 
+  useEffect(() => {
+    // if (state.isLoggedIn === false) {
+    //   navigate("/login");
+    //   return;
+    // }
+    (async () => {
+      const result: Dog = await getDogByID(id);
+      const { name, photo, gender, description, age, breed } = result;
+      console.log(name);
+      setName(name.toString());
+      setPhoto(photo.toString());
+      setBreed(breed.toString());
+      setDescription(description.toString());
+      setGender(gender.toString());
+      setAge(age);
+    })();
+  }, []);
+
   return (
     <div className={styles.container}>
-      <button className={styles.btn}>Back</button>
-      {DogInfo.map((dog) => (
-        <div key={dog.name} className={styles.dogInfo}>
-          <h2 className={styles.name}>{dog.name}</h2>
-          <img className={styles.dogImg} src={dog.img} alt="dog image" />
-          <h2 className={styles.title}>Description</h2>
-          <p className={styles.info}>{dog.description}</p>
-          <h2 className={styles.title}>
-            Gender: <span className={styles.info}>{dog.gender}</span>
-          </h2>
-          <h2 className={styles.title}>
-            Age: <span className={styles.info}>{dog.age} years old</span>
-          </h2>
-        </div>
-      ))}
+      {/* TODO change the link to the previous page */}
+      <button onClick={() => navigate("/")} className={styles.btn}>
+        Back
+      </button>
+      <div className={styles.dogInfo}>
+        <h2 className={styles.name}>{name}</h2>
+        <img className={styles.dogImg} src={photo} alt="dog image" />
+        <h2 className={styles.title}>Breed</h2>
+        <p className={styles.info}>{breed}</p>
+        <h2 className={styles.title}>Description</h2>
+        <p className={styles.info}>{description}</p>
+        <h2 className={styles.title}>
+          Gender: <span className={styles.info}>{gender}</span>
+        </h2>
+        <h2 className={styles.title}>
+          Age: <span className={styles.info}>{age} years old</span>
+        </h2>
+      </div>
     </div>
   );
 };
