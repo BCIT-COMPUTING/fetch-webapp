@@ -8,7 +8,7 @@ import { getDogByID } from "../../api/dogs";
 import type { Dog } from "../../api/dogs";
 
 const DogInfoPage = () => {
-  const { state, setState } = useAppStore();
+  const { user, setUser } = useAppStore();
   //let data = useLocation();
   //testing the id 623e05239456782e58dcb18d need to setID later passing from previous page
   const [id, setID] = useState("623e5d3796fb4571ba4b9548");
@@ -19,7 +19,6 @@ const DogInfoPage = () => {
   const [gender, setGender] = useState("");
   const [age, setAge] = useState(0);
   const navigate = useNavigate();
-  const { user } = useAppStore();
 
   useEffect(() => {
     // if (state.isLoggedIn === false) {
