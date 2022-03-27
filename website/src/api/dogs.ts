@@ -18,7 +18,7 @@ const getAllDogs = () => {
   }).catch(error => console.error(error));
 };
 
-const addEditDog = ({
+const addDog = ({
   id,
   name,
   photo,
@@ -27,7 +27,7 @@ const addEditDog = ({
   description,
   gender
 }: Dog) => {
-  axios.post(endPointBaseUrl + "/addEditDog", {
+  axios.post(endPointBaseUrl + "/addDog", {
     id,
     name,
     photo,
@@ -38,7 +38,51 @@ const addEditDog = ({
   }).then(response => {
     console.log(response.data);
   }).catch(error => console.error(error));
-};
+}
+
+const editDog = ({
+  id,
+  name,
+  photo,
+  breed,
+  age,
+  description,
+  gender
+}: Dog) => {
+  axios.put(endPointBaseUrl + "/editDog", {
+    id,
+    name,
+    photo,
+    breed,
+    age,
+    description,
+    gender
+  }).then(response => {
+    console.log(response.data);
+  }).catch(error => console.error(error));
+}
+
+// const addEditDog = ({
+//   id,
+//   name,
+//   photo,
+//   breed,
+//   age,
+//   description,
+//   gender
+// }: Dog) => {
+//   axios.post(endPointBaseUrl + "/addEditDog", {
+//     id,
+//     name,
+//     photo,
+//     breed,
+//     age,
+//     description,
+//     gender
+//   }).then(response => {
+//     console.log(response.data);
+//   }).catch(error => console.error(error));
+// };
 
 const getDogByID = (id: String):Promise<Dog> => new Promise((res, rej) => {
   {
@@ -58,7 +102,8 @@ const deleteDogByID = (id: String) => {
 
 export {
   getAllDogs,
-  addEditDog,
+  addDog,
+  editDog,
   getDogByID,
   deleteDogByID
 };

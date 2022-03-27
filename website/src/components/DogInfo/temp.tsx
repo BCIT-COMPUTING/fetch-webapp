@@ -1,6 +1,7 @@
 import { 
   getAllDogs,
-  addEditDog,
+  addDog,
+  editDog,
   deleteDogByID,
   getDogByID} from '../../api/dogs';
 
@@ -87,7 +88,7 @@ const Temp = () => {
           form()
         }
         <button onClick={() => 
-        addEditDog({
+        addDog({
           id: 'new',
           name,
           photo,
@@ -111,7 +112,7 @@ const Temp = () => {
         <input type="text" name="id" placeholder='type id here for test' onChange={(e) => setId(e.target.value)}></input>
         <button onClick={() => setField(id)}>Edit</button>
         {form()}
-        <button onClick={() => addEditDog(
+        <button onClick={() => editDog(
           {
             id,
             name,
