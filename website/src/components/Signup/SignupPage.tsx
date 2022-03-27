@@ -8,7 +8,7 @@ import { publicRequest } from "../../appConfigs";
 const SignupPage = () => {
   const navigate = useNavigate();
 
-  const { state, setState } = useAppStore();
+  const { user, setUser } = useAppStore();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -35,7 +35,7 @@ const SignupPage = () => {
     if (!isValid(username, password)) {
       return;
     }
-    
+
     const res = await publicRequest
       .post("/auth/register", {
         username: username,
@@ -48,7 +48,11 @@ const SignupPage = () => {
         console.log(response);
         if (response.status == 201) {
           console.log(response.data);
-          setState({ isLoggedIn: true, user: response.data });
+          setUser({
+            jwt: response.data.accessToken,
+            isLoggedIn: true,
+            user: response.data,
+          });
           toast.success("Signup successful");
           navigate("/dogInfo");
         }

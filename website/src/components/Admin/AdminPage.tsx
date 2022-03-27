@@ -6,8 +6,8 @@ import { userRequest } from "../../appConfigs";
 
 const AdminPage = () => {
   const navigate = useNavigate();
-  const { state } = useAppStore();
-  const currentUser = state.user;
+  const { user } = useAppStore();
+  const currentUser = user.user;
   const [stats, setStats] = useState({
     numOfSuccessfulLogins: 0,
     numOfFailedLogins: 0,
@@ -16,7 +16,7 @@ const AdminPage = () => {
     numOfTimesVisitedStatPage: 0,
   });
 
-  const hasCredentials = state.isLoggedIn && currentUser.isAdmin;
+  const hasCredentials = user.isLoggedIn && currentUser.isAdmin;
 
   const getStats = async () => {
     //pass token here

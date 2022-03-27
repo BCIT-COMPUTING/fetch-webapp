@@ -1,6 +1,12 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { getStorageValue } from "./localStorageHook";
 
-export const initState = {
+// export const initState = {
+//   isLoggedIn: false,
+// };
+
+export const userState = {
+  jwt: "",
   isLoggedIn: false,
   user: {
     accessToken: "",
@@ -15,21 +21,30 @@ export const initState = {
 };
 
 interface AppContextType {
-  state: typeof initState;
-  setState: React.Dispatch<React.SetStateAction<typeof initState>>;
+  user: typeof userState;
+  setUser: React.Dispatch<React.SetStateAction<typeof userState>>;
 }
 
-const AppContext = createContext<any>(initState);
+const AppContext = createContext<any>(userState);
+const storageKey = "user";
 
 export const ContextProvider = (props: { children: any }) => {
-  const [state, setState] = useState(initState);
+  const [user, setUser] = useState(userState);
+  const [userJWT, setJWT] = useState(() => {
+    return getStorageValue(storageKey, null);
+  });
+
+  useEffect(() => {
+    // storing input name
+    localStorage.setItem(storageKey, JSON.stringify(user));
+  }, [storageKey, user]);
 
   const appContext = useMemo(
     () => ({
-      state,
-      setState,
+      user,
+      setUser,
     }),
-    [state]
+    [user, setUser]
   );
 
   return (

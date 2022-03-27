@@ -3,7 +3,7 @@ import styles from "./HomePage.module.css";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const { state, setState } = useAppStore();
+  // const { state, setState } = useAppStore();
   // const { isLoggedIn } = state;
 
   return (

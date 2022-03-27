@@ -6,10 +6,10 @@ import { useAppStore } from "../../store/appContext";
 
 const DogInfoPage = () => {
   const navigate = useNavigate();
-  const { state } = useAppStore();
+  const { user } = useAppStore();
 
   useEffect(() => {
-    if (state.isLoggedIn === false) {
+    if (user.isLoggedIn === false) {
       navigate("/login");
       return;
     }
