@@ -9,7 +9,7 @@ const Logout = () => {
   useEffect(() => {
     console.log(user);
     setUser({
-      ...user,
+      jwt: "",
       isLoggedIn: false,
       user: {
         accessToken: "",
@@ -22,10 +22,22 @@ const Logout = () => {
         username: "",
       },
     });
-    navigate("/login");
   }, []);
 
-  return <></>;
+  const handleClick = () => {
+    navigate("/login");
+  };
+
+  return (
+    <>
+      <div className={styles.container}>
+        <h3>Have a Woof Day!</h3>
+        <button className={styles.btn} onClick={handleClick}>
+          Login In Back!
+        </button>
+      </div>
+    </>
+  );
 };
 
 export default Logout;

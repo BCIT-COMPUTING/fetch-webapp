@@ -28,6 +28,11 @@ const Nav = () => {
           </a>
         </li>
         <li className={styles.li}>
+          <a className={styles.a} id="test" href="/test">
+            test
+          </a>
+        </li>
+        <li className={styles.li}>
           <a className={styles.a} id="logout" href="/logout">
             Logout
           </a>

@@ -11,12 +11,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user.isLoggedIn) {
-      navigate("/dogInfo");
-    }
-  });
-
   const isValid = (username: string, password: string): boolean => {
     if (!username) {
       toast.error("Username required");

@@ -27,10 +27,6 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    if (hasCredentials === false) {
-      navigate("/login");
-      return;
-    }
     getStats();
   }, []);
 

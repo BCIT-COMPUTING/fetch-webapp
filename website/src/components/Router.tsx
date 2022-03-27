@@ -15,19 +15,11 @@ import { useEffect } from "react";
 import { getStorageValue } from "../store/localStorageHook";
 
 function AppRouter() {
-  // const { userJWT, setJWT } = useAppStore();
   const { user, setUser } = useAppStore();
 
   const validate = async () => {
-    if (await hasValidJWT(user)) {
-      const user = getStorageValue("user", {});
-      console.log(user);
-      const myjson = JSON.parse(user);
-      console.log(user);
-      console.log(user.jwt);
-      setUser({ ...user, jwt: localStorage.getItem("user") ?? "" });
-    } else {
-      setUser({ ...user, jwt: "" });
+    if (!(await hasValidJWT(user))) {
+      setUser({ ...user, isLoggedIn: false });
     }
   };
 
@@ -36,7 +28,7 @@ function AppRouter() {
   }, []);
 
   return (
-    <ContextProvider>
+    <>
       <ToastContainer
         draggable={false}
         pauseOnHover={false}
@@ -60,16 +52,17 @@ function AppRouter() {
             path="/admin"
             element={
               user.isLoggedIn && user.user.isAdmin ? (
-                <DogInfoPage />
-              ) : (
                 <AdminPage />
+              ) : (
+                // Probably need unauth page here
+                <LoginPage />
               )
             }
           />
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
-    </ContextProvider>
+    </>
   );
 }
 

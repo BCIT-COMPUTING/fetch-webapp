@@ -8,13 +8,6 @@ const DogInfoPage = () => {
   const navigate = useNavigate();
   const { user } = useAppStore();
 
-  useEffect(() => {
-    if (user.isLoggedIn === false) {
-      navigate("/login");
-      return;
-    }
-  }, []);
-
   return (
     <div className={styles.container}>
       <button className={styles.btn}>Back</button>

@@ -29,8 +29,7 @@ const AppContext = createContext<any>(userState);
 const storageKey = "user";
 
 export const ContextProvider = (props: { children: any }) => {
-  const [user, setUser] = useState(userState);
-  const [userJWT, setJWT] = useState(() => {
+  const [user, setUser] = useState(() => {
     return getStorageValue(storageKey, null);
   });
 
