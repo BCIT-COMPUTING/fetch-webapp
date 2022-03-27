@@ -44,7 +44,7 @@ const LoginPage = () => {
         } else if (response.status === 200 && response.data.isAdmin === false) {
           setState({ isLoggedIn: true, user: response.data });
           toast.success("user Login successful");
-          navigate("/dogInfo");
+          navigate("/dog-info");
         }
       })
       .catch((err) => {

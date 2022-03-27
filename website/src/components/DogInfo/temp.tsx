@@ -2,7 +2,7 @@ import {
   getAllDogs,
   addEditDog,
   deleteDogByID,
-  getDogByID} from '../../database/dogs';
+  getDogByID} from '../../api/dogs';
 
 import React, { useState, useEffect } from 'react';
 
