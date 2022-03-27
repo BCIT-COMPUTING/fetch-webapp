@@ -12,28 +12,31 @@ router.get("/getDogs", async (req, res) => {
   }
 });
 
-//add or edit dog
-router.post("/addEditDog", async (req, res) => {
+//add dog
+router.post("/addDog", async (req, res) => {
+  const { name, photo, breed, age, description, gender } = req.body;
+
+  const newDog = new Dog({
+    name,
+    photo,
+    breed,
+    age,
+    description,
+    gender
+  });
+
+  try {
+    const savedDog = await newDog.save();
+    res.status(200).json(savedDog);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+});
+
+//edit dog
+router.put("/editDog", async (req, res) => {
   const { id, name, photo, breed, age, description, gender } = req.body;
-  if(id === 'new') {
-    //add new dog id is 'new' for add
-    const newDog = new Dog({
-      name,
-      photo,
-      breed,
-      age,
-      description,
-      gender
-    });
-    try {
-      const savedDog = await newDog.save();
-      res.status(200).json(savedDog);
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-  } else {
-    //edit the dog
     try {
       await Dog.updateOne({_id: id}, {
         name,
@@ -46,8 +49,42 @@ router.post("/addEditDog", async (req, res) => {
     } catch(err) {
       throw err;
     }
-  }
 });
+// router.post("/addEditDog", async (req, res) => {
+//   const { id, name, photo, breed, age, description, gender } = req.body;
+//   if(id === 'new') {
+//     //add new dog id is 'new' for add
+//     const newDog = new Dog({
+//       name,
+//       photo,
+//       breed,
+//       age,
+//       description,
+//       gender
+//     });
+//     try {
+//       const savedDog = await newDog.save();
+//       res.status(200).json(savedDog);
+//     } catch (err) {
+//       console.log(err);
+//       throw err;
+//     }
+//   } else {
+//     //edit the dog
+//     try {
+//       await Dog.updateOne({_id: id}, {
+//         name,
+//         photo,
+//         breed,
+//         age,
+//         description,
+//         gender
+//       });
+//     } catch(err) {
+//       throw err;
+//     }
+//   }
+// });
 
 //delete dog by Id
 router.post("/delete", async(req, res) => {
