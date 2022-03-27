@@ -1,15 +1,17 @@
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import AppRouter from './components/Router';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import AppRouter from "./components/Router";
+import reportWebVitals from "./reportWebVitals";
+import { ContextProvider } from "./store/appContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppRouter />
+    <ContextProvider>
+      <AppRouter />
+    </ContextProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

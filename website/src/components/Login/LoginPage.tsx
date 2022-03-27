@@ -1,13 +1,12 @@
 import { useAppStore } from "../../store/appContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "./LoginPage.module.css";
-import * as crypto from "crypto-js";
 import { useNavigate } from "react-router-dom";
 import { publicRequest } from "../../appConfigs";
 
 const LoginPage = () => {
-  const { state, setState } = useAppStore();
+  const { user, setUser } = useAppStore();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -37,12 +36,19 @@ const LoginPage = () => {
       .then((response) => {
         if (response.status === 200 && response.data.isAdmin === true) {
           console.log(response);
-          setState({ isLoggedIn: true, user: response.data });
-          console.log(state.user);
+          setUser({
+            jwt: response.data.accessToken,
+            isLoggedIn: true,
+            user: response.data,
+          });
           toast.success("admin Login successful");
           navigate("/admin");
         } else if (response.status === 200 && response.data.isAdmin === false) {
-          setState({ isLoggedIn: true, user: response.data });
+          setUser({
+            jwt: response.data.accessToken,
+            isLoggedIn: true,
+            user: response.data,
+          });
           toast.success("user Login successful");
           navigate("/dog-info");
         }
