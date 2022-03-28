@@ -1,5 +1,5 @@
 import axios from "axios";
-//TODO- store token in local storage or acces appcontext here
+import { getStorageValue } from "./store/localStorageHook";
 const TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmVkZmExYzhkOWVmMGUyYmM1NDdjOSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDcyMzk3MzIsImV4cCI6MTY0NzQ5ODkzMn0.nyMWuCAfO9pQRggRLsckXlgrG6tCrRC9a5ScwOKCjr0";
 // export const endPointBaseUrl = "https://fetch-be.azurewebsites.net";

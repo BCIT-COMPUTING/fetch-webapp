@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10%;
+}
+
+.btn {
+  width: 20%;
+  padding: 20px 20px 20px 20px;
+  border: none;
+  background-color: teal;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}

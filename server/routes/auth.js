@@ -67,4 +67,12 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/verifyJWT", (req, res) => {
+  try {
+    jwt.verify(req.body.jwt, process.env.JWT_SEC);
+    res.send(true);
+  } catch {
+    res.send(false);
+  }
+});
 module.exports = router;
