@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Stats = require("../models/Stats");
 const router = require("express").Router();
 const CryptoJS = require("crypto-js");
 const dotenv = require("dotenv");
@@ -30,6 +31,16 @@ router.post("/register", async (req, res) => {
 
 //LOGIN LOGIC HERE
 router.post("/login", async (req, res) => {
+  const stats = await Stats.find();
+  console.log(stats);
+  console.log(stats[0].postLogin);
+  const newLoginNum = await stats[0].postLogin + 1;
+  console.log(newLoginNum);
+  await Stats.updateOne({_id: "6241058df33aa8eeb752c09e" }, {
+    postLogin: newLoginNum
+  });
+  console.log(stats);
+  
   try {
     const user = await User.findOne({
       username: req.body.username,

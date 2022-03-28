@@ -9,20 +9,22 @@ const AdminPage = () => {
   const { user } = useAppStore();
   const currentUser = user.user;
   const [stats, setStats] = useState({
-    numOfSuccessfulLogins: 0,
-    numOfFailedLogins: 0,
-    numOfLoginAttempts: 0,
-    numOfUsers: 0,
-    numOfTimesVisitedStatPage: 0,
+    postRegister: 0,
+    postLogin: 0,
+    postVerifyJWT: 0,
+    getDogs: 0,
+    postAddEditDog: 0,
+    deleteDog: 0,
+    getDogById: 0
   });
 
   const hasCredentials = user.isLoggedIn && currentUser.isAdmin;
 
   const getStats = async () => {
     //pass token here
-    await userRequest.get("/admin/stats").then((response) => {
-      setStats(response.data);
-      console.log(response.data);
+    await userRequest.get("/admin/stats").then(async (response) => {
+      console.log(response.data[0]);
+      await setStats(response.data[0]);
     });
   };
 
@@ -40,49 +42,49 @@ const AdminPage = () => {
               <tr>
                 <th>HTTP Method</th>
                 <th>Endpoint</th>
-                <th># hits</th>
+                <th># of hits</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>POST</td>
                 <td>/auth/register</td>
-                <td>{stats.numOfSuccessfulLogins}</td>
+                <td></td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/login</td>
-                <td>{stats.numOfFailedLogins}</td>
+                <td>{stats.postLogin}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/verifyJWT</td>
-                <td>{stats.numOfLoginAttempts}</td>
+                <td></td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/getDogs</td>
-                <td>{stats.numOfUsers}</td>
+                <td></td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/dog/addEditDog</td>
-                <td>{stats.numOfTimesVisitedStatPage}</td>
+                <td></td>
               </tr>
               <tr>
                 <td>POST???</td>
                 <td>/dog/delete</td>
-                <td>{stats.numOfTimesVisitedStatPage}</td>
+                <td></td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/:id</td>
-                <td>{stats.numOfTimesVisitedStatPage}</td>
+                <td></td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
-                <td>{stats.numOfTimesVisitedStatPage}</td>
+                <td></td>
               </tr>
             </tbody>
           </table>
