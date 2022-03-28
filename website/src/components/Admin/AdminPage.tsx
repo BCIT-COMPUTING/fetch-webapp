@@ -28,6 +28,15 @@ const AdminPage = () => {
     });
   };
 
+  const resetStats = async () => {
+    //pass token here
+    await userRequest.post("/admin/reset").then(async (response) => {
+      console.log(response.data[0]);
+      await setStats(response.data[0]);
+    });
+    await getStats();
+  };
+
   useEffect(() => {
     getStats();
   }, []);
@@ -49,7 +58,7 @@ const AdminPage = () => {
               <tr>
                 <td>POST</td>
                 <td>/auth/register</td>
-                <td>{stats.postRegister}❌</td>
+                <td>{stats.postRegister}✅</td>
               </tr>
               <tr>
                 <td>POST</td>
@@ -89,6 +98,7 @@ const AdminPage = () => {
             </tbody>
           </table>
         </div>
+        <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={() => resetStats()} />
       </div>
     </div>
   );
