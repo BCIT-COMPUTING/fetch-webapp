@@ -15,7 +15,9 @@ const AdminPage = () => {
     getDogs: 0,
     postAddEditDog: 0,
     deleteDog: 0,
-    getDogById: 0
+    getDogById: 0,
+    getStats: 0,
+    postReset: 0,
   });
 
   const hasCredentials = user.isLoggedIn && currentUser.isAdmin;
@@ -93,14 +95,23 @@ const AdminPage = () => {
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
-                <td>❌</td>
+                <td>{stats.getStats}✅</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/admin/reset</td>
+                <td>{stats.postReset}✅</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p>✅ = handled this stat in the backend</p>
         <p>❌ = NOT handled yet</p>
-        <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={() => resetStats()} />
+        <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={async () => {
+          await resetStats();
+          await getStats();
+          }}
+        />
       </div>
     </div>
   );

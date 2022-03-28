@@ -5,6 +5,11 @@ const updateStats = async (stat) => {
   const postLogin = "postLogin";
   const postRegister = "postRegister";
   const postVerifyJWT = "postVerifyJWT";
+  
+  const getStats = "getStats";
+  const postReset = "postReset";
+  //1. don't forget to add to StatsSchema***********
+  //2. also don't forget to add manually to MongoDB
 
   const stats = await Stats.find();
   var incrementedVal;
@@ -32,13 +37,26 @@ const updateStats = async (stat) => {
       });
       break;
 
+    case getStats:
+      incrementedVal = await stats[0].getStats + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getStats: incrementedVal
+      });
+      break;
+
+    case postReset:
+      incrementedVal = await stats[0].postReset + 1;
+      await Stats.updateOne({_id: statsId }, {
+        postReset: incrementedVal
+      });
+      break;
+
     default:
       console.log("nope");
       break;
   }
 
 }
-
 
 module.exports = {
   statsId,

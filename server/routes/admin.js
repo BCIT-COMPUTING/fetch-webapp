@@ -1,16 +1,23 @@
 const router = require("express").Router();
-const collectionName = "stats";
 const Stats = require("../models/Stats");
 const admin = require('../configs/adminUtils');
 
 
 router.get("/stats", async function (req, res) {
-  const stats = await Stats.find();
-  res.send(stats);
+  admin.updateStats("getStats");
+
+  try {
+    const stats = await Stats.find();
+    res.send(stats);
+  } catch (e) {
+    console.error(e);
+  }
+  
+  
 });
 
 router.post("/reset", async function (req, res) {
-  console.log("reset hit");
+  admin.updateStats("postReset");
 
   try {
     await Stats.updateOne({_id: admin.statsId }, {
@@ -20,11 +27,12 @@ router.post("/reset", async function (req, res) {
       getDogs: 0,
       postAddEditDog: 0,
       deleteDog: 0,
-      getDogById: 0
+      getDogById: 0,
+      getStats: 0,
     });
     res.send('reset OK');
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 
 })
