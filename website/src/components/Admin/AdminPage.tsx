@@ -32,33 +32,61 @@ const AdminPage = () => {
 
   return (
     <div className={styles.adminPageContainer}>
-      <div className={styles.adminContainer}>
-        <h1>Fetch</h1>
-        <h2>Admin admins</h2>
-        <table>
-          <tbody>
-            <tr>
-              <td>Successful logins:</td>
-              <td>{stats.numOfSuccessfulLogins}</td>
-            </tr>
-            <tr>
-              <td>Failed logins:</td>
-              <td>{stats.numOfFailedLogins}</td>
-            </tr>
-            <tr>
-              <td>Total number of login attempts:</td>
-              <td>{stats.numOfLoginAttempts}</td>
-            </tr>
-            <tr>
-              <td>Number of users:</td>
-              <td>{stats.numOfUsers}</td>
-            </tr>
-            <tr>
-              <td>Number of times visited stat page:</td>
-              <td>{stats.numOfTimesVisitedStatPage}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className={styles.adminContent}>
+        <h2>Statistics - /api/v1</h2>
+        <div className={styles.adminTableContent}>
+          <table>
+            <thead>
+              <tr>
+                <th>HTTP Method</th>
+                <th>Endpoint</th>
+                <th># hits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>POST</td>
+                <td>/auth/register</td>
+                <td>{stats.numOfSuccessfulLogins}</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/auth/login</td>
+                <td>{stats.numOfFailedLogins}</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/auth/verifyJWT</td>
+                <td>{stats.numOfLoginAttempts}</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/dog/getDogs</td>
+                <td>{stats.numOfUsers}</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/dog/addEditDog</td>
+                <td>{stats.numOfTimesVisitedStatPage}</td>
+              </tr>
+              <tr>
+                <td>POST???</td>
+                <td>/dog/delete</td>
+                <td>{stats.numOfTimesVisitedStatPage}</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/dog/:id</td>
+                <td>{stats.numOfTimesVisitedStatPage}</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/admin/stats</td>
+                <td>{stats.numOfTimesVisitedStatPage}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

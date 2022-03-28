@@ -2,14 +2,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 80vh;
 }
 
-.adminContainer {
-  background-color: #e5e5e5;
-  width: 400px;
-  height: 250px;
-  margin: 200px 0px;
-  padding: 50px;
-  border-radius: 10px;
-  text-align: left;
+.adminContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.adminTableContent {
+  border: 1px solid #7BDFF2;
+}
+
+.adminTableContent thead {
+  background: #7BDFF2;
+}
+
+.adminTableContent th {
+  padding: 10px 30px;
+  font-size: 18px;
+  
+}
+
+.adminTableContent td {
+  padding: 10px;
 }
