@@ -49,42 +49,42 @@ const AdminPage = () => {
               <tr>
                 <td>POST</td>
                 <td>/auth/register</td>
-                <td></td>
+                <td>{stats.postRegister}❌</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/login</td>
-                <td>{stats.postLogin}</td>
+                <td>{stats.postLogin}✅</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/verifyJWT</td>
-                <td></td>
+                <td>{stats.postVerifyJWT}❌</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/getDogs</td>
-                <td></td>
+                <td>{stats.getDogs}❌</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/dog/addEditDog</td>
-                <td></td>
+                <td>{stats.postAddEditDog}❌</td>
               </tr>
               <tr>
                 <td>POST???</td>
                 <td>/dog/delete</td>
-                <td></td>
+                <td>{stats.deleteDog}❌</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/:id</td>
-                <td></td>
+                <td>{stats.getDogById}❌</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
-                <td></td>
+                <td>❌</td>
               </tr>
             </tbody>
           </table>
