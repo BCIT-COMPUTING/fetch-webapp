@@ -20,7 +20,7 @@ const AdminPage = () => {
 
   const getStats = async () => {
     //pass token here
-    await userRequest.get("/admin").then((response) => {
+    await userRequest.get("/admin/stats").then((response) => {
       setStats(response.data);
       console.log(response.data);
     });

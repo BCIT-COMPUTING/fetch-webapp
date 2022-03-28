@@ -1,9 +1,18 @@
 const router = require("express").Router();
+const collectionName = "stats";
+const Stats = require("../models/Stats");
 
+router.get("/stats", async function (req, res) {
+  try {
+    const stats = await Stats.find();
+    res.json(stats);
+  } catch(err) {
+    console.log(err);
+    throw err;
+  }
 
-router.get("/stats", function (req, res) {
-  console.log("stats hit");
-  res.status(200).send('ok from admin.js');
+  console.log("stats in admin.js hit");
+  res.send('stats in admin.js hit');
 });
 
 

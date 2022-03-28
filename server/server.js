@@ -39,6 +39,11 @@ server.use("/api/v1/admin", adminRoute);
 
 // ensureTables();
 
+// server.get("/api/v1/admin/", function (req, res) {
+//   console.log("stats in server hit");
+//   res.status(200).send('stats in server hit');
+// });
+
 server.listen(PORT, () => {
   console.log("Backend server is runnign");
   console.log(`Listening at: http://localhost:${PORT}`);
