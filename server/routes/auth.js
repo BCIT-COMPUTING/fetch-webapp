@@ -10,7 +10,7 @@ dotenv.config();
 
 //REGISTER LOGIC
 router.post("/register", async (req, res) => {
-  admin.updateStats("postRegister");
+  await admin.updateStats("postRegister");
 
   const newUser = new User({
     username: req.body.username,
@@ -34,7 +34,7 @@ router.post("/register", async (req, res) => {
 
 //LOGIN LOGIC HERE
 router.post("/login", async (req, res) => {
-  admin.updateStats("postLogin");
+  await admin.updateStats("postLogin");
 
   try {
     const user = await User.findOne({
@@ -73,7 +73,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/verifyJWT", (req, res) => {
+router.post("/verifyJWT", async (req, res) => {
+  await admin.updateStats("postVerifyJWT");
+
   try {
     jwt.verify(req.body.jwt, process.env.JWT_SEC);
     res.send(true);

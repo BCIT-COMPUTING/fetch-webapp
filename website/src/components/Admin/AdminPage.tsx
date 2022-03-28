@@ -68,7 +68,7 @@ const AdminPage = () => {
               <tr>
                 <td>POST</td>
                 <td>/auth/verifyJWT</td>
-                <td>{stats.postVerifyJWT}❌</td>
+                <td>{stats.postVerifyJWT}✅</td>
               </tr>
               <tr>
                 <td>GET</td>
@@ -98,6 +98,8 @@ const AdminPage = () => {
             </tbody>
           </table>
         </div>
+        <p>✅ = handled this stat in the backend</p>
+        <p>❌ = NOT handled yet</p>
         <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={() => resetStats()} />
       </div>
     </div>
