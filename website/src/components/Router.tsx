@@ -49,7 +49,12 @@ function AppRouter() {
             path="/login"
             element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
           />
-          <Route path="/dogInfo" element={<DogInfoPage />} />
+          <Route path="/dog-info/:id" element={<DogInfoPage />} />
+          {/* for testing dog database remove later */}
+           <Route
+            path="/temp"
+            element={<Temp />}
+          />
           <Route
             path="/admin"
             element={
