@@ -16,17 +16,19 @@ const Temp = () => {
   const [age, setAge] = useState(0);
   const [description, setDescription] = useState('');
   const [gender, setGender] = useState('');
+  const [likes, setLikes] = useState([]);
+  const [userID, setUserID] = useState('');
 
   useEffect(() => {
     //get all dogs
-    console.log(getAllDogs());
+    console.log(localStorage.getItem('_id'));
+    // setUserID();
   }, []);
 
   //this is for convert image
   const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     const fileList = e.target.files;
     if (!fileList) return;
-    console.log(fileList[0]);
     const file = fileList[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -69,7 +71,7 @@ const Temp = () => {
 
   const setField = async (id: String) => {
     const dog = await getDogByID(id);
-    const { name, gender, photo, description, age,  breed } = dog;
+    const { name, gender, photo, description, age,  breed, likes } = dog;
     setName(name.toString());
     setPhoto(photo.toString());
     setBreed(breed.toString());
@@ -89,13 +91,13 @@ const Temp = () => {
         }
         <button onClick={() => 
         addDog({
-          id: 'new',
           name,
           photo,
           breed,
           age,
           description,
-          gender: gender})}>ADD</button>
+          gender,
+          likes})}>ADD</button>
       </div>
 
       {/* testing delete by ID function */}
@@ -114,13 +116,13 @@ const Temp = () => {
         {form()}
         <button onClick={() => editDog(
           {
-            id,
             name,
             photo,
             breed,
             age,
             description,
-            gender
+            gender,
+            likes
           }
         )}>Save</button>
       </div>

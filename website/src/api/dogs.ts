@@ -3,13 +3,19 @@ import axios from 'axios';
 const endPointBaseUrl = "http://localhost:8080/dog";
 
 interface Dog {
-  id: String,
   name: String,
   photo: String,
   breed: String,
   age: number,
   description: String,
   gender: String,
+  likes: Array<String>
+}
+
+interface User {
+  user: {
+    _id: String
+  }
 }
 
 const getAllDogs = () => {
@@ -18,8 +24,8 @@ const getAllDogs = () => {
   }).catch(error => console.error(error));
 };
 
-const addDog = ({
-  id,
+const addDog = (
+  {
   name,
   photo,
   breed,
@@ -27,36 +33,39 @@ const addDog = ({
   description,
   gender
 }: Dog) => {
+  const { user: { _id} }  =  <User> JSON.parse(localStorage.getItem('user') || '');
+  console.log(_id);
   axios.post(endPointBaseUrl + "/addDog", {
-    id,
     name,
+    userID: _id,
     photo,
     breed,
     age,
     description,
-    gender
+    gender,
+    likes: []
   }).then(response => {
     console.log(response.data);
   }).catch(error => console.error(error));
 }
 
 const editDog = ({
-  id,
   name,
   photo,
   breed,
   age,
   description,
-  gender
+  gender,
+  likes
 }: Dog) => {
   axios.put(endPointBaseUrl + "/editDog", {
-    id,
     name,
     photo,
     breed,
     age,
     description,
-    gender
+    gender,
+    likes
   }).then(response => {
     console.log(response.data);
   }).catch(error => console.error(error));
