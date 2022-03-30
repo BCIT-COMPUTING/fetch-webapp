@@ -53,6 +53,7 @@ const AdminPage = () => {
               <tr>
                 <th>HTTP Method</th>
                 <th>Endpoint</th>
+                <th>Description</th>
                 <th># of hits</th>
               </tr>
             </thead>
@@ -60,46 +61,55 @@ const AdminPage = () => {
               <tr>
                 <td>POST</td>
                 <td>/auth/register</td>
+                <td>User registration</td>
                 <td>{stats.postRegister}✅</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/login</td>
+                <td>User login</td>
                 <td>{stats.postLogin}✅</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/verifyJWT</td>
+                <td>Verification of JSON Web Token</td>
                 <td>{stats.postVerifyJWT}✅</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/getDogs</td>
+                <td>Obtain dogs?</td>
                 <td>{stats.getDogs}❌</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/dog/addEditDog</td>
+                <td>Add/edit dog?</td>
                 <td>{stats.postAddEditDog}❌</td>
               </tr>
               <tr>
                 <td>POST???</td>
                 <td>/dog/delete</td>
+                <td>Delete dog</td>
                 <td>{stats.deleteDog}❌</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/:id</td>
+                <td>Get a dog by ID</td>
                 <td>{stats.getDogById}❌</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
+                <td>Obtaining the stats of Fetch app</td>
                 <td>{stats.getStats}✅</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/admin/reset</td>
+                <td>Reset stats of Fetch app</td>
                 <td>{stats.postReset}✅</td>
               </tr>
             </tbody>
