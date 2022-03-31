@@ -24,19 +24,23 @@ const AdminPage = () => {
 
   const getStats = async () => {
     //pass token here
-    await userRequest.get("/admin/stats").then(async (response) => {
-      console.log(response.data[0]);
-      await setStats(response.data[0]);
-    });
+    try {
+      let response = await userRequest.get("/admin/stats");
+      setStats(response.data[0]);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const resetStats = async () => {
     //pass token here
-    await userRequest.post("/admin/reset").then(async (response) => {
-      console.log(response.data[0]);
+    try {
+      let response = await userRequest.post("/admin/reset");
       await setStats(response.data[0]);
-    });
-    await getStats();
+      getStats();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -119,7 +123,7 @@ const AdminPage = () => {
         <p>❌ = NOT handled yet</p>
         <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={async () => {
           await resetStats();
-          await getStats();
+          getStats();
           }}
         />
       </div>

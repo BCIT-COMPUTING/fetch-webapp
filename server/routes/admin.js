@@ -4,22 +4,19 @@ const admin = require('../configs/adminUtils');
 
 
 router.get("/stats", async function (req, res) {
-  admin.updateStats("getStats");
-
   try {
+    await admin.updateStats("getStats");
     const stats = await Stats.find();
     res.send(stats);
   } catch (e) {
     console.error(e);
   }
   
-  
 });
 
 router.post("/reset", async function (req, res) {
-  admin.updateStats("postReset");
-
   try {
+    await admin.updateStats("postReset");
     await Stats.updateOne({_id: admin.statsId }, {
       postRegister: 0,
       postLogin: 0,

@@ -52,7 +52,7 @@ const updateStats = async (stat) => {
       break;
 
     default:
-      console.log("nope");
+      console.log("NOTHING HERE: TODO");
       break;
   }
 
