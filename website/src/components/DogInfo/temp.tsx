@@ -3,6 +3,11 @@ import {
   addEditDog,
   deleteDogByID,
   getDogByID} from '../../api/dogs';
+import {
+  addLikeToMatch,
+  addDislikeToMatch,
+  getMatchByUserId
+} from '../../api/match';
 
 import React, { useState, useEffect } from 'react';
 
@@ -15,6 +20,9 @@ const Temp = () => {
   const [age, setAge] = useState(0);
   const [description, setDescription] = useState('');
   const [gender, setGender] = useState('');
+
+  //Match
+  const [likeDog, setLikeDog] = useState('');
 
   useEffect(() => {
     //get all dogs
@@ -80,6 +88,17 @@ const Temp = () => {
 
   return (
     <>
+    {/* testing for Match add likes*/}
+    <div style={{margin: "5%"}}>
+      <h2>Add likes</h2>
+      <input onChange={(e) => setLikeDog(e.target.value)} name="dogId"></input>
+      <button onClick={() => addLikeToMatch(likeDog)}>Add</button>
+    </div>
+    <div style={{margin: "5%"}}>
+      <h2>Add disLikes</h2>
+      <input name="dogId"></input>
+      <button>Add</button>
+    </div>
     {/* testing add dog function */}
       <div style={{margin: "5%"}}>
         <h2>Add New Dog Test</h2>

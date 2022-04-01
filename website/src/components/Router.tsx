@@ -41,6 +41,7 @@ function AppRouter() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/temp" element={<Temp />} />
           <Route
             path="/signup"
             element={user.isLoggedIn ? <DogInfoPage /> : <SignupPage />}
