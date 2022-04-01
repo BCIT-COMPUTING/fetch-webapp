@@ -5,6 +5,7 @@ import { getStorageValue } from '../../store/localStorageHook';
 import { useNavigate } from 'react-router-dom';
 import DogCard from'../Shared/DogCard';
 import DogEdit from './DogEdit/DogEdit';
+import DogNotFound  from '../DogNotFound/DogNotFound';
 
 const DogProfile = () => {
   const [dogId, setDogId] = useState('');
@@ -21,6 +22,7 @@ const DogProfile = () => {
 
   const handleDelete = () => {
     deleteDogByID(dogId);
+    setDogId('');
     //TODO navigate to dog sign in
     navigate('/temp');
   };
@@ -54,37 +56,40 @@ const DogProfile = () => {
         breed,
         gender
       } = await getDogByUserID(_id);
-      if(id === '') {
+      if(id === null || id === '') {
         console.log('navigate to dog sign in');
         //TODO navigate to dog sign in
-        //navigate('/dog-signin');
+        navigate('/temp');
       }
-      setDogId(id.toString());
-      setDogName(name.toString());
-      setDogAge(+age);
-      setDogBreed(breed.toString());
-      setDogDescription(description.toString());
-      setDogPhoto(photo.toString());
-      setDogGender(gender.toString());
+        setDogId(id.toString());
+        setDogName(name.toString());
+        setDogAge(+age);
+        setDogBreed(breed.toString());
+        setDogDescription(description.toString());
+        setDogPhoto(photo.toString());
+        setDogGender(gender.toString());
+
     })();
   }, []);
 
   return (
     <>
-      <div className={styles.container}>
-         <div>
-            <h1>{dogName} Profile</h1>
-            <div className={`${styles.btnDiv}`}>
-              <button onClick={() => setEditDisplay(true)}
-                      className={`${styles.btn} ${styles.editDeleteBtn}`}>
-                        Edit
-              </button>
-              <button onClick={() => setConfirmDisplay(true)}
-                      className={`${styles.btn} ${styles.editDeleteBtn}`}>
-                        Delete
-              </button>
-            </div>
-         </div>
+     <div className={styles.container}>
+      { (dogId !== '') ? 
+        <div>
+          <h1>{dogName} Profile</h1>
+          <div className={`${styles.btnDiv}`}>
+            <button onClick={() => setEditDisplay(true)}
+                    className={`${styles.btn} ${styles.editDeleteBtn}`}>
+                      Edit
+            </button>
+            <button onClick={() => setConfirmDisplay(true)}
+                    className={`${styles.btn} ${styles.editDeleteBtn}`}>
+                      Delete
+            </button>
+          </div>
+        </div> : <DogNotFound />
+      }
       {
         (confirmDisplay) ? displayConfirmDelete() : ''
       }
@@ -111,7 +116,9 @@ const DogProfile = () => {
         </div>
          : ''
       }
-       <DogCard data = { 
+      {
+        (dogId !== '') ? 
+        <DogCard data = { 
           { dogName, 
             dogPhoto,
             dogBreed,
@@ -119,7 +126,9 @@ const DogProfile = () => {
             dogGender,
             dogAge
           }
-        }/>
+        }/>:
+        ''
+      }
     </div>
     </>
   );

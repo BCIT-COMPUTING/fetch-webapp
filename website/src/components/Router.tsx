@@ -52,7 +52,6 @@ function AppRouter() {
             element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
           />
           <Route path="/dogInfo" element={<DogInfoPage />} />
-          {/* if the user doesn't have a dog don't route to the profile */}
           <Route path="/dog-profile/:id" element={<DogProfilePage />} />
           <Route
             path="/admin"

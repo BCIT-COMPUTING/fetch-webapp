@@ -4,11 +4,11 @@ import { getStorageValue } from "../../store/localStorageHook";
 
 const Nav = () => {
   const [userID, setUserID] = useState('');
+  const { user: { _id } } = getStorageValue(
+    'user', ''
+  );
   useEffect(() =>
   {
-    const { user: { _id } } = getStorageValue(
-      'user', ''
-    );
     setUserID(_id);
   }, []);
 

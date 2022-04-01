@@ -24,14 +24,14 @@ const getAllDogs = () => {
 const getDogByUserID = async (id: String) => {
   const res = await axios.get(`${endPointBaseUrl}/profile/${id}`);
   const {
-    _id,
-    name,
-    photo,
-    breed,
-    age,
-    description,
-    gender
-  } = res.data;
+    _id = '',
+    name = '',
+    photo = '',
+    breed = '',
+    age = 0,
+    description = '',
+    gender = ''
+  } = res.data || {};
   const dog = {
     id: _id,
     name,

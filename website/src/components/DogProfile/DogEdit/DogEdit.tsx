@@ -137,10 +137,10 @@ const DogEdit = (props: { data: {
              className={`${styles.labels}`}>
              Gender
       </label><br/>
-      <select onChange={(e) => setEditGender(e.target.value)}
+      <select value="male" onChange={(e) => setEditGender(e.target.value)}
               name="gender"
               className={styles.select}>
-        <option value="none" selected>Gender</option>
+        <option value="none">Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>

@@ -19,8 +19,6 @@ const Temp = () => {
 
   useEffect(() => {
     //get all dogs
-    console.log(localStorage.getItem('_id'));
-    // setUserID();
   }, []);
 
   //this is for convert image
@@ -60,8 +58,8 @@ const Temp = () => {
     <label htmlFor='description'>description</label><br/>
     <textarea value={description} onChange={(e) => setDescription(e.target.value)} id="description" name="description"></textarea><br/>
     <label htmlFor='gender'>gender</label><br/>
-    <select onChange={(e) => setGender(e.target.value)} name="gender">
-      <option value="none" selected>Gender</option>
+    <select value="male" onChange={(e) => setGender(e.target.value)} name="gender">
+      <option value="none">Gender</option>
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
