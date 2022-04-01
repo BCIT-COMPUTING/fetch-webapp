@@ -1,6 +1,17 @@
 import styles from "./Nav.module.css";
+import { useEffect, useState } from "react";
+import { getStorageValue } from "../../store/localStorageHook";
 
 const Nav = () => {
+  const [userID, setUserID] = useState('');
+  useEffect(() =>
+  {
+    const { user: { _id } } = getStorageValue(
+      'user', ''
+    );
+    setUserID(_id);
+  }, []);
+
   return (
     // hamburger menu for mobile
     <nav className={styles.nav}>
@@ -18,7 +29,7 @@ const Nav = () => {
           </a>
         </li>
         <li className={styles.li}>
-          <a className={styles.a} id="about" href="/">
+          <a className={styles.a} id="profile" href={`/dog-profile/${userID}`}>
             Profile
           </a>
         </li>

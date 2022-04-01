@@ -8,6 +8,7 @@ import HomePage from "./Home/HomePage";
 import SignupPage from "./Signup/SignupPage";
 import LoginPage from "./Login/LoginPage";
 import DogInfoPage from "./DogInfo/DogInfoPage";
+import DogProfilePage from "./DogProfile/DogProfile";
 import AdminPage from "./Admin/AdminPage";
 import MatchesPage from "./Matches/MatchesPage";
 import Navbar from "./Nav/Nav";
@@ -41,6 +42,7 @@ function AppRouter() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/temp" element={<Temp />} />
           <Route
             path="/signup"
             element={user.isLoggedIn ? <DogInfoPage /> : <SignupPage />}
@@ -50,6 +52,8 @@ function AppRouter() {
             element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
           />
           <Route path="/dogInfo" element={<DogInfoPage />} />
+          {/* if the user doesn't have a dog don't route to the profile */}
+          <Route path="/dog-profile/:id" element={<DogProfilePage />} />
           <Route
             path="/admin"
             element={
