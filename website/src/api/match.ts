@@ -10,13 +10,23 @@ interface Match {
 }
 
 const getMatchByUserId = async (userId: String) => {
-  const res = await axios.get(`${endPointBaseUrl}/match/${userId}`);
+  const res = await axios.get(`${endPointBaseUrl}/${userId}`);
+  console.log(res.data);
   return <Match> res.data;
 };
 
+const addMatch = () => {
+  const { user: { _id }} = getStorageValue('user', '');
+  console.log(_id);
+  axios.post(`${endPointBaseUrl}/add`, {
+    userId: _id
+  }).then(res => console.log(res))
+  .catch(err => console.log(err));
+}
+
 const addLikeToMatch = async (dogId: String) => {
   const { user: { _id }} = getStorageValue('user', '');
-  axios.post(`${endPointBaseUrl}/match/addLikes/${_id}`, {
+  axios.put(`${endPointBaseUrl}/addLikes/${_id}`, {
     dogId
   }).then(res => console.log(res.data))
   .catch(e => console.log(e));
@@ -24,7 +34,7 @@ const addLikeToMatch = async (dogId: String) => {
 
 const addDislikeToMatch = async (dogId: String) => {
   const { user: { _id }} = getStorageValue('user', '');
-  axios.post(`${endPointBaseUrl}/match/addDislikes/${_id}`, {
+  axios.put(`${endPointBaseUrl}/addDislikes/${_id}`, {
     dogId
   }).then(res => console.log(res.data))
   .catch(e => console.log(e));
@@ -33,5 +43,6 @@ const addDislikeToMatch = async (dogId: String) => {
 export {
   getMatchByUserId,
   addLikeToMatch,
-  addDislikeToMatch
+  addDislikeToMatch,
+  addMatch
 }

@@ -6,7 +6,8 @@ import {
 import {
   addLikeToMatch,
   addDislikeToMatch,
-  getMatchByUserId
+  getMatchByUserId,
+  addMatch
 } from '../../api/match';
 
 import React, { useState, useEffect } from 'react';
@@ -23,9 +24,14 @@ const Temp = () => {
 
   //Match
   const [likeDog, setLikeDog] = useState('');
+  const [disLikeDog, setDislikeDog] = useState('');
 
   useEffect(() => {
     //get all dogs
+    (async() => {
+      const {likes, dislikes} = await getMatchByUserId('623cad86cb44fd81b3ec00e8');
+      console.log(likes);
+    })();
     console.log(getAllDogs());
   }, []);
 
@@ -88,16 +94,21 @@ const Temp = () => {
 
   return (
     <>
+    {/* add Match */}
+    <div style={{margin: "5%"}}>
+      <button onClick={() => addMatch()}>ADD Match</button>
+    </div>
     {/* testing for Match add likes*/}
     <div style={{margin: "5%"}}>
       <h2>Add likes</h2>
       <input onChange={(e) => setLikeDog(e.target.value)} name="dogId"></input>
       <button onClick={() => addLikeToMatch(likeDog)}>Add</button>
     </div>
+    {/* testing for Match add dislikes*/}
     <div style={{margin: "5%"}}>
       <h2>Add disLikes</h2>
-      <input name="dogId"></input>
-      <button>Add</button>
+      <input onChange={(e) => setDislikeDog(e.target.value)} name="dogId"></input>
+      <button onClick={() => addDislikeToMatch(disLikeDog)}>Add</button>
     </div>
     {/* testing add dog function */}
       <div style={{margin: "5%"}}>
