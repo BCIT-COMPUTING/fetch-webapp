@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const endPointBaseUrl = "http://localhost:8080/dog";
 
 interface Dog {
