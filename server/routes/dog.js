@@ -34,8 +34,8 @@ router.post('/addDog', async (req, res) => {
     breed,
     age,
     description,
-    gender,
-    likes } = req.body;
+    gender
+   } = req.body;
 
   const newDog = new Dog({
     name,
@@ -44,8 +44,7 @@ router.post('/addDog', async (req, res) => {
     breed,
     age,
     description,
-    gender,
-    likes
+    gender
   });
 
   try {
@@ -67,8 +66,7 @@ router.put('/editDog', async (req, res) => {
     breed,
     age,
     description,
-    gender,
-    likes 
+    gender
         } = req.body;
     try {
       await Dog.updateOne({_id: id}, {
@@ -78,8 +76,7 @@ router.put('/editDog', async (req, res) => {
         breed,
         age,
         description,
-        gender,
-        likes
+        gender
       });
     } catch(err) {
       throw err;

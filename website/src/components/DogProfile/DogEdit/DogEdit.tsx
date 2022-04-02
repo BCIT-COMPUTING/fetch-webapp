@@ -112,28 +112,28 @@ const DogEdit = (props: { data: {
               onChange={handleImageChange}
               className={`${styles.inputs}`}
             /><br />
-      <label htmlFor='breed'
+      <label htmlFor="breed"
              className={`${styles.labels}`}>
                Breed
       </label><br/>
       <input value={editBreed} onChange={(e) => setEditBreed(e.target.value)}
              type="text" id="breed" name="breed"
              className={`${styles.inputs}`}/><br/>
-      <label htmlFor='age'
+      <label htmlFor="age"
              className={`${styles.labels}`}>
              Age
       </label><br/>
       <input value={editAge} onChange={(e) => setEditAge(+e.target.value)}
              type="number" id="age" name="age"
              className={`${styles.inputs}`}/><br/>
-      <label htmlFor='description'
+      <label htmlFor="description"
              className={`${styles.labels}`}>
              Description
       </label><br/>
       <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)}
                 id="description" name="description"
                 className={`${styles.textarea}`}></textarea><br/>
-      <label htmlFor='gender'
+      <label htmlFor="gender"
              className={`${styles.labels}`}>
              Gender
       </label><br/>

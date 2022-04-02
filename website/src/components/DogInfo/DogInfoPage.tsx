@@ -10,7 +10,7 @@ const DogInfoPage = () => {
   const { user, setUser } = useAppStore();
   //let data = useLocation();
   //testing the id 623e05239456782e58dcb18d need to setID later passing from previous page
-  const [id, setID] = useState('62467abc7a294e8b11076ebf');
+  const [id, setID] = useState('624778d0d8fe7c1b03cab1f2');
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState('');
   const [description, setDescription] = useState('');

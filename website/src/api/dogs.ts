@@ -71,7 +71,7 @@ const addDog = (
   }).catch(error => console.error(error));
 }
 
-//edit dog
+
 const editDog = ({
   id,
   name,
@@ -81,7 +81,7 @@ const editDog = ({
   description,
   gender
 }: Dog) => {
-  axios.put(`${endPointBaseUrl}/editDog`, {
+  axios.put(endPointBaseUrl + "/editDog", {
     id,
     name,
     photo,
@@ -93,6 +93,7 @@ const editDog = ({
     console.log(response.data);
   }).catch(error => console.error(error));
 }
+
 
 //get dog by dogID
 const getDogByID = async (id: String) => {
