@@ -26,6 +26,7 @@ const addMatch = () => {
 }
 
 const addLikeToMatch = async (dogId: String) => {
+  console.log('dogId like ' + dogId);
   const { user: { _id }} = getStorageValue('user', '');
   axios.put(`${endPointBaseUrl}/addLikes/${_id}`, {
     dogId
@@ -34,6 +35,7 @@ const addLikeToMatch = async (dogId: String) => {
 };
 
 const addDislikeToMatch = async (dogId: String) => {
+  console.log('dogId dislike ' + dogId);
   const { user: { _id }} = getStorageValue('user', '');
   axios.put(`${endPointBaseUrl}/addDislikes/${_id}`, {
     dogId
