@@ -106,6 +106,7 @@ router.get('/:id', async(req, res) => {
   const { id } = req.params;
   try{
     const foundDog = await Dog.findById(id);
+    // console.log(foundDog);
     res.json(foundDog);
   } catch(err) {
     console.log(err);
