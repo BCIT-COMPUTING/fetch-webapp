@@ -1,8 +1,15 @@
 import { 
   getAllDogs,
-  addEditDog,
+  addDog,
+  editDog,
   deleteDogByID,
   getDogByID} from '../../api/dogs';
+import {
+  addLikeToMatch,
+  addDislikeToMatch,
+  getMatchByUserId,
+  addMatch
+} from '../../api/match';
 
 import React, { useState, useEffect } from 'react';
 
@@ -16,8 +23,16 @@ const Temp = () => {
   const [description, setDescription] = useState('');
   const [gender, setGender] = useState('');
 
+  //Match
+  const [likeDog, setLikeDog] = useState('');
+  const [disLikeDog, setDislikeDog] = useState('');
+
   useEffect(() => {
     //get all dogs
+    (async() => {
+      const {likes, dislikes} = await getMatchByUserId('623cad86cb44fd81b3ec00e8');
+      console.log(likes);
+    })();
     console.log(getAllDogs());
   }, []);
 
@@ -25,7 +40,6 @@ const Temp = () => {
   const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     const fileList = e.target.files;
     if (!fileList) return;
-    console.log(fileList[0]);
     const file = fileList[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -41,9 +55,9 @@ const Temp = () => {
 
   const form = () =>
   <div>
-     <label htmlFor='name'>Name</label><br/>
-    <input value={name} onChange={(e) => setName(e.target.value)} type='text' id='name' name='name'/><br/>
-    <label htmlFor='photo'>Image</label><br/>
+     <label htmlFor="name">Name</label><br/>
+    <input value={name} onChange={(e) => setName(e.target.value)} type="text" id="name" name="name"/><br/>
+    <label htmlFor="photo">Image</label><br/>
     <input
             accept="image/*"
             id="photo"
@@ -53,14 +67,14 @@ const Temp = () => {
             onChange={handleImageChange}
           /><br />
     <label htmlFor='breed'>Breed</label><br/>
-    <input value={breed} onChange={(e) => setBreed(e.target.value)} type='text' id='breed' name='breed'/><br/>
+    <input value={breed} onChange={(e) => setBreed(e.target.value)} type="text" id="breed" name="breed"/><br/>
     <label htmlFor='age'>age</label><br/>
-    <input value={age} onChange={(e) => setAge(+e.target.value)} type='number' id='age' name='age'/><br/>
+    <input value={age} onChange={(e) => setAge(+e.target.value)} type="number" id="age" name="age"/><br/>
     <label htmlFor='description'>description</label><br/>
-    <textarea value={description} onChange={(e) => setDescription(e.target.value)} id='description' name='description'></textarea><br/>
+    <textarea value={description} onChange={(e) => setDescription(e.target.value)} id="description" name="description"></textarea><br/>
     <label htmlFor='gender'>gender</label><br/>
-    <select onChange={(e) => setGender(e.target.value)} name="gender">
-      <option value="none" selected>Gender</option>
+    <select value="male" onChange={(e) => setGender(e.target.value)} name="gender">
+      <option value="none">Gender</option>
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
@@ -68,7 +82,14 @@ const Temp = () => {
 
   const setField = async (id: String) => {
     const dog = await getDogByID(id);
-    const { name, gender, photo, description, age,  breed } = dog;
+    const {
+      name,
+      gender,
+      photo,
+      description,
+      age,
+      breed
+    } = dog;
     setName(name.toString());
     setPhoto(photo.toString());
     setBreed(breed.toString());
@@ -80,6 +101,22 @@ const Temp = () => {
 
   return (
     <>
+    {/* add Match */}
+    <div style={{margin: "5%"}}>
+      <button onClick={() => addMatch()}>ADD Match</button>
+    </div>
+    {/* testing for Match add likes*/}
+    <div style={{margin: "5%"}}>
+      <h2>Add likes</h2>
+      <input onChange={(e) => setLikeDog(e.target.value)} name="dogId"></input>
+      <button onClick={() => addLikeToMatch(likeDog)}>Add</button>
+    </div>
+    {/* testing for Match add dislikes*/}
+    <div style={{margin: "5%"}}>
+      <h2>Add disLikes</h2>
+      <input onChange={(e) => setDislikeDog(e.target.value)} name="dogId"></input>
+      <button onClick={() => addDislikeToMatch(disLikeDog)}>Add</button>
+    </div>
     {/* testing add dog function */}
       <div style={{margin: "5%"}}>
         <h2>Add New Dog Test</h2>
@@ -87,20 +124,21 @@ const Temp = () => {
           form()
         }
         <button onClick={() => 
-        addEditDog({
-          id: 'new',
+        addDog({
+          id,
           name,
           photo,
           breed,
           age,
           description,
-          gender: gender})}>ADD</button>
+          gender,
+            })}>ADD</button>
       </div>
 
       {/* testing delete by ID function */}
       <div style={{margin: "5%"}}>
         <h2>Delete Dog by ID Test</h2>
-        <input type="text" placeholder='type id here for test' onChange={(e) => setId(e.target.value)}></input>
+        <input type="text" placeholder="type id here for test" onChange={(e) => setId(e.target.value)}></input>
         <button onClick={() => deleteDogByID(id)}>Delete</button>
       </div>
 
@@ -108,10 +146,10 @@ const Temp = () => {
       <div style={{margin: "5%"}}>
         <h2>Edit dog by ID Test</h2>
         <label htmlFor='id'>Edit Dog ID</label><br/>
-        <input type="text" name="id" placeholder='type id here for test' onChange={(e) => setId(e.target.value)}></input>
+        <input type="text" name="id" placeholder="type id here for test" onChange={(e) => setId(e.target.value)}></input>
         <button onClick={() => setField(id)}>Edit</button>
         {form()}
-        <button onClick={() => addEditDog(
+        <button onClick={() => editDog(
           {
             id,
             name,

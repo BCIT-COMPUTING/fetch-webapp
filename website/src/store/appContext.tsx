@@ -30,7 +30,7 @@ const storageKey = "user";
 
 export const ContextProvider = (props: { children: any }) => {
   const [user, setUser] = useState(() => {
-    return getStorageValue(storageKey, null);
+    return getStorageValue(storageKey, userState);
   });
 
   useEffect(() => {

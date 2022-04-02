@@ -1,0 +1,64 @@
+.editFormDiv {
+  position: absolute;
+  top: 18%;
+  left: 16%;
+  padding: 5%;
+  background-color: rgb(214, 234, 240);
+  border: 1px solid grey;
+  border-radius: 10px;
+  width: 450px;
+  height: 542px;
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 5%;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.inputs {
+  width: 95%;
+  border-radius: 10px;
+  border: none;
+  padding: 1.5%;
+  margin: 2% 0 3% 0;
+}
+
+.textarea {
+  width: 95%;
+  height: 12%;
+  margin: 3% 0;
+}
+
+.select {
+  margin: 3% 0;
+}
+
+.btnDiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4%;
+}
+
+.funcBtn:first-child {
+  background-color: rgb(161, 184, 80);
+  color: white;
+}
+
+.funcBtn:first-child:hover {
+  background-color: rgb(109, 124, 55);
+}
+
+.funcBtn {
+  font-size: 1.2rem;
+  padding: 1%;
+  background-color: white;
+}
+
+.funcBtn:hover  {
+  background-color: rgb(199, 197, 197);
+}

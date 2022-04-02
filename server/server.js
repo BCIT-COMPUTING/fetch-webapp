@@ -10,6 +10,7 @@ dotenv.config();
 const authRoute = require("./routes/auth");
 const dogRoute = require("./routes/dog");
 const adminRoute = require("./routes/admin");
+const matchRoute = require("./routes/match");
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -36,6 +37,8 @@ server.use(bodyParser.raw({ limit: '50mb' }));
 server.use("/api/v1/auth", authRoute);
 server.use("/dog", dogRoute);
 server.use("/api/v1/admin", adminRoute);
+server.use("/match", matchRoute);
+
 
 // ensureTables();
 
