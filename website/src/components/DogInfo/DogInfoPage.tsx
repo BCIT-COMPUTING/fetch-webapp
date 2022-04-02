@@ -1,22 +1,21 @@
-import styles from "./DogInfoPage.module.css";
-import React, { useState } from "react";
-import { useAppStore } from "../../store/appContext";
+import styles from './DogInfoPage.module.css';
+import { useState, useEffect } from 'react';
+import { useAppStore } from '../../store/appContext';
 //import { useLocation } from "react-router";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { getDogByID } from "../../api/dogs";
-import type { Dog } from "../../api/dogs";
+import { useNavigate } from 'react-router-dom';
+import { getDogByID } from '../../api/dogs';
+import type { Dog } from '../../api/dogs';
 
 const DogInfoPage = () => {
   const { user, setUser } = useAppStore();
   //let data = useLocation();
   //testing the id 623e05239456782e58dcb18d need to setID later passing from previous page
-  const [id, setID] = useState("623e5d3796fb4571ba4b9548");
-  const [name, setName] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [description, setDescription] = useState("");
-  const [breed, setBreed] = useState("");
-  const [gender, setGender] = useState("");
+  const [id, setID] = useState('62467abc7a294e8b11076ebf');
+  const [name, setName] = useState('');
+  const [photo, setPhoto] = useState('');
+  const [description, setDescription] = useState('');
+  const [breed, setBreed] = useState('');
+  const [gender, setGender] = useState('');
   const [age, setAge] = useState(0);
   const navigate = useNavigate();
 
@@ -28,7 +27,6 @@ const DogInfoPage = () => {
     (async () => {
       const result: Dog = await getDogByID(id);
       const { name, photo, gender, description, age, breed } = result;
-      console.log(name);
       setName(name.toString());
       setPhoto(photo.toString());
       setBreed(breed.toString());
