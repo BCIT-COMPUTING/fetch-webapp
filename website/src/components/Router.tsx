@@ -8,6 +8,7 @@ import HomePage from "./Home/HomePage";
 import SignupPage from "./Signup/SignupPage";
 import LoginPage from "./Login/LoginPage";
 import DogInfoPage from "./DogInfo/DogInfoPage";
+import DogProfilePage from "./DogProfile/DogProfile";
 import AdminPage from "./Admin/AdminPage";
 import MatchesPage from "./Matches/MatchesPage";
 import MainPage from "./Main/MainPage";
@@ -55,7 +56,8 @@ function AppRouter() {
             path="/main"
             element={user.isLoggedIn ? <MainPage /> : <MainPage />}
           />
-          <Route path="/dogInfo" element={<DogInfoPage />} />
+          <Route path="/dog-info/:id" element={<DogInfoPage />} />
+          <Route path="/profile/:id" element={<DogInfoPage />} />
           <Route
             path="/admin"
             element={

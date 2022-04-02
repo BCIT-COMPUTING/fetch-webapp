@@ -9,6 +9,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const authRoute = require("./routes/auth");
 const dogRoute = require("./routes/dog");
+const adminRoute = require("./routes/admin");
 const matchRoute = require("./routes/match");
 
 mongoose
@@ -32,25 +33,14 @@ server.use(bodyParser.json({ limit: '50mb' }));
 server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 server.use(bodyParser.raw({ limit: '50mb' }));
 
+// Routes
 server.use("/api/v1/auth", authRoute);
 server.use("/dog", dogRoute);
+server.use("/api/v1/admin", adminRoute);
 server.use("/match", matchRoute);
 
+
 // ensureTables();
-
-const stats = {
-  numOfLoginAttempts: 0,
-  numOfSuccessfulLogins: 0,
-  numOfFailedLogins: 0,
-  numOfUsers: 0,
-  numOfTimesVisitedStatPage: 0,
-};
-
-server.get("/admin", function (req, res) {
-  stats.numOfTimesVisitedStatPage++;
-  console.log("stats hit");
-  res.status(200).send(stats);
-});
 
 server.listen(PORT, () => {
   console.log("Backend server is runnign");

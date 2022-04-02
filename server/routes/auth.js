@@ -1,13 +1,17 @@
 const User = require("../models/User");
+const Stats = require("../models/Stats");
 const router = require("express").Router();
 const CryptoJS = require("crypto-js");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+const admin = require("../configs/adminUtils");
 
 dotenv.config();
 
 //REGISTER LOGIC
 router.post("/register", async (req, res) => {
+  await admin.updateStats("postRegister");
+
   const newUser = new User({
     username: req.body.username,
     firstname: req.body.firstname,
@@ -30,6 +34,8 @@ router.post("/register", async (req, res) => {
 
 //LOGIN LOGIC HERE
 router.post("/login", async (req, res) => {
+  await admin.updateStats("postLogin");
+
   try {
     const user = await User.findOne({
       username: req.body.username,
@@ -67,7 +73,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/verifyJWT", (req, res) => {
+router.post("/verifyJWT", async (req, res) => {
+  await admin.updateStats("postVerifyJWT");
+
   try {
     jwt.verify(req.body.jwt, process.env.JWT_SEC);
     res.send(true);
