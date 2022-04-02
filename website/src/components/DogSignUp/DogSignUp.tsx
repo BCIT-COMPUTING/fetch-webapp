@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { addDog } from "../../api/dogs";
-
+import styles from "./DogSignUp.module.css";
+import { toast } from "react-toastify";
+import CircularProgress from "@material-ui/core/CircularProgress";
+const MB_Size = 1024 * 1024;
 const DogSignUp = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
@@ -10,40 +13,49 @@ const DogSignUp = () => {
   const [breed, setBreed] = useState("");
   const [age, setAge] = useState(0);
   const [description, setDescription] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("none");
+  const [toggleButton, setToggleButton] = useState(false);
 
   //this is for convert image
   const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     const fileList = e.target.files;
     if (!fileList) return;
     const file = fileList[0];
+    if (file.size > MB_Size) {
+      toast.error("File size cannot exceed more than 1MB");
+      e.target.value = "";
+      return;
+    }
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String: String = "" + reader.result;
-      // base64String.replace('data:', '')
-      // .replace(/^.+,/, '');
-
       setPhoto(base64String.toString());
-      // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
     };
     reader.readAsDataURL(file);
   };
 
   const form = () => (
-    <div>
-      <label htmlFor="name">Name</label>
+    <div className={styles.containerDiv}>
+      <h2>Dog's SignUp - Use your PAWS!</h2>
+      <label className={styles.labels} htmlFor="name">
+        Name
+      </label>
       <br />
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
         type="text"
         id="name"
+        className={styles.inputs}
         name="name"
       />
       <br />
-      <label htmlFor="photo">Image</label>
+      <label className={styles.labels} htmlFor="photo">
+        Image
+      </label>
       <br />
       <input
+        className={styles.inputs}
         accept="image/*"
         id="photo"
         name="photo"
@@ -52,9 +64,12 @@ const DogSignUp = () => {
         onChange={handleImageChange}
       />
       <br />
-      <label htmlFor="breed">Breed</label>
+      <label className={styles.labels} htmlFor="breed">
+        Breed
+      </label>
       <br />
       <input
+        className={styles.inputs}
         value={breed}
         onChange={(e) => setBreed(e.target.value)}
         type="text"
@@ -62,7 +77,9 @@ const DogSignUp = () => {
         name="breed"
       />
       <br />
-      <label htmlFor="age">age</label>
+      <label className={styles.labels} htmlFor="age">
+        age
+      </label>
       <br />
       <input
         value={age}
@@ -72,19 +89,25 @@ const DogSignUp = () => {
         name="age"
       />
       <br />
-      <label htmlFor="description">description</label>
+      <label className={styles.labels} htmlFor="description">
+        description
+      </label>
       <br />
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         id="description"
+        className={styles.textarea}
         name="description"
       ></textarea>
       <br />
-      <label htmlFor="gender">gender</label>
+      <label className={styles.labels} htmlFor="gender">
+        gender
+      </label>
       <br />
       <select
-        value="male"
+        className={styles.select}
+        value={gender}
         onChange={(e) => setGender(e.target.value)}
         name="gender"
       >
@@ -92,6 +115,15 @@ const DogSignUp = () => {
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
+      <div className={styles.btnDiv}>
+        {!toggleButton ? (
+          <button className={styles.btn} onClick={handleAdd}>
+            ADD
+          </button>
+        ) : (
+          <CircularProgress />
+        )}
+      </div>
     </div>
   );
 
@@ -109,13 +141,7 @@ const DogSignUp = () => {
     navigate("/dogInfo");
   };
 
-  return (
-    <div style={{ margin: "5%" }}>
-      <h2>Add New Dog Test</h2>
-      {form()}
-      <button onClick={handleAdd}>ADD</button>
-    </div>
-  );
+  return <>{form()}</>;
 };
 
 export default DogSignUp;
