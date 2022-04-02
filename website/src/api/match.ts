@@ -43,9 +43,17 @@ const addDislikeToMatch = async (dogId: String) => {
   .catch(e => console.log(e));
 };
 
+const checkMatchTableExsist = async () => {
+  const { user: { _id }} = getStorageValue('user', '');
+  const res = await axios.get(`${endPointBaseUrl}/checkUser/${_id}`);
+  console.log(res.data.result)
+  return res.data.result;
+}
+
 export {
   getMatchByUserId,
   addLikeToMatch,
   addDislikeToMatch,
-  addMatch
+  addMatch,
+  checkMatchTableExsist
 }

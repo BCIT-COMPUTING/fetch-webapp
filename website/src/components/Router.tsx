@@ -57,7 +57,7 @@ function AppRouter() {
             element={user.isLoggedIn ? <MainPage /> : <MainPage />}
           />
           <Route path="/dog-info/:id" element={<DogInfoPage />} />
-          <Route path="/profile/:id" element={<DogInfoPage />} />
+          <Route path="/dog-profile/:id" element={<DogProfilePage />} />
           <Route
             path="/admin"
             element={

@@ -4,7 +4,7 @@ import { getStorageValue } from '../store/localStorageHook';
 const endPointBaseUrl = 'http://localhost:8080/dog';
 
 interface Dog {
-  id: String,
+  _id: String,
   name: String,
   photo: String,
   breed: String,
@@ -31,7 +31,7 @@ const getDogByUserID = async (id: String) => {
     gender = ''
   } = res.data || {};
   const dog = {
-    id: _id,
+    _id,
     name,
     photo,
     breed,
@@ -45,7 +45,7 @@ const getDogByUserID = async (id: String) => {
 //add a new dog
 const addDog = (
   {
-    id,
+    _id,
     name,
     photo,
     breed,
@@ -53,12 +53,12 @@ const addDog = (
     description,
     gender
 }: Dog) => {
-  const { user: { _id }} = getStorageValue(
+  const user = getStorageValue(
     'user', ''
   );
   axios.post(`${endPointBaseUrl}/addDog`, {
     name,
-    userID: _id,
+    userID: user.user._id,
     photo,
     breed,
     age,
@@ -71,7 +71,7 @@ const addDog = (
 
 
 const editDog = ({
-  id,
+  _id,
   name,
   photo,
   breed,
@@ -80,7 +80,7 @@ const editDog = ({
   gender
 }: Dog) => {
   axios.put(endPointBaseUrl + "/editDog", {
-    id,
+    _id,
     name,
     photo,
     breed,

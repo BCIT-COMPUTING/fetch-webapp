@@ -6,7 +6,10 @@ import TinderCard from 'react-tinder-card';
 import { getStorageValue } from '../../store/localStorageHook';
 import { useNavigate } from 'react-router-dom';
 import {  addLikeToMatch,
-          addDislikeToMatch, } from '../../api/match';
+          addDislikeToMatch, 
+          addMatch,
+          checkMatchTableExsist
+        } from '../../api/match';
 
 const MainPage = () => {
   const [dogs, setDogs] = useState<Array<Dog>>([]);
@@ -17,11 +20,13 @@ const MainPage = () => {
 
   const swiped = (dogId:String, direction:String, nameToDelete:String) => {
     if(direction === 'left') {
-      setMsg(`You like ${nameToDelete}`);
+      console.log('like dogID ' + dogId);
       addLikeToMatch(dogId);
+      setMsg(`You like ${nameToDelete}`);
     } else {
-      setMsg(`You don't like ${nameToDelete}`);
+      console.log('dislike dogID ' + dogId);
       addDislikeToMatch(dogId);
+      setMsg(`You don't like ${nameToDelete}`);
     }
     setLastDirection(direction.toString())
   }
@@ -34,8 +39,11 @@ const MainPage = () => {
     const { user: { _id } } = getStorageValue('user', '');
     setUser(_id);
     (async() => {
+      const checkTable = await checkMatchTableExsist();
+      if (!checkTable) {
+        addMatch();
+      }
       const allDogs = await getAllDogs();
-      console.log(allDogs);
       setDogs(allDogs);
     })();
   }, []);
@@ -48,11 +56,11 @@ const MainPage = () => {
       { dogs.map((dog, index) =>
           <TinderCard className={styles.swipe}
                       key={index}
-                      onSwipe={(dir) => swiped(dog.id, dir, dog.name)}
+                      onSwipe={(dir) => swiped(dog._id, dir, dog.name)}
                       onCardLeftScreen={() => outOfFrame(dog.name)}
                       >
           <div className={styles.cardDiv}
-          style={ { backgroundColor: (dog.gender === "female") ? "rgb(229, 194, 200)" : "rgb(126, 126, 212)" }} >
+                style={ { backgroundColor: (dog.gender === "female") ? "rgb(229, 194, 200)" : "rgb(126, 126, 212)" }} >
             <h2 className={styles.name}>{dog.name}</h2>
             <img className={styles.img}
                 alt="dog image"

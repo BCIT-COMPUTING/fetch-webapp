@@ -128,7 +128,7 @@ const Temp = () => {
         }
         <button onClick={() => 
         addDog({
-          id,
+          _id: id,
           name,
           photo,
           breed,
@@ -154,7 +154,7 @@ const Temp = () => {
         {form()}
         <button onClick={() => editDog(
           {
-            id,
+            _id: id,
             name,
             photo,
             breed,
