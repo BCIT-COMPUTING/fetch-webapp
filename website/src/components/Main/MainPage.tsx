@@ -60,7 +60,7 @@ const MainPage = () => {
                       onCardLeftScreen={() => outOfFrame(dog.name)}
                       >
           <div className={styles.cardDiv}
-                style={ { backgroundColor: (dog.gender === "female") ? "rgb(229, 194, 200)" : "rgb(126, 126, 212)" }} >
+                style={ { backgroundColor: (dog.gender === "female") ? "rgb(229, 194, 200)" : "#0096FF" }} >
             <h2 className={styles.name}>{dog.name}</h2>
             <img className={styles.img}
                 alt="dog image"

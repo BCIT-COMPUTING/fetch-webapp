@@ -14,7 +14,7 @@ interface Dog {
 }
 
 const getAllDogs = async () => {
-  const res = await axios.get(endPointBaseUrl + "/getDogs");
+  const res = await axios.get(`${endPointBaseUrl}/getDogs`);
   return <Array<Dog>>res.data;
 };
 
@@ -79,7 +79,7 @@ const editDog = ({
   description,
   gender
 }: Dog) => {
-  axios.put(endPointBaseUrl + "/editDog", {
+  axios.put(`${endPointBaseUrl}/editDog`, {
     _id,
     name,
     photo,
