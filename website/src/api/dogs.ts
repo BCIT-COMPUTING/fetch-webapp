@@ -12,10 +12,9 @@ interface Dog {
   gender: String,
 }
 
-const getAllDogs = () => {
-  axios.get(endPointBaseUrl + "/getDogs").then(response => {
-    return response.data;
-  }).catch(error => console.error(error));
+const getAllDogs = async () => {
+  const res = await axios.get(endPointBaseUrl + "/getDogs");
+  return <Array<Dog>>res.data;
 };
 
 const addEditDog = ({

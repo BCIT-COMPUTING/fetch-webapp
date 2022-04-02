@@ -10,6 +10,7 @@ import LoginPage from "./Login/LoginPage";
 import DogInfoPage from "./DogInfo/DogInfoPage";
 import AdminPage from "./Admin/AdminPage";
 import MatchesPage from "./Matches/MatchesPage";
+import MainPage from "./Main/MainPage";
 import Navbar from "./Nav/Nav";
 import Logout from "./Logout/Logout";
 import { useEffect } from "react";
@@ -48,6 +49,10 @@ function AppRouter() {
           <Route
             path="/login"
             element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
+          />
+          <Route
+            path="/main"
+            element={user.isLoggedIn ? <MainPage /> : <MainPage />}
           />
           <Route path="/dogInfo" element={<DogInfoPage />} />
           <Route
