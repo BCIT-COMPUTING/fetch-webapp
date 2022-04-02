@@ -3,12 +3,16 @@ import { useEffect, useState} from 'react';
 import { getAllDogs } from '../../api/dogs'
 import type { Dog } from '../../api/dogs';
 import TinderCard from 'react-tinder-card';
+import { getStorageValue } from '../../store/localStorageHook';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
 
   const [dogs, setDogs] = useState<Array<Dog>>([]);
   const [msg, setMsg] = useState('');
+  const [user, setUser] = useState('');
   const [lastDirection, setLastDirection] = useState('');
+  const navigate = useNavigate();
 
   const swiped = (direction:String, nameToDelete:String) => {
     if(direction === 'left') {
@@ -24,6 +28,8 @@ const MainPage = () => {
   }
 
   useEffect(() => {
+    const { user: { _id } } = getStorageValue('user', '');
+    setUser(_id);
     (async() => {
       const allDogs = await getAllDogs();
       console.log(allDogs);
@@ -33,6 +39,9 @@ const MainPage = () => {
 
   return(
     <>
+      <button onClick={() => navigate('/temp')} className={styles.matchBtn}>
+        Go To Match
+      </button>
       { dogs.map((dog, index) =>
           <TinderCard className={styles.swipe}
                       key={index}
@@ -40,7 +49,7 @@ const MainPage = () => {
                       onCardLeftScreen={() => outOfFrame(dog.name)}
                       >
           <div className={styles.cardDiv}
-          style={ { backgroundColor: (dog.gender === 'female') ? 'rgb(229, 194, 200)' : 'rgb(126, 126, 212)' }} >
+          style={ { backgroundColor: (dog.gender === "female") ? "rgb(229, 194, 200)" : "rgb(126, 126, 212)" }} >
             <h2 className={styles.name}>{dog.name}</h2>
             <img className={styles.img}
                 alt="dog image"
