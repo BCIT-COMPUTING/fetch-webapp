@@ -1,8 +1,8 @@
-const Dog = require("../models/Dog");
-const router = require("express").Router();
+const Dog = require('../models/Dog');
+const router = require('express').Router();
 
 //get all dogs
-router.get("/getDogs", async (req, res) => {
+router.get('/getDogs', async (req, res) => {
   try {
     const dogs = await Dog.find();
     res.json(dogs);
@@ -12,8 +12,21 @@ router.get("/getDogs", async (req, res) => {
   }
 });
 
+//get Dog by userID
+router.get('/profile/:id', async (req, res) => {
+  const { id } = req.params;
+  try{
+    const foundDog = await Dog.findOne({ userID: id });
+    console.log({foundDog});
+    res.json(foundDog);
+  } catch(err) {
+    console.log(err);
+    throw err;
+  }
+});
+
 //add dog
-router.post("/addDog", async (req, res) => {
+router.post('/addDog', async (req, res) => {
   const {
     name,
     userID,
@@ -21,8 +34,8 @@ router.post("/addDog", async (req, res) => {
     breed,
     age,
     description,
-    gender,
-    likes } = req.body;
+    gender
+   } = req.body;
 
   const newDog = new Dog({
     name,
@@ -31,8 +44,7 @@ router.post("/addDog", async (req, res) => {
     breed,
     age,
     description,
-    gender,
-    likes
+    gender
   });
 
   try {
@@ -45,7 +57,7 @@ router.post("/addDog", async (req, res) => {
 });
 
 //edit dog
-router.put("/editDog", async (req, res) => {
+router.put('/editDog', async (req, res) => {
   const { 
     id,
     name,
@@ -54,8 +66,7 @@ router.put("/editDog", async (req, res) => {
     breed,
     age,
     description,
-    gender,
-    likes 
+    gender
         } = req.body;
     try {
       await Dog.updateOne({_id: id}, {
@@ -65,8 +76,7 @@ router.put("/editDog", async (req, res) => {
         breed,
         age,
         description,
-        gender,
-        likes
+        gender
       });
     } catch(err) {
       throw err;
@@ -75,8 +85,9 @@ router.put("/editDog", async (req, res) => {
 
 
 //delete dog by Id
-router.post("/delete", async(req, res) => {
-  const { id, } = req.body;
+router.delete('/delete/:id', async(req, res) => {
+  const { id } = req.params;
+  console.log(`delete ${id}`);
   await Dog.deleteOne({_id: id});
   res.status(200).json({status: 'success', id});
   try{
@@ -88,11 +99,11 @@ router.post("/delete", async(req, res) => {
 });
 
 //get a dog by id
-router.get("/:id", async(req, res) => {
+router.get('/:id', async(req, res) => {
   const { id } = req.params;
   try{
     const foundDog = await Dog.findById(id);
-    console.log(foundDog);
+    // console.log(foundDog);
     res.json(foundDog);
   } catch(err) {
     console.log(err);

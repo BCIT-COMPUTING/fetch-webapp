@@ -9,21 +9,38 @@ const AdminPage = () => {
   const { user } = useAppStore();
   const currentUser = user.user;
   const [stats, setStats] = useState({
-    numOfSuccessfulLogins: 0,
-    numOfFailedLogins: 0,
-    numOfLoginAttempts: 0,
-    numOfUsers: 0,
-    numOfTimesVisitedStatPage: 0,
+    postRegister: 0,
+    postLogin: 0,
+    postVerifyJWT: 0,
+    getDogs: 0,
+    postAddEditDog: 0,
+    deleteDog: 0,
+    getDogById: 0,
+    getStats: 0,
+    postReset: 0,
   });
 
   const hasCredentials = user.isLoggedIn && currentUser.isAdmin;
 
   const getStats = async () => {
     //pass token here
-    await userRequest.get("/admin").then((response) => {
-      setStats(response.data);
-      console.log(response.data);
-    });
+    try {
+      let response = await userRequest.get("/admin/stats");
+      setStats(response.data[0]);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const resetStats = async () => {
+    //pass token here
+    try {
+      let response = await userRequest.post("/admin/reset");
+      await setStats(response.data[0]);
+      getStats();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -32,33 +49,83 @@ const AdminPage = () => {
 
   return (
     <div className={styles.adminPageContainer}>
-      <div className={styles.adminContainer}>
-        <h1>Fetch</h1>
-        <h2>Admin admins</h2>
-        <table>
-          <tbody>
-            <tr>
-              <td>Successful logins:</td>
-              <td>{stats.numOfSuccessfulLogins}</td>
-            </tr>
-            <tr>
-              <td>Failed logins:</td>
-              <td>{stats.numOfFailedLogins}</td>
-            </tr>
-            <tr>
-              <td>Total number of login attempts:</td>
-              <td>{stats.numOfLoginAttempts}</td>
-            </tr>
-            <tr>
-              <td>Number of users:</td>
-              <td>{stats.numOfUsers}</td>
-            </tr>
-            <tr>
-              <td>Number of times visited stat page:</td>
-              <td>{stats.numOfTimesVisitedStatPage}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className={styles.adminContent}>
+        <h2>Statistics - /api/v1</h2>
+        <div className={styles.adminTableContent}>
+          <table>
+            <thead>
+              <tr>
+                <th>HTTP Method</th>
+                <th>Endpoint</th>
+                <th>Description</th>
+                <th># of hits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>POST</td>
+                <td>/auth/register</td>
+                <td>User registration</td>
+                <td>{stats.postRegister}✅</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/auth/login</td>
+                <td>User login</td>
+                <td>{stats.postLogin}✅</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/auth/verifyJWT</td>
+                <td>Verification of JSON Web Token</td>
+                <td>{stats.postVerifyJWT}✅</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/dog/getDogs</td>
+                <td>Obtain dogs?</td>
+                <td>{stats.getDogs}❌</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/dog/addEditDog</td>
+                <td>Add/edit dog?</td>
+                <td>{stats.postAddEditDog}❌</td>
+              </tr>
+              <tr>
+                <td>POST???</td>
+                <td>/dog/delete</td>
+                <td>Delete dog</td>
+                <td>{stats.deleteDog}❌</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/dog/:id</td>
+                <td>Get a dog by ID</td>
+                <td>{stats.getDogById}❌</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/admin/stats</td>
+                <td>Obtaining the stats of Fetch app</td>
+                <td>{stats.getStats}✅</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/admin/reset</td>
+                <td>Reset stats of Fetch app</td>
+                <td>{stats.postReset}✅</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>✅ = handled this stat in the backend</p>
+        <p>❌ = NOT handled yet</p>
+        <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={async () => {
+          await resetStats();
+          getStats();
+          }}
+        />
       </div>
     </div>
   );
