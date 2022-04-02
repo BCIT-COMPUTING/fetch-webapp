@@ -5,20 +5,23 @@ import type { Dog } from '../../api/dogs';
 import TinderCard from 'react-tinder-card';
 import { getStorageValue } from '../../store/localStorageHook';
 import { useNavigate } from 'react-router-dom';
+import {  addLikeToMatch,
+          addDislikeToMatch, } from '../../api/match';
 
 const MainPage = () => {
-
   const [dogs, setDogs] = useState<Array<Dog>>([]);
   const [msg, setMsg] = useState('');
   const [user, setUser] = useState('');
   const [lastDirection, setLastDirection] = useState('');
   const navigate = useNavigate();
 
-  const swiped = (direction:String, nameToDelete:String) => {
+  const swiped = (dogId:String, direction:String, nameToDelete:String) => {
     if(direction === 'left') {
       setMsg(`You like ${nameToDelete}`);
+      addLikeToMatch(dogId);
     } else {
       setMsg(`You don't like ${nameToDelete}`);
+      addDislikeToMatch(dogId);
     }
     setLastDirection(direction.toString())
   }
@@ -45,7 +48,7 @@ const MainPage = () => {
       { dogs.map((dog, index) =>
           <TinderCard className={styles.swipe}
                       key={index}
-                      onSwipe={(dir) => swiped(dir, dog.name)}
+                      onSwipe={(dir) => swiped(dog.id, dir, dog.name)}
                       onCardLeftScreen={() => outOfFrame(dog.name)}
                       >
           <div className={styles.cardDiv}

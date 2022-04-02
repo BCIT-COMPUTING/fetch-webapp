@@ -9,8 +9,9 @@ interface Match {
   dislikes: [String]
 }
 
-const getMatchByUserId = async (userId: String) => {
-  const res = await axios.get(`${endPointBaseUrl}/${userId}`);
+const getMatchByUserId = async () => {
+  const { user: { _id }} = getStorageValue('user', '');
+  const res = await axios.get(`${endPointBaseUrl}/${_id}`);
   console.log(res.data);
   return <Match> res.data;
 };

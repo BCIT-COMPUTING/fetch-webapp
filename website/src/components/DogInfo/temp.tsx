@@ -29,7 +29,7 @@ const Temp = () => {
   useEffect(() => {
     //get all dogs
     (async() => {
-      const {likes, dislikes} = await getMatchByUserId('623cad86cb44fd81b3ec00e8');
+      const {likes, dislikes} = await getMatchByUserId();
       console.log(likes);
     })();
     console.log(getAllDogs());
