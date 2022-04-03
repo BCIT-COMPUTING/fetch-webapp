@@ -23,7 +23,7 @@ const DogSignUp = () => {
     (async () => {
       const checkTable = await checkDogTableExsist(_id);
       if (checkTable) {
-        navigate("/dog-info");
+        navigate("/main");
       }
     })();
   }, []);
@@ -151,6 +151,7 @@ const DogSignUp = () => {
     const addDogRes = addDog({
       _id,
       name,
+      userID: "",
       photo,
       breed,
       age,
@@ -158,7 +159,7 @@ const DogSignUp = () => {
       gender,
     });
     console.log(addDogRes);
-    navigate("/dogInfo");
+    navigate("/main");
   };
 
   return <>{form()}</>;

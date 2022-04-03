@@ -23,7 +23,7 @@ const Nav = () => {
       {/* menu list */}
       <ul className={styles.ul}>
         <li className={styles.li}>
-          <a className={styles.a} id="home" href="/">
+          <a className={styles.a} id="home" href="/main">
             Home
           </a>
         </li>
@@ -33,7 +33,7 @@ const Nav = () => {
           </a>
         </li>
         <li className={styles.li}>
-          <a className={styles.a} id="contact" href="/">
+          <a className={styles.a} id="match" href="/match">
             Matches
           </a>
         </li>

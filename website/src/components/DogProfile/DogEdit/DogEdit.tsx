@@ -63,6 +63,7 @@ const DogEdit = (props: { data: {
     editDog(
       {
         _id: dogId,
+        userID: '',
         name: editName,
         photo: editPhoto,
         breed: editBreed,

@@ -23,8 +23,7 @@ const DogProfile = () => {
   const handleDelete = () => {
     deleteDogByID(dogId);
     setDogId('');
-    //TODO navigate to dog sign in
-    navigate('/temp');
+    navigate('/dogSignUp');
   };
 
   const displayConfirmDelete = () =>
@@ -58,8 +57,7 @@ const DogProfile = () => {
       } = await getDogByUserID(_id);
       if(id === null || id === '') {
         console.log('navigate to dog sign in');
-        //TODO navigate to dog sign in
-        navigate('/temp');
+        navigate('/dogSignUp');
       }
         setDogId(id.toString());
         setDogName(name.toString());

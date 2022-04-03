@@ -12,6 +12,7 @@ const Logout = () => {
       jwt: "",
       isLoggedIn: false,
       user: {
+        _id: "",
         accessToken: "",
         createdAt: "",
         email: "",
@@ -25,7 +26,7 @@ const Logout = () => {
   }, []);
 
   const handleClick = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (
