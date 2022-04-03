@@ -1,4 +1,3 @@
-import axios from "axios";
 import { publicRequest } from "../appConfigs";
 
 export const hasValidJWT = async (user) => {

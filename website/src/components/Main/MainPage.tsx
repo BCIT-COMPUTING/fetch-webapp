@@ -8,15 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import {  addLikeToMatch,
           addDislikeToMatch, 
           addMatch,
-          checkMatchTableExsist,
           addViewedToMatch,
-          getMatchByUserId
+          getMatchByUserId,
+          checkMatchTableExist
         } from '../../api/match';
+import { useAppStore } from '../../store/appContext';
 
 const MainPage = () => {
+  const { user, setUser } = useAppStore();
   const [dogs, setDogs] = useState<Array<Dog>>([]);
   const [msg, setMsg] = useState('');
-  const [user, setUser] = useState('');
   const [lastDirection, setLastDirection] = useState('');
   const [myList, setMyList] = useState<Array<String>>([]);
   const navigate = useNavigate();
@@ -40,12 +41,10 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    const { user: { _id } } = getStorageValue('user', '');
-    setUser(_id);
     (async() => {
       const {viewed} = await getMatchByUserId();
       setMyList(viewed);
-      const checkTable = await checkMatchTableExsist();
+      const checkTable = await checkMatchTableExist(user.user._id);
       if (!checkTable) {
         addMatch();
       }

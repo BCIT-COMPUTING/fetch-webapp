@@ -55,9 +55,9 @@ server.use(bodyParser.raw({ limit: "50mb" }));
 
 // Routes
 server.use("/api/v1/auth", authRoute);
-server.use("/dog", dogRoute);
+server.use("/api/v1/dog", dogRoute);
 server.use("/api/v1/admin", adminRoute);
-server.use("/match", matchRoute);
+server.use("/api/v1/match", matchRoute);
 
 // ensureTables();
 
