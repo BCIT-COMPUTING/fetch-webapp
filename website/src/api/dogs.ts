@@ -1,7 +1,7 @@
-import axios from "axios";
+import { publicRequest } from "../appConfigs";
 import { getStorageValue } from "../store/localStorageHook";
 
-const endPointBaseUrl = "http://localhost:8080/dog";
+const path = "/dog";
 
 interface Dog {
   _id: String;
@@ -14,13 +14,13 @@ interface Dog {
 }
 
 const getAllDogs = async () => {
-  const res = await axios.get(`${endPointBaseUrl}/getDogs`);
+  const res = await publicRequest.get(`${path}/getDogs`);
   return <Array<Dog>> res.data;
 };
 
 //get dog by userID
 const getDogByUserID = async (id: String) => {
-  const res = await axios.get(`${endPointBaseUrl}/profile/${id}`);
+  const res = await publicRequest.get(`${path}/profile/${id}`);
   const {
     _id = "",
     name = "",
@@ -47,8 +47,8 @@ const addDog = ({ name, photo, breed, age, description, gender }: Dog) => {
   const {
     user: { _id },
   } = getStorageValue("user", "");
-  axios
-    .post(`${endPointBaseUrl}/addDog`, {
+  publicRequest
+    .post(`${path}/addDog`, {
       name,
       userID: _id,
       photo,
@@ -73,8 +73,8 @@ const editDog = ({
   description,
   gender,
 }: Dog) => {
-  axios
-    .put(`${endPointBaseUrl}/editDog`, {
+  publicRequest
+    .put(`${path}/editDog`, {
       _id,
       name,
       photo,
@@ -91,14 +91,14 @@ const editDog = ({
 
 //get dog by dogID
 const getDogByID = async (id: String) => {
-  const res = await axios.get(`${endPointBaseUrl}/${id}`);
+  const res = await publicRequest.get(`${path}/${id}`);
   return <Dog>res.data;
 };
 
 //delete dog by dogID
 const deleteDogByID = (id: String) => {
-  axios
-    .delete(`${endPointBaseUrl}/delete/${id}`)
+  publicRequest
+    .delete(`${path}/delete/${id}`)
     .then((response) => {
       console.log(response.data);
     })
@@ -106,7 +106,7 @@ const deleteDogByID = (id: String) => {
 };
 
 const checkDogTableExsist = async (_id: string) => {
-  const res = await axios.get(`${endPointBaseUrl}/checkUser/${_id}`);
+  const res = await publicRequest.get(`${path}/checkUser/${_id}`);
   console.log(res.data.result);
   return res.data.result;
 };
