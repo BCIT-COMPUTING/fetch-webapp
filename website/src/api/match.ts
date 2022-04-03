@@ -13,8 +13,8 @@ interface Match {
 const getMatchByUserId = async (_id: string) => {
   console.log("match userId " + _id);
   const res = await publicRequest.get(`${path}/${_id}`);
-  console.log(res.data);
-  return <Match>res.data;
+  console.log(JSON.stringify(res.data));
+  return <Match>res.data[0];
 };
 
 const addMatch = async () => {

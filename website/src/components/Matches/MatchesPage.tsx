@@ -14,6 +14,7 @@ const MatchesPage = () => {
   useEffect(() => {
     (async () => {
       const { userId, likes } = await getMatchByUserId(user.user._id);
+      console.log('user id ' + user.user._id);
       console.log("my likes " + likes);
       const allLikes = await getAllLikesByEveryOne();
       allLikes.forEach(async (dog: Match) => {
