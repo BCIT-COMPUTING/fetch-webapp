@@ -11,6 +11,7 @@ import DogInfoPage from "./DogInfo/DogInfoPage";
 import DogProfilePage from "./DogProfile/DogProfile";
 import AdminPage from "./Admin/AdminPage";
 import MatchesPage from "./Matches/MatchesPage";
+import MainPage from "./Main/MainPage";
 import Navbar from "./Nav/Nav";
 import Logout from "./Logout/Logout";
 import { useEffect } from "react";
@@ -51,12 +52,11 @@ function AppRouter() {
             path="/login"
             element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
           />
-          <Route path="/dog-info/:id" element={<DogInfoPage />} />
-          {/* for testing dog database remove later */}
-           <Route
-            path="/temp"
-            element={<Temp />}
+          <Route
+            path="/main"
+            element={user.isLoggedIn ? <MainPage /> : <MainPage />}
           />
+          <Route path="/dog-info/:id" element={<DogInfoPage />} />
           <Route path="/dog-profile/:id" element={<DogProfilePage />} />
           <Route
             path="/admin"
