@@ -8,7 +8,7 @@ const StatsSchema = new mongoose.Schema(
     getDogs: Number,
     postAddEditDog: Number,
     deleteDog: Number,
-    getDogById: Number,
+    getDogByUserId: Number,
     getStats: Number,
     postReset: Number
   },

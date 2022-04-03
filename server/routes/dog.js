@@ -1,8 +1,11 @@
 const Dog = require("../models/Dog");
 const router = require("express").Router();
+const admin = require('../configs/adminUtils');
 
 //get all dogs
 router.get("/getDogs", async (req, res) => {
+  await admin.updateStats("getDogs");
+
   try {
     const dogs = await Dog.find();
     res.json(dogs);
@@ -14,6 +17,8 @@ router.get("/getDogs", async (req, res) => {
 
 //get Dog by userID
 router.get("/profile/:id", async (req, res) => {
+  await admin.updateStats("getDogByUserId");
+
   const { id } = req.params;
   try {
     const foundDog = await Dog.findOne({ userID: id });
@@ -26,6 +31,8 @@ router.get("/profile/:id", async (req, res) => {
 
 //add dog
 router.post("/addDog", async (req, res) => {
+  await admin.updateStats("postAddDog");
+
   const { name, userID, photo, breed, age, description, gender } = req.body;
 
   const newDog = new Dog({

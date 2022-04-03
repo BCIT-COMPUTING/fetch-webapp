@@ -15,7 +15,7 @@ const AdminPage = () => {
     getDogs: 0,
     postAddEditDog: 0,
     deleteDog: 0,
-    getDogById: 0,
+    getDogByUserId: 0,
     getStats: 0,
     postReset: 0,
   });
@@ -66,25 +66,25 @@ const AdminPage = () => {
                 <td>POST</td>
                 <td>/auth/register</td>
                 <td>User registration</td>
-                <td>{stats.postRegister}✅</td>
+                <td>{stats.postRegister}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/login</td>
                 <td>User login</td>
-                <td>{stats.postLogin}✅</td>
+                <td>{stats.postLogin}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/verifyJWT</td>
                 <td>Verification of JSON Web Token</td>
-                <td>{stats.postVerifyJWT}✅</td>
+                <td>{stats.postVerifyJWT}</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/getDogs</td>
-                <td>Obtain dogs?</td>
-                <td>{stats.getDogs}❌</td>
+                <td>Get list of all dogs</td>
+                <td>{stats.getDogs}</td>
               </tr>
               <tr>
                 <td>POST</td>
@@ -93,33 +93,32 @@ const AdminPage = () => {
                 <td>{stats.postAddEditDog}❌</td>
               </tr>
               <tr>
-                <td>POST???</td>
+                <td>DELETE</td>
                 <td>/dog/delete</td>
                 <td>Delete dog</td>
                 <td>{stats.deleteDog}❌</td>
               </tr>
               <tr>
                 <td>GET</td>
-                <td>/dog/:id</td>
-                <td>Get a dog by ID</td>
-                <td>{stats.getDogById}❌</td>
+                <td>/dog/profile/:id</td>
+                <td>Get a dog by User ID (example: going to Profile page)</td>
+                <td>{stats.getDogByUserId}</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
                 <td>Obtaining the stats of Fetch app</td>
-                <td>{stats.getStats}✅</td>
+                <td>{stats.getStats}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/admin/reset</td>
                 <td>Reset stats of Fetch app</td>
-                <td>{stats.postReset}✅</td>
+                <td>{stats.postReset}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p>✅ = handled this stat in the backend</p>
         <p>❌ = NOT handled yet</p>
         <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={async () => {
           await resetStats();
