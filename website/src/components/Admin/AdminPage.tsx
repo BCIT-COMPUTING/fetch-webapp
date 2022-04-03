@@ -101,9 +101,9 @@ const AdminPage = () => {
               </tr>
               <tr>
                 <td>DELETE</td>
-                <td>/dog/delete</td>
+                <td>/dog/delete/:id</td>
                 <td>Delete dog</td>
-                <td>{stats.deleteDog}❌</td>
+                <td>{stats.deleteDog}</td>
               </tr>
               <tr>
                 <td>GET</td>

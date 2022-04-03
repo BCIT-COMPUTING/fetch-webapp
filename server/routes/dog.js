@@ -79,6 +79,8 @@ router.put("/editDog", async (req, res) => {
 
 //delete dog by Id
 router.delete("/delete/:id", async (req, res) => {
+  await admin.updateStats("deleteDog");
+
   const { id } = req.params;
   await Dog.deleteOne({ _id: id });
   res.status(200).json({ status: "success", id });
