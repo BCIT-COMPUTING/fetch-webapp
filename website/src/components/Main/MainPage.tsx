@@ -42,13 +42,16 @@ const MainPage = () => {
 
   useEffect(() => {
     (async () => {
-      const { viewed = [] as String[] } = await getMatchByUserId(user.user._id);
-      console.log(viewed);
+      const { viewed = [] as String[] || []} = await getMatchByUserId(user.user._id);
       setMyList(viewed);
+      console.log(viewed);
       const checkTable = await checkMatchTableExist(user.user._id);
       const allDogs = await getAllDogs(user.user._id);
       if (!checkTable) {
         await addMatch();
+        allDogs.forEach((d) => {
+          setDogs((dogs) => dogs.concat(d));
+        });
       }
       allDogs.forEach((d) => {
         if (!viewed.includes(d._id)) {
