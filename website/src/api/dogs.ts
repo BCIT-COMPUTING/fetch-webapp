@@ -15,7 +15,7 @@ interface Dog {
 
 const getAllDogs = async () => {
   const res = await axios.get(`${endPointBaseUrl}/getDogs`);
-  return <Array<Dog>>res.data;
+  return <Array<Dog>> res.data;
 };
 
 //get dog by userID

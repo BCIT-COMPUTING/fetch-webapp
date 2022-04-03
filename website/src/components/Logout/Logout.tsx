@@ -25,7 +25,7 @@ const Logout = () => {
   }, []);
 
   const handleClick = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (

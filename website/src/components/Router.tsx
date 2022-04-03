@@ -15,7 +15,6 @@ import MainPage from "./Main/MainPage";
 import Navbar from "./Nav/Nav";
 import Logout from "./Logout/Logout";
 import { useEffect } from "react";
-import Temp from "./DogInfo/temp";
 import DogSignUp from "./DogSignUp/DogSignUp";
 
 function AppRouter() {
@@ -54,7 +53,6 @@ function AppRouter() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/temp" element={<Temp />} />
           <Route
             path="/signup"
             element={user.isLoggedIn ? <MainPage /> : <SignupPage />}

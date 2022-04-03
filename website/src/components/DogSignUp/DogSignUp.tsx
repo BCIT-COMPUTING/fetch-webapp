@@ -158,7 +158,7 @@ const DogSignUp = () => {
       gender,
     });
     console.log(addDogRes);
-    navigate("/dogInfo");
+    navigate("/main");
   };
 
   return <>{form()}</>;
