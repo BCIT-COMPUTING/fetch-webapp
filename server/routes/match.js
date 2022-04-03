@@ -8,7 +8,7 @@ router.get('/:id', async(req, res) => {
   const { id } = req.params;
   try{
     const found = await Match.findOne({ userId : id});
-    console.log(found);
+    // console.log(found);
     res.json(found);
   } catch(err) {
     console.log(err);
@@ -79,6 +79,39 @@ router.put('/addDislikes/:id', async(req, res) => {
 router.get('/checkUser/:id', async(req, res) => {
   const { id } = req.params;
   try{
+    const found = await Match.findOne({ userId : id});
+    if (found) {
+      res.json({result: true});
+    } else {
+      res.json({result: false});
+    }
+  } catch(err) {
+    console.log(err);
+    throw err;
+  }
+})
+
+router.post('/checkLikes', async(req, res) => {
+  console.log("check likes hit");
+  const { id } = req.params;
+
+  // console.log(req.body);
+  const likesArray = req.body.likes;
+  console.log(likesArray);
+  console.log(typeof(likesArray));
+
+  let returnArray = []; 
+
+  for (let like of likesArray) {
+    console.log(like);
+  }
+
+
+
+  
+
+  try{
+
     const found = await Match.findOne({ userId : id});
     if (found) {
       res.json({result: true});
