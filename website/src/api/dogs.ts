@@ -6,7 +6,7 @@ const endPointBaseUrl = "http://localhost:8080/dog";
 interface Dog {
   _id: String;
   name: String;
-  photo: String;
+  photo: string;
   breed: String;
   age: number;
   description: String;

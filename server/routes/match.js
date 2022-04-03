@@ -8,7 +8,6 @@ router.get('/:id', async(req, res) => {
   const { id } = req.params;
   try{
     const found = await Match.findOne({ userId : id});
-    console.log(found);
     res.json(found);
   } catch(err) {
     console.log(err);
@@ -19,17 +18,16 @@ router.get('/:id', async(req, res) => {
 //create match
 router.post('/add', async(req, res) => {
   const { userId } = req.body;
-  console.log(userId);
   try{
-    const newMatch = new Match({
-      userId,
-      likes: [],
-      dislikes: []
-    });
-    const savedMatch = await newMatch.save();
-    res.status(200).json(savedMatch);
+      const newMatch = new Match({
+        userId,
+        likes: [],
+        dislikes: []
+      });
+      const savedMatch = await newMatch.save();
+      res.status(200).json(savedMatch);
   } catch(err) {
-    console.log(err);
+      console.log(err);
     throw err;
   }
 });
@@ -40,13 +38,10 @@ router.put('/addLikes/:id', async(req, res) => {
   const { dogId } = req.body;
   try{
     const found = await Match.find({ userId : id});
-    console.log(found[0].likes.includes(dogId));
     if(!found[0].likes.includes(dogId)) {
-      console.log('not found');
       const update = await Match.findOneAndUpdate({ userId : id}, {$push: {likes: dogId}});
       res.json(update);
     } else {
-      console.log('found');
       res.json(found);
     }
   } catch(err) {
@@ -59,15 +54,12 @@ router.put('/addLikes/:id', async(req, res) => {
 router.put('/addDislikes/:id', async(req, res) => {
   const { id } = req.params;
   const { dogId } = req.body;
-  console.log(dogId);
   try{
     const found = await Match.find({ userId : id});
     if(!found[0].dislikes.includes(dogId)) {
-      console.log('not found');
       const update = await Match.findOneAndUpdate({ userId : id}, {$push: {dislikes: dogId}});
       res.json(update);
     } else {
-      console.log('found');
       res.json(found);
     }
   } catch(err) {
@@ -89,6 +81,19 @@ router.get('/checkUser/:id', async(req, res) => {
     console.log(err);
     throw err;
   }
-})
+});
+
+router.get('/allLikes/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try{
+    const found = await Match.find({ likes : id});
+    console.log(found);
+    res.json(found);
+  } catch(err) {
+    console.log(err);
+    throw err;
+  }
+});
 
 module.exports = router;

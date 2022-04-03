@@ -17,7 +17,6 @@ router.get("/profile/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const foundDog = await Dog.findOne({ userID: id });
-    console.log({ foundDog });
     res.json(foundDog);
   } catch (err) {
     console.log(err);
@@ -72,7 +71,6 @@ router.put("/editDog", async (req, res) => {
 //delete dog by Id
 router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(`delete ${id}`);
   await Dog.deleteOne({ _id: id });
   res.status(200).json({ status: "success", id });
   try {
@@ -87,7 +85,6 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const foundDog = await Dog.findById(id);
-    // console.log(foundDog);
     res.json(foundDog);
   } catch (err) {
     console.log(err);

@@ -1,16 +1,11 @@
 import styles from './DogInfoPage.module.css';
 import { useState, useEffect } from 'react';
-import { useAppStore } from '../../store/appContext';
-//import { useLocation } from "react-router";
-import { useNavigate } from 'react-router-dom';
-import { getDogByID } from '../../api/dogs';
+import { useNavigate, useLocation } from 'react-router-dom';
 import type { Dog } from '../../api/dogs';
 
 const DogInfoPage = () => {
-  const { user, setUser } = useAppStore();
-  //let data = useLocation();
-  //testing the id 623e05239456782e58dcb18d need to setID later passing from previous page
-  const [id, setID] = useState('624778d0d8fe7c1b03cab1f2');
+  const location = useLocation();
+  const state = location.state as Dog;
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState('');
   const [description, setDescription] = useState('');
@@ -20,26 +15,18 @@ const DogInfoPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (state.isLoggedIn === false) {
-    //   navigate("/login");
-    //   return;
-    // }
-    (async () => {
-      const result: Dog = await getDogByID(id);
-      const { name, photo, gender, description, age, breed } = result;
-      setName(name.toString());
-      setPhoto(photo.toString());
-      setBreed(breed.toString());
-      setDescription(description.toString());
-      setGender(gender.toString());
-      setAge(age);
-    })();
+      const dog = state;
+      setName(dog.name.toString());
+      setPhoto(dog.photo.toString());
+      setBreed(dog.breed.toString());
+      setDescription(dog.description.toString());
+      setGender(dog.gender.toString());
+      setAge(dog.age);
   }, []);
 
   return (
     <div className={styles.container}>
-      {/* TODO change the link to the previous page */}
-      <button onClick={() => navigate("/")} className={styles.btn}>
+      <button onClick={() => navigate("/main")} className={styles.btn}>
         Back
       </button>
       <div className={styles.dogInfo}>

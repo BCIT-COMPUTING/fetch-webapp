@@ -8,7 +8,8 @@ import {
   addLikeToMatch,
   addDislikeToMatch,
   getMatchByUserId,
-  addMatch
+  addMatch,
+  getAllLikesByEveryOne
 } from '../../api/match';
 
 import React, { useState, useEffect } from 'react';
@@ -34,7 +35,8 @@ const Temp = () => {
     // setUserID();
     (async() => {
       const {likes, dislikes} = await getMatchByUserId();
-      console.log(likes);
+      const allLikes = await getAllLikesByEveryOne();
+      console.log({allLikes});
     })();
     console.log(getAllDogs());
   }, []);

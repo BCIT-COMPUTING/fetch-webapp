@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getStorageValue } from '../store/localStorageHook';
+import { getDogByUserID } from '../api/dogs';
 
 const endPointBaseUrl = 'http://localhost:8080/match';
 
@@ -46,14 +47,26 @@ const addDislikeToMatch = async (dogId: String) => {
 const checkMatchTableExsist = async () => {
   const { user: { _id }} = getStorageValue('user', '');
   const res = await axios.get(`${endPointBaseUrl}/checkUser/${_id}`);
-  console.log(res.data.result)
+  console.log(res.data.result);
   return res.data.result;
-}
+};
+
+const getAllLikesByEveryOne = async () => {
+  const { user: { _id }} = getStorageValue('user', '');
+  const dog = await getDogByUserID(_id);
+  console.log( `user's dog id: ${dog._id}`);
+  const res = await axios.get(`${endPointBaseUrl}/allLikes/${dog._id}`);
+  console.log(res.data);
+  return res.data;
+};
 
 export {
   getMatchByUserId,
   addLikeToMatch,
   addDislikeToMatch,
   addMatch,
-  checkMatchTableExsist
+  checkMatchTableExsist,
+  getAllLikesByEveryOne
 }
+
+export type { Match };

@@ -69,6 +69,7 @@ function AppRouter() {
           />
           <Route path="/dog-info/:id" element={<DogInfoPage />} />
           <Route path="/dog-profile/:id" element={<DogProfilePage />} />
+          <Route path="/match" element={<MatchesPage />} />
           <Route
             path="/admin"
             element={
