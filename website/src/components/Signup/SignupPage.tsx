@@ -54,7 +54,7 @@ const SignupPage = () => {
             user: response.data,
           });
           toast.success("Signup successful");
-          navigate("/dogInfo");
+          navigate("/dogSignUp");
         }
       })
       .catch((error) => {

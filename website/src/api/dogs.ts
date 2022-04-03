@@ -1,16 +1,16 @@
-import axios from 'axios';
-import { getStorageValue } from '../store/localStorageHook';
+import axios from "axios";
+import { getStorageValue } from "../store/localStorageHook";
 
-const endPointBaseUrl = 'http://localhost:8080/dog';
+const endPointBaseUrl = "http://localhost:8080/dog";
 
 interface Dog {
-  _id: String,
-  name: String,
-  photo: String,
-  breed: String,
-  age: number,
-  description: String,
-  gender: String
+  _id: String;
+  name: String;
+  photo: String;
+  breed: String;
+  age: number;
+  description: String;
+  gender: String;
 }
 
 const getAllDogs = async () => {
@@ -22,13 +22,13 @@ const getAllDogs = async () => {
 const getDogByUserID = async (id: String) => {
   const res = await axios.get(`${endPointBaseUrl}/profile/${id}`);
   const {
-    _id = '',
-    name = '',
-    photo = '',
-    breed = '',
+    _id = "",
+    name = "",
+    photo = "",
+    breed = "",
     age = 0,
-    description = '',
-    gender = ''
+    description = "",
+    gender = "",
   } = res.data || {};
   const dog = {
     _id,
@@ -37,39 +37,33 @@ const getDogByUserID = async (id: String) => {
     breed,
     age,
     description,
-    gender
-  }
-  return <Dog> dog;
+    gender,
+  };
+  return <Dog>dog;
 };
 
 //add a new dog
-const addDog = (
-  {
-    _id,
-    name,
-    photo,
-    breed,
-    age,
-    description,
-    gender
-}: Dog) => {
-  const user = getStorageValue(
-    'user', ''
-  );
-  axios.post(`${endPointBaseUrl}/addDog`, {
-    name,
-    userID: user.user._id,
-    photo,
-    breed,
-    age,
-    description,
-    gender
-  }).then(response => {
-    console.log(response.data);
-  }).catch(error => console.error(error));
-}
+const addDog = ({ name, photo, breed, age, description, gender }: Dog) => {
+  const {
+    user: { _id },
+  } = getStorageValue("user", "");
+  axios
+    .post(`${endPointBaseUrl}/addDog`, {
+      name,
+      userID: _id,
+      photo,
+      breed,
+      age,
+      description,
+      gender,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => console.error(error));
+};
 
-
+//edit dog
 const editDog = ({
   _id,
   name,
@@ -77,34 +71,44 @@ const editDog = ({
   breed,
   age,
   description,
-  gender
+  gender,
 }: Dog) => {
-  axios.put(`${endPointBaseUrl}/editDog`, {
-    _id,
-    name,
-    photo,
-    breed,
-    age,
-    description,
-    gender
-  }).then(response => {
-    console.log(response.data);
-  }).catch(error => console.error(error));
-}
-
+  axios
+    .put(`${endPointBaseUrl}/editDog`, {
+      _id,
+      name,
+      photo,
+      breed,
+      age,
+      description,
+      gender,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => console.error(error));
+};
 
 //get dog by dogID
 const getDogByID = async (id: String) => {
-  const res =  await axios.get(`${endPointBaseUrl}/${id}`);
-  return <Dog> res.data;
-}
+  const res = await axios.get(`${endPointBaseUrl}/${id}`);
+  return <Dog>res.data;
+};
 
 //delete dog by dogID
 const deleteDogByID = (id: String) => {
-  axios.delete(`${endPointBaseUrl}/delete/${id}`)
-       .then(response => {
-         console.log(response.data)})
-       .catch(error => console.error(error));
+  axios
+    .delete(`${endPointBaseUrl}/delete/${id}`)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => console.error(error));
+};
+
+const checkDogTableExsist = async (_id: string) => {
+  const res = await axios.get(`${endPointBaseUrl}/checkUser/${_id}`);
+  console.log(res.data.result);
+  return res.data.result;
 };
 
 export {
@@ -113,9 +117,8 @@ export {
   editDog,
   getDogByID,
   deleteDogByID,
-  getDogByUserID
+  getDogByUserID,
+  checkDogTableExsist,
 };
 
-export type {
-  Dog
-}
+export type { Dog };
