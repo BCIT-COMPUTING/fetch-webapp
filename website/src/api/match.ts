@@ -54,9 +54,7 @@ const checkMatchTableExsist = async () => {
 const getAllLikesByEveryOne = async () => {
   const { user: { _id }} = getStorageValue('user', '');
   const dog = await getDogByUserID(_id);
-  console.log( `user's dog id: ${dog._id}`);
   const res = await axios.get(`${endPointBaseUrl}/allLikes/${dog._id}`);
-  console.log(res.data);
   return res.data;
 };
 
