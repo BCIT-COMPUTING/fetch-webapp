@@ -16,12 +16,12 @@ const endPointBaseUrl = 'http://localhost:8080/match';
 
 const MatchesPage = () => {
   
-  const [matches, setMatches] = useState({});
+  const [userInfo, setUserInfo] = useState({});
   
   const getMatchByUserId = async () => {
     const { user: { _id }} = getStorageValue('user', '');
     const res = await axios.get(`${endPointBaseUrl}/${_id}`);
-    setMatches(res.data);
+    setUserInfo(res.data);
     console.log(res.data);
   };
 
