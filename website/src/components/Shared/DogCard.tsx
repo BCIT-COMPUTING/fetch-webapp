@@ -24,13 +24,14 @@ const DogCard = (props: { data: {
         <p className={`${styles.info} ${styles.desc}`}>{dogDescription}</p>
       </div>
       <div className={styles.otherInfo}>
-        <h2 className={styles.title}>Breed: <span>{dogBreed}</span></h2>
-        <h2 className={styles.title}>
-          Gender: <span className={styles.info}>{dogGender}</span>
-        </h2>
         <h2 className={styles.title}>
           Age: <span className={styles.info}>{dogAge} years old</span>
         </h2>
+        <h2 className={styles.title}>Breed: <span className={styles.info}>{dogBreed}</span></h2>
+        <h2 className={styles.title}>
+          Gender: <span className={styles.info}>{dogGender}</span>
+        </h2>
+
       </div>
     </div>
   )
