@@ -14,13 +14,11 @@ import MatchesPage from "./Matches/MatchesPage";
 import Navbar from "./Nav/Nav";
 import Logout from "./Logout/Logout";
 import { useEffect } from "react";
-import { getStorageValue } from "../store/localStorageHook";
 import Temp from "./DogInfo/temp";
 import DogSignUp from "./DogSignUp/DogSignUp";
 
 function AppRouter() {
   const { user, setUser } = useAppStore();
-
   const validate = async () => {
     if (!(await hasValidJWT(user))) {
       setUser({
