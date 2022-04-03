@@ -23,7 +23,7 @@ const DogSignUp = () => {
     (async () => {
       const checkTable = await checkDogTableExsist(_id);
       if (checkTable) {
-        navigate("/dog-info");
+        navigate("/main");
       }
     })();
   }, []);

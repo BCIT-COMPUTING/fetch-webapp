@@ -57,19 +57,25 @@ function AppRouter() {
           <Route path="/temp" element={<Temp />} />
           <Route
             path="/signup"
-            element={user.isLoggedIn ? <DogInfoPage /> : <SignupPage />}
+            element={user.isLoggedIn ? <MainPage /> : <SignupPage />}
           />
           <Route
             path="/login"
-            element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
+            element={user.isLoggedIn ? <MainPage /> : <LoginPage />}
           />
           <Route
             path="/main"
-            element={user.isLoggedIn ? <MainPage /> : <MainPage />}
+            element={user.isLoggedIn ? <MainPage /> : <LoginPage />}
           />
-          <Route path="/dog-info/:id" element={<DogInfoPage />} />
-          <Route path="/dog-profile/:id" element={<DogProfilePage />} />
-          <Route path="/match" element={<MatchesPage />} />
+          <Route path="/dog-info/:id" 
+            element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
+          />
+          <Route path="/dog-profile/:id"
+            element={user.isLoggedIn ? <DogProfilePage /> : <LoginPage />}
+          />
+          <Route path="/match"
+            element={user.isLoggedIn ? <MatchesPage /> : <LoginPage />}
+            />
           <Route
             path="/admin"
             element={
