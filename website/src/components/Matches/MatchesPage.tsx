@@ -13,7 +13,6 @@ import type { Dog } from '../../api/dogs';
 const MatchesPage = () => {
 
   const [dogs, setDogs] = useState<Array<Dog>>([]);
-  const [myLikes, setMyLikes] = useState<Array<Dog>>([]);
 
   useEffect(() => {
     (async() => {
