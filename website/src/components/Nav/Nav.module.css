@@ -6,6 +6,10 @@
 .nav {
   border-bottom: 2px solid #7BDFF2;
   background-color: #B2F7EF;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  top: 0;
 }
 
 .menuLine {
