@@ -14,7 +14,9 @@
 .matchItem {
   display: flex;
   border: 1px solid #e5e5e5;
-  margin: 5px;
+  background: #EFF7F6;
+  border-radius: 10px;
+  margin: 5%;
 }
 
 .matchPageContainer a {
@@ -26,6 +28,7 @@
   height: 100px;
   width: 100px;
   margin: 5px 10px;
+  border-radius: 10px;
 }
 
 .matchDescription {

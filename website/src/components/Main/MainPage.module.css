@@ -13,6 +13,10 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.mainHeader {
+  text-align: center;
+}
+
 .matchBtn {
   background-color: rgb(47, 47, 47);
   color: white;
@@ -26,12 +30,9 @@
 
 .img {
   width: 200px;
-}
-
-.msg {
-  position: absolute;
-  top: 76%;
-  left: 38%;
+  height: 200px;
+  border-radius: 100%;
+  border: 5px solid white;
 }
 
 .matchBtn:hover {
