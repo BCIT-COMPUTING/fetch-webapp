@@ -1,44 +1,44 @@
-import styles from './MatchesPage.module.css';
-import { Link } from 'react-router-dom';
-import { getDogByUserID } from '../../api/dogs';
-import { 
-  getAllLikesByEveryOne,
-  getMatchByUserId
- } from '../../api/match';
-import { useState, useEffect } from 'react';
-import type { Match } from '../../api/match';
-import type { Dog } from '../../api/dogs';
-
+import styles from "./MatchesPage.module.css";
+import { Link } from "react-router-dom";
+import { getDogByUserID } from "../../api/dogs";
+import { getAllLikesByEveryOne, getMatchByUserId } from "../../api/match";
+import { useState, useEffect } from "react";
+import type { Match } from "../../api/match";
+import type { Dog } from "../../api/dogs";
+import { useAppStore } from "../../store/appContext";
 
 const MatchesPage = () => {
-
   const [dogs, setDogs] = useState<Array<Dog>>([]);
+  const { user } = useAppStore();
 
   useEffect(() => {
-    (async() => {
-      const { userId, likes } = await getMatchByUserId();
-      console.log('my likes ' + likes);
+    (async () => {
+      const { userId, likes } = await getMatchByUserId(user.user._id);
+      console.log("my likes " + likes);
       const allLikes = await getAllLikesByEveryOne();
       allLikes.forEach(async (dog: Match) => {
         let d = await getDogByUserID(dog.userId);
-        console.log('dog id: ' + d._id);
-        if(likes !== undefined) {
-          if(likes.includes(d._id) && (userId !== d.userID)) {
-            setDogs(dogs => dogs.concat(d));
+        console.log("dog id: " + d._id);
+        if (likes !== undefined) {
+          if (likes.includes(d._id) && userId !== d.userID) {
+            setDogs((dogs) => dogs.concat(d));
           }
         }
-      })
-
+      });
     })();
   }, []);
 
-  return(
+  return (
     <>
       <div className={styles.matchPageContainer}>
         <div className={styles.matchContent}>
           <h1 className={styles.matchHeader}>Matches Page</h1>
           {dogs.map((match: Dog, index) => (
-            <Link key ={index} to={{pathname: `/dog-info/${match._id}`}} state={match} >
+            <Link
+              key={index}
+              to={{ pathname: `/dog-info/${match._id}` }}
+              state={match}
+            >
               <div className={styles.matchItem}>
                 <img className={styles.matchImage} src={match.photo} />
                 <div className={styles.matchDescription}>
@@ -57,7 +57,7 @@ const MatchesPage = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default MatchesPage;
