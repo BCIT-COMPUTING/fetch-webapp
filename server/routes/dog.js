@@ -27,8 +27,7 @@ router.get("/profile/:id", async (req, res) => {
 
 //add dog
 router.post("/addDog", async (req, res) => {
-  const { name, userID, photo, breed, age, description, gender, likes } =
-    req.body;
+  const { name, userID, photo, breed, age, description, gender } = req.body;
 
   const newDog = new Dog({
     name,
@@ -38,7 +37,6 @@ router.post("/addDog", async (req, res) => {
     age,
     description,
     gender,
-    likes,
   });
 
   try {
@@ -52,8 +50,7 @@ router.post("/addDog", async (req, res) => {
 
 //edit dog
 router.put("/editDog", async (req, res) => {
-  const { id, name, userID, photo, breed, age, description, gender, likes } =
-    req.body;
+  const { id, name, userID, photo, breed, age, description, gender } = req.body;
   try {
     await Dog.updateOne(
       { _id: id },
@@ -65,7 +62,6 @@ router.put("/editDog", async (req, res) => {
         age,
         description,
         gender,
-        likes,
       }
     );
   } catch (err) {

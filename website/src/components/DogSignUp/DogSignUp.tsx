@@ -7,7 +7,7 @@ import { getStorageValue } from "../../store/localStorageHook";
 const MB_Size = 1024 * 1024;
 const DogSignUp = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState("");
+  const [_id, setId] = useState("");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -149,7 +149,7 @@ const DogSignUp = () => {
 
   const handleAdd = () => {
     const addDogRes = addDog({
-      id,
+      _id,
       name,
       photo,
       breed,

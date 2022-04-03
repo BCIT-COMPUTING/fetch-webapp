@@ -18,9 +18,18 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+const postConfig = {
+  parameterLimit: 10000000,
+  limit: 10000000,
+};
+
+const postConfigExtended = {
+  ...postConfig,
+  extended: true,
+};
 
 // server.use(cors());
-server.use(express.json());
+server.use(express.json(postConfig));
 server.use("/documentation", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

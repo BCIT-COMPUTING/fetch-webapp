@@ -48,7 +48,7 @@ const DogProfile = () => {
         'user', ''
       );
       const {
-        id,
+        _id: id,
         name,
         age,
         photo,

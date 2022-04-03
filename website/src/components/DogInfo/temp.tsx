@@ -22,6 +22,8 @@ const Temp = () => {
   const [age, setAge] = useState(0);
   const [description, setDescription] = useState('');
   const [gender, setGender] = useState('');
+  const [likes, setLikes] = useState([]);
+  const [userID, setUserID] = useState('');
 
   //Match
   const [likeDog, setLikeDog] = useState('');
@@ -29,8 +31,9 @@ const Temp = () => {
 
   useEffect(() => {
     //get all dogs
+    // setUserID();
     (async() => {
-      const {likes, dislikes} = await getMatchByUserId('623cad86cb44fd81b3ec00e8');
+      const {likes, dislikes} = await getMatchByUserId();
       console.log(likes);
     })();
     console.log(getAllDogs());
@@ -125,7 +128,7 @@ const Temp = () => {
         }
         <button onClick={() => 
         addDog({
-          id,
+          _id: id,
           name,
           photo,
           breed,
@@ -151,7 +154,7 @@ const Temp = () => {
         {form()}
         <button onClick={() => editDog(
           {
-            id,
+            _id: id,
             name,
             photo,
             breed,

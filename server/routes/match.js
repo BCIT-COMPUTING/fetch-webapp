@@ -1,3 +1,5 @@
+const req = require('express/lib/request');
+const res = require('express/lib/response');
 const Match = require('../models/Match');
 const router = require('express').Router();
 
@@ -36,10 +38,17 @@ router.post('/add', async(req, res) => {
 router.put('/addLikes/:id', async(req, res) => {
   const { id } = req.params;
   const { dogId } = req.body;
-  console.log(dogId);
   try{
-      const found = await Match.findOneAndUpdate({ userId : id}, {$push: {likes: dogId}});
+    const found = await Match.find({ userId : id});
+    console.log(found[0].likes.includes(dogId));
+    if(!found[0].likes.includes(dogId)) {
+      console.log('not found');
+      const update = await Match.findOneAndUpdate({ userId : id}, {$push: {likes: dogId}});
+      res.json(update);
+    } else {
+      console.log('found');
       res.json(found);
+    }
   } catch(err) {
     console.log(err);
     throw err;
@@ -52,12 +61,34 @@ router.put('/addDislikes/:id', async(req, res) => {
   const { dogId } = req.body;
   console.log(dogId);
   try{
-      const found = await Match.findOneAndUpdate({ userId : id}, {$push: {dislikes: dogId}});
+    const found = await Match.find({ userId : id});
+    if(!found[0].dislikes.includes(dogId)) {
+      console.log('not found');
+      const update = await Match.findOneAndUpdate({ userId : id}, {$push: {dislikes: dogId}});
+      res.json(update);
+    } else {
+      console.log('found');
       res.json(found);
+    }
   } catch(err) {
     console.log(err);
     throw err;
   }
 });
+
+router.get('/checkUser/:id', async(req, res) => {
+  const { id } = req.params;
+  try{
+    const found = await Match.findOne({ userId : id});
+    if (found) {
+      res.json({result: true});
+    } else {
+      res.json({result: false});
+    }
+  } catch(err) {
+    console.log(err);
+    throw err;
+  }
+})
 
 module.exports = router;
