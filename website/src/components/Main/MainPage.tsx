@@ -1,6 +1,6 @@
 import styles from './MainPage.module.css';
 import { useEffect, useState} from 'react';
-import { getAllDogs } from '../../api/dogs'
+import { getAllDogs } from '../../api/dogs';
 import type { Dog } from '../../api/dogs';
 import TinderCard from 'react-tinder-card';
 import { getStorageValue } from '../../store/localStorageHook';
@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import {  addLikeToMatch,
           addDislikeToMatch, 
           addMatch,
-          checkMatchTableExsist
+          checkMatchTableExsist,
+          addViewedToMatch,
+          getMatchByUserId
         } from '../../api/match';
 
 const MainPage = () => {
@@ -16,9 +18,11 @@ const MainPage = () => {
   const [msg, setMsg] = useState('');
   const [user, setUser] = useState('');
   const [lastDirection, setLastDirection] = useState('');
+  const [myList, setMyList] = useState<Array<String>>([]);
   const navigate = useNavigate();
 
   const swiped = (dogId:String, direction:String, nameToDelete:String) => {
+    addViewedToMatch(dogId);
     if(direction === 'left') {
       console.log('like dogID ' + dogId);
       addLikeToMatch(dogId);
@@ -39,13 +43,18 @@ const MainPage = () => {
     const { user: { _id } } = getStorageValue('user', '');
     setUser(_id);
     (async() => {
+      const {viewed} = await getMatchByUserId();
+      setMyList(viewed);
       const checkTable = await checkMatchTableExsist();
-      console.log(checkTable);
       if (!checkTable) {
         addMatch();
       }
       const allDogs = await getAllDogs();
-      setDogs(allDogs);
+      allDogs.forEach(d => {
+        if(!viewed.includes(d._id)) {
+          setDogs(dogs => dogs.concat(d));
+        }
+      })
     })();
   }, []);
 

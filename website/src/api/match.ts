@@ -7,7 +7,8 @@ const endPointBaseUrl = 'http://localhost:8080/match';
 interface Match {
   userId: String,
   likes: [String],
-  dislikes: [String]
+  dislikes: [String],
+  viewed: [String]
 }
 
 const getMatchByUserId = async () => {
@@ -27,9 +28,17 @@ const addMatch = () => {
 }
 
 const addLikeToMatch = async (dogId: String) => {
-  console.log('dogId like ' + dogId);
   const { user: { _id }} = getStorageValue('user', '');
   axios.put(`${endPointBaseUrl}/addLikes/${_id}`, {
+    dogId
+  }).then(res => console.log(res.data))
+  .catch(e => console.log(e));
+};
+
+const addViewedToMatch = async (dogId: String) => {
+  console.log('viewd dog ' + dogId);
+  const { user: { _id }} = getStorageValue('user', '');
+  axios.put(`${endPointBaseUrl}/addView/${_id}`, {
     dogId
   }).then(res => console.log(res.data))
   .catch(e => console.log(e));
@@ -64,7 +73,8 @@ export {
   addDislikeToMatch,
   addMatch,
   checkMatchTableExsist,
-  getAllLikesByEveryOne
+  getAllLikesByEveryOne,
+  addViewedToMatch
 }
 
 export type { Match };
