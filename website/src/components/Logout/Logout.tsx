@@ -25,7 +25,7 @@ const Logout = () => {
   }, []);
 
   const handleClick = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -33,7 +33,7 @@ const Logout = () => {
       <div className={styles.container}>
         <h3>Have a Woof Day!</h3>
         <button className={styles.btn} onClick={handleClick}>
-          Login In Back!
+          Back to Login
         </button>
       </div>
     </>
