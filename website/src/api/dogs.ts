@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAppStore } from "../store/appContext";
 import { getStorageValue } from "../store/localStorageHook";
 
 const endPointBaseUrl = "http://localhost:8080/dog";
@@ -13,8 +14,8 @@ interface Dog {
   gender: String;
 }
 
-const getAllDogs = async () => {
-  const res = await axios.get(`${endPointBaseUrl}/getDogs`);
+const getAllDogs = async (id: string) => {
+  const res = await axios.get(`${endPointBaseUrl}/getDogs/${id}`);
   return <Array<Dog>>res.data;
 };
 

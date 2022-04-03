@@ -34,6 +34,7 @@ function AppRouter() {
           lastname: "",
           updatedAt: "",
           username: "",
+          _id: "",
         },
       });
     }
@@ -67,15 +68,18 @@ function AppRouter() {
             path="/main"
             element={user.isLoggedIn ? <MainPage /> : <LoginPage />}
           />
-          <Route path="/dog-info/:id" 
+          <Route
+            path="/dog-info/:id"
             element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
           />
-          <Route path="/dog-profile/:id"
+          <Route
+            path="/dog-profile/:id"
             element={user.isLoggedIn ? <DogProfilePage /> : <LoginPage />}
           />
-          <Route path="/match"
+          <Route
+            path="/match"
             element={user.isLoggedIn ? <MatchesPage /> : <LoginPage />}
-            />
+          />
           <Route
             path="/admin"
             element={

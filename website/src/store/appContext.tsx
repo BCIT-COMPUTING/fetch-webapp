@@ -17,6 +17,7 @@ export const userState = {
     lastname: "",
     updatedAt: "",
     username: "",
+    _id: "",
   },
 };
 

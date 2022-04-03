@@ -20,6 +20,7 @@ const Logout = () => {
         lastname: "",
         updatedAt: "",
         username: "",
+        _id: "",
       },
     });
   }, []);

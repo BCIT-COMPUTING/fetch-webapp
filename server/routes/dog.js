@@ -1,10 +1,12 @@
 const Dog = require("../models/Dog");
 const router = require("express").Router();
+const { ObjectId } = require("mongodb");
 
 //get all dogs
-router.get("/getDogs", async (req, res) => {
+router.get("/getDogs/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const dogs = await Dog.find();
+    const dogs = await Dog.find({ userID: { $nin: [id] } });
     res.json(dogs);
   } catch (err) {
     console.log(err);
