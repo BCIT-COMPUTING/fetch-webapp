@@ -61,6 +61,8 @@ function AppRouter() {
            <Route
             path="/temp"
             element={<Temp />}
+          />
+          <Route
             path="/main"
             element={user.isLoggedIn ? <MainPage /> : <MainPage />}
           />
