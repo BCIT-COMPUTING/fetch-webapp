@@ -148,6 +148,14 @@ const DogSignUp = () => {
   );
 
   const handleAdd = () => {
+    if(
+      name === "" ||
+      description === "" ||
+      breed === ""
+    ) {
+      toast.error("Please fill out all fields");
+      return;
+    }
     const addDogRes = addDog({
       _id,
       name,
