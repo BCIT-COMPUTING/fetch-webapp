@@ -40,6 +40,7 @@ const MainPage = () => {
     setUser(_id);
     (async() => {
       const checkTable = await checkMatchTableExsist();
+      console.log(checkTable);
       if (!checkTable) {
         addMatch();
       }
