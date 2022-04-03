@@ -3,11 +3,14 @@ const router = require("express").Router();
 const admin = require('../configs/adminUtils');
 
 //get all dogs
-router.get("/getDogs", async (req, res) => {
+router.get("/getDogs/:id", async (req, res) => {
   await admin.updateStats("getDogs");
+  console.log(req.params, "printing params");
+  const { id } = req.params;
 
   try {
-    const dogs = await Dog.find();
+    const dogs = await Dog.find({ userID: { $nin: [id] } });
+    console.log(dogs.length);
     res.json(dogs);
   } catch (err) {
     console.log(err);
@@ -57,8 +60,8 @@ router.post("/addDog", async (req, res) => {
 //edit dog
 router.put("/editDog", async (req, res) => {
   await admin.updateStats("putEditDog");
-  
   const { _id, name, userID, photo, breed, age, description, gender } = req.body;
+  
   try {
     await Dog.updateOne(
       { _id },

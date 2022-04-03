@@ -25,6 +25,7 @@ function AppRouter() {
         jwt: "",
         isLoggedIn: false,
         user: {
+          _id: "",
           accessToken: "",
           createdAt: "",
           email: "",
