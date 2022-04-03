@@ -13,7 +13,7 @@ const AdminPage = () => {
     postLogin: 0,
     postVerifyJWT: 0,
     getDogs: 0,
-    postAddEditDog: 0,
+    postAddDog: 0,
     deleteDog: 0,
     getDogByUserId: 0,
     getStats: 0,
@@ -88,9 +88,9 @@ const AdminPage = () => {
               </tr>
               <tr>
                 <td>POST</td>
-                <td>/dog/addEditDog</td>
-                <td>Add/edit dog?</td>
-                <td>{stats.postAddEditDog}❌</td>
+                <td>/dog/addDog</td>
+                <td>Add a dog</td>
+                <td>{stats.postAddDog}</td>
               </tr>
               <tr>
                 <td>DELETE</td>
