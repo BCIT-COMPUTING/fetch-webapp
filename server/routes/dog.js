@@ -56,6 +56,8 @@ router.post("/addDog", async (req, res) => {
 
 //edit dog
 router.put("/editDog", async (req, res) => {
+  await admin.updateStats("putEditDog");
+  
   const { _id, name, userID, photo, breed, age, description, gender } = req.body;
   try {
     await Dog.updateOne(

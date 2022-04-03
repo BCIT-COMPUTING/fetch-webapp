@@ -7,6 +7,7 @@ const StatsSchema = new mongoose.Schema(
     postVerifyJWT: Number,
     getDogs: Number,
     postAddDog: Number,
+    putEditDog: Number,
     deleteDog: Number,
     getDogByUserId: Number,
     getStats: Number,
