@@ -1,20 +1,27 @@
-.cardDiv {
+.cardDiv, .matchBtn {
+  position: absolute;
   padding: 5% 3%;
   border-radius: 10px;
   text-align: center;
   width: 300px;
   height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 20%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.name {
-  font-size: 2.5rem;
+.matchBtn {
+  background-color: rgb(47, 47, 47);
+  color: white;
+  font-size: 1.3rem;
 }
 
-.swipe {
-  position: absolute;
-  top: 27%;
-  left: 27%;
+
+.name {
+  font-size: 2.5rem;
 }
 
 .img {
@@ -27,23 +34,9 @@
   left: 38%;
 }
 
-
-.matchBtn {
-  background-color: rgb(136, 144, 151);
-  position: absolute;
-  border-radius: 10px;
-  text-align: center;
-  width: 300px;
-  height: 400px;
-  top: 27%;
-  left: 27%;
-  background-color: rgb(136, 144, 151);
-  border: none;
-  padding: 2% 3%;
-  font-size: 1.5rem;
-  color: white;
-}
-
 .matchBtn:hover {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
 }

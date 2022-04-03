@@ -18,9 +18,18 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+const postConfig = { 
+  parameterLimit: 10000000,
+  limit: 10000000 
+};
+
+const postConfigExtended = {
+  ...postConfig,
+  extended: true
+};
 
 // server.use(cors());
-server.use(express.json());
+server.use(express.json(postConfig));
 server.use("/documentation", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -29,13 +38,9 @@ server.use((req, res, next) => {
   next();
 });
 server.use("/static", express.static("public"));
-server.use(bodyParser.json({ 
-  parameterLimit: 100000,
-  limit: '50mb' }));
-server.use(bodyParser.urlencoded({ 
-  parameterLimit: 100000,
-  limit: '50mb', extended: true }));
-server.use(bodyParser.raw({ limit: '50mb' }));
+server.use(bodyParser.json(postConfig));
+server.use(bodyParser.urlencoded(postConfigExtended));
+server.use(bodyParser.raw(postConfig));
 
 // Routes
 server.use("/api/v1/auth", authRoute);
