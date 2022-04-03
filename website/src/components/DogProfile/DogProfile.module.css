@@ -1,6 +1,7 @@
 .pageContainer {
   display: flex;
   justify-content: center;
+  padding-top: 10%;
 }
 
 .container {
@@ -68,5 +69,12 @@
 
 .funcBtn:hover  {
   background-color: rgb(199, 197, 197);
+}
+
+@media only screen and (max-width: 980px) {
+
+  .container {
+    margin: 26% 7%;
+  }
 }
 

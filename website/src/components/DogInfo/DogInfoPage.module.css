@@ -39,10 +39,11 @@
   line-height: 1.5;
 }
 
+@media only screen and (max-width: 980px) {
 
-.dogImg {
-  width: 35%;
-  border-radius: 10px;
+  .container {
+    margin: 25% 7%;
+  }
 }
 
 .backBtnContainer {

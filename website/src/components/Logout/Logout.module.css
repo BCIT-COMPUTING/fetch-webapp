@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 10%;
+  margin-top: 30%;
 }
 
 .btn {
@@ -14,4 +14,31 @@
   color: white;
   font-size: 30px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    margin-top: 40%;
+    width: 100%;
+  }
+  .heading {
+    font-size: 40px;
+  }
+  .btn {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .container {
+    margin-top: 40%;
+    width: 100%;
+  }
+  .heading {
+    font-size: 40px;
+  }
+
+  .btn {
+    width: 80%;
+  }
 }
