@@ -2,7 +2,8 @@
   "scripts": {
     "start": "set NODE_ENV=development&& nodemon server.js",
     "dev": "set NODE_ENV=development&& nodemon server.js",
-    "prod": "set NODE_ENV=production&& node server.js"
+    "prod": "set NODE_ENV=production&& node server.js",
+    "swagger-autogen": "node ./routes/swagger.js"
   },
   "name": "fetch-node-server",
   "version": "1.0.0",
@@ -21,6 +22,7 @@
     "mongoose": "^6.2.6",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
+    "swagger-autogen": "^2.20.8",
     "swagger-ui-express": "^4.3.0"
   }
 }

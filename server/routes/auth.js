@@ -34,6 +34,17 @@ router.post("/register", async (req, res) => {
 
 //LOGIN LOGIC HERE
 router.post("/login", async (req, res) => {
+  /*
+    #swagger.consumes = ['application/json']
+    #swagger.parameters['credentials'] = {
+          in: 'body',
+          description: 'Credentials of a user for login purposes.',
+          schema: {
+              $username: 'Jhon Doe',
+              $password: 'someHashedPassword',
+          }
+  } */
+
   await admin.updateStats("postLogin");
 
   try {
@@ -54,6 +65,7 @@ router.post("/login", async (req, res) => {
     const orgPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
     if (orgPassword !== req.body.password) {
+      // #swagger.responses[401] = { description: 'Wrong credentials' }
       res.status(401).json("Wrong Password");
       return;
     }
@@ -69,8 +81,18 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
+    // #swagger.responses[500] = { description: 'Server error' }
     res.status(500).json(err);
   }
+
+  /* #swagger.responses[200] = {
+        description: 'Login token is successfully obtained.',
+        schema: {
+          userInfo : {},
+          accessToken: 'generated JWT token'
+        }
+  } */
+
 });
 
 router.post("/verifyJWT", async (req, res) => {
