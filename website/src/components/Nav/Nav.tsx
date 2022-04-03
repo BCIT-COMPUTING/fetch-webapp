@@ -35,7 +35,7 @@ const Nav = () => {
         </li>
         <li className={styles.li}>
           <a className={styles.a} id="contact" href="/matches">
-            Matchessss
+            Matches
           </a>
         </li>
         <li className={styles.li}>
