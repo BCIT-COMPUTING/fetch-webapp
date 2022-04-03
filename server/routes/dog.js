@@ -1,10 +1,13 @@
 const Dog = require("../models/Dog");
 const router = require("express").Router();
+const admin = require('../configs/adminUtils');
 
 //get all dogs
 router.get("/getDogs/:id", async (req, res) => {
+  await admin.updateStats("getDogs");
   console.log(req.params, "printing params");
   const { id } = req.params;
+
   try {
     const dogs = await Dog.find({ userID: { $nin: [id] } });
     console.log(dogs.length);
@@ -17,6 +20,8 @@ router.get("/getDogs/:id", async (req, res) => {
 
 //get Dog by userID
 router.get("/profile/:id", async (req, res) => {
+  await admin.updateStats("getDogByUserId");
+
   const { id } = req.params;
   try {
     const foundDog = await Dog.findOne({ userID: id });
@@ -29,6 +34,8 @@ router.get("/profile/:id", async (req, res) => {
 
 //add dog
 router.post("/addDog", async (req, res) => {
+  await admin.updateStats("postAddDog");
+
   const { name, userID, photo, breed, age, description, gender } = req.body;
 
   const newDog = new Dog({
@@ -52,8 +59,9 @@ router.post("/addDog", async (req, res) => {
 
 //edit dog
 router.put("/editDog", async (req, res) => {
-  const { _id, name, userID, photo, breed, age, description, gender } =
-    req.body;
+  await admin.updateStats("putEditDog");
+  const { _id, name, userID, photo, breed, age, description, gender } = req.body;
+  
   try {
     await Dog.updateOne(
       { _id },
@@ -74,6 +82,8 @@ router.put("/editDog", async (req, res) => {
 
 //delete dog by Id
 router.delete("/delete/:id", async (req, res) => {
+  await admin.updateStats("deleteDog");
+
   const { id } = req.params;
   await Dog.deleteOne({ _id: id });
   res.status(200).json({ status: "success", id });

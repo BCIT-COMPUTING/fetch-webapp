@@ -8,6 +8,12 @@ const updateStats = async (stat) => {
   
   const getStats = "getStats";
   const postReset = "postReset";
+
+  const getDogs = "getDogs";
+  const getDogByUserId = "getDogByUserId";
+  const postAddDog = "postAddDog";
+  const putEditDog = "putEditDog";
+  const deleteDog = "deleteDog";
   //1. don't forget to add to StatsSchema***********
   //2. also don't forget to add manually to MongoDB
 
@@ -48,6 +54,41 @@ const updateStats = async (stat) => {
       incrementedVal = await stats[0].postReset + 1;
       await Stats.updateOne({_id: statsId }, {
         postReset: incrementedVal
+      });
+      break;
+
+    case getDogs:
+      incrementedVal = await stats[0].getDogs + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getDogs: incrementedVal
+      });
+      break;
+    
+    case getDogByUserId:
+      incrementedVal = await stats[0].getDogByUserId + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getDogByUserId: incrementedVal
+      });
+      break;
+
+    case postAddDog:
+      incrementedVal = await stats[0].postAddDog + 1;
+      await Stats.updateOne({_id: statsId }, {
+        postAddDog: incrementedVal
+      });
+      break;
+
+    case putEditDog:
+      incrementedVal = await stats[0].putEditDog + 1;
+      await Stats.updateOne({_id: statsId }, {
+        putEditDog: incrementedVal
+      });
+      break;
+    
+    case deleteDog:
+      incrementedVal = await stats[0].deleteDog + 1;
+      await Stats.updateOne({_id: statsId }, {
+        deleteDog: incrementedVal
       });
       break;
 

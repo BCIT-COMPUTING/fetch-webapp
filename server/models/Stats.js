@@ -6,9 +6,10 @@ const StatsSchema = new mongoose.Schema(
     postLogin: Number,
     postVerifyJWT: Number,
     getDogs: Number,
-    postAddEditDog: Number,
+    postAddDog: Number,
+    putEditDog: Number,
     deleteDog: Number,
-    getDogById: Number,
+    getDogByUserId: Number,
     getStats: Number,
     postReset: Number
   },
