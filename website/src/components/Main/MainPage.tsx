@@ -37,7 +37,6 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    
     (async() => {
       const checkTable = await checkMatchTableExist(user.user._id);
       if (!checkTable) {

@@ -49,10 +49,10 @@ router.post("/addDog", async (req, res) => {
 
 //edit dog
 router.put("/editDog", async (req, res) => {
-  const { id, name, userID, photo, breed, age, description, gender } = req.body;
+  const { _id, name, userID, photo, breed, age, description, gender } = req.body;
   try {
     await Dog.updateOne(
-      { _id: id },
+      { _id },
       {
         name,
         userID,
