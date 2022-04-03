@@ -59,40 +59,39 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={styles.loginPageContainer}>
-      <div className={styles.loginContent}>
-        <h2>Login</h2>
-        <form>
-          <div className={styles.labelSection}>
-            <div className={styles.loginLabel}>Username: </div>
-            <input
-              id="username-input"
-              type="text"
-              placeholder="Enter your Username"
-              name="username"
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </div>
-          <div className={styles.labelSection}>
-            <div className={styles.loginLabel}>Password: </div>
-            <input
-              id="password-input"
-              type="password"
-              placeholder="Enter your password"
-              name="password"
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </div>
-          <button
-            className={styles.loginBtn}
-            type="button"
-            onClick={handleClick}
-          >
-            Go!
-          </button>
-        </form>
+    <>
+      <div className={styles.containerDiv}>
+        <h2 className={styles.title}>Log In!</h2>
+        <label className={styles.labels} htmlFor="username">
+          Username
+        </label>
+        <br />
+        <input
+          id="username"
+          className={styles.inputs}
+          type="text"
+          placeholder="Enter your Email"
+          name="email"
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <label className={styles.labels} htmlFor="password">
+          Password
+        </label>
+        <br />
+
+        <input
+          id="password"
+          type="password"
+          className={styles.inputs}
+          placeholder="Enter your password"
+          name="password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <button className={styles.btn} type="button" onClick={handleClick}>
+          Go!
+        </button>
       </div>
-    </div>
+    </>
   );
 };
 
