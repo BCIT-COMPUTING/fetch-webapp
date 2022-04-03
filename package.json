@@ -1,0 +1,22 @@
+{
+  "name": "fetch-webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "website": "npm --prefix ./website start",
+    "server": "npm --prefix ./server start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/longvulam/fetch-webapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/longvulam/fetch-webapp/issues"
+  },
+  "homepage": "https://github.com/longvulam/fetch-webapp#readme"
+}
