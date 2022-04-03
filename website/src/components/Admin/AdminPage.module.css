@@ -11,6 +11,7 @@
   align-items: center;
   width: 100%;
   padding: 10px;
+  margin-top: 0px;
 }
 
 .adminTableContent {
@@ -22,7 +23,7 @@
 }
 
 .adminTableContent th {
-  padding: 10px 30px;
+  padding: 10px 0px;
   font-size: 18px;
   
 }
@@ -30,7 +31,7 @@
 .adminTableContent td {
   padding: 10px;
   max-width: 500px;
-  min-width: 200px;
+  min-width: 80px;
 }
 
 .resetBtn {
@@ -49,4 +50,15 @@
 .resetBtn:hover {
   cursor: pointer;
   background-color: #f194c3;
+}
+
+@media screen and (max-width: 700px) {
+  .adminDescriptions {
+    display: none;
+  }
+
+  .adminContent {
+    margin-top: 0px;
+  }
+  
 }

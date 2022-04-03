@@ -58,7 +58,7 @@ const AdminPage = () => {
               <tr>
                 <th>HTTP Method</th>
                 <th>Endpoint</th>
-                <th>Description</th>
+                <th className={styles.adminDescriptions}>Description</th>
                 <th># of hits</th>
               </tr>
             </thead>
@@ -66,61 +66,61 @@ const AdminPage = () => {
               <tr>
                 <td>POST</td>
                 <td>/auth/register</td>
-                <td>User registers</td>
+                <td className={styles.adminDescriptions}>User registers</td>
                 <td>{stats.postRegister}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/login</td>
-                <td>User logs in</td>
+                <td className={styles.adminDescriptions}>User logs in</td>
                 <td>{stats.postLogin}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/verifyJWT</td>
-                <td>Verification of JSON Web Token</td>
+                <td className={styles.adminDescriptions}>Verification of JSON Web Token</td>
                 <td>{stats.postVerifyJWT}</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/getDogs</td>
-                <td>Get list of all dogs</td>
+                <td className={styles.adminDescriptions}>Get list of all dogs</td>
                 <td>{stats.getDogs}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/dog/addDog</td>
-                <td>Add a dog</td>
+                <td className={styles.adminDescriptions}>Add a dog</td>
                 <td>{stats.postAddDog}</td>
               </tr>
               <tr>
                 <td>PUT</td>
                 <td>/dog/putEditDog</td>
-                <td>Edit a dog</td>
+                <td className={styles.adminDescriptions}>Edit a dog</td>
                 <td>{stats.putEditDog}</td>
               </tr>
               <tr>
                 <td>DELETE</td>
                 <td>/dog/delete/:id</td>
-                <td>Delete a dog</td>
+                <td className={styles.adminDescriptions}>Delete a dog</td>
                 <td>{stats.deleteDog}</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/dog/profile/:id</td>
-                <td>Get a dog by User ID (example: going to Profile page)</td>
+                <td className={styles.adminDescriptions}>Get a dog by User ID (example: going to Profile page)</td>
                 <td>{stats.getDogByUserId}</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
-                <td>Get the stats of Fetch app</td>
+                <td className={styles.adminDescriptions}>Get the stats of Fetch app</td>
                 <td>{stats.getStats}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/admin/reset</td>
-                <td>Reset stats of Fetch app</td>
+                <td className={styles.adminDescriptions}>Reset stats of Fetch app</td>
                 <td>{stats.postReset}</td>
               </tr>
             </tbody>
