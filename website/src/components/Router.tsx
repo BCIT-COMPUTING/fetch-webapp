@@ -1,5 +1,5 @@
-import { ContextProvider, useAppStore } from "../store/appContext";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAppStore } from "../store/appContext";
+import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { hasValidJWT } from "../utils/authUtils";
@@ -14,11 +14,15 @@ import MatchesPage from "./Matches/MatchesPage";
 import MainPage from "./Main/MainPage";
 import Navbar from "./Nav/Nav";
 import Logout from "./Logout/Logout";
-import { useEffect } from "react";
 import DogSignUp from "./DogSignUp/DogSignUp";
+import { useEffect } from "react";
+import { Navigate, useLocation } from "react-router";
+
+const nonNavBarRoutes = ['login', 'logout', 'signup'];
 
 function AppRouter() {
   const { user, setUser } = useAppStore();
+  const { pathname } = useLocation();
   const validate = async () => {
     if (!(await hasValidJWT(user))) {
       setUser({
@@ -42,6 +46,8 @@ function AppRouter() {
     validate();
   }, []);
 
+  const isNavbarPath = !nonNavBarRoutes.some(route => pathname.toLocaleLowerCase().endsWith(route));
+  const LoginRedirect = <Navigate replace to="/login" />;
   return (
     <>
       <ToastContainer
@@ -50,49 +56,55 @@ function AppRouter() {
         autoClose={3000}
         position="bottom-right"
       />
-      <Navbar />
-      <BrowserRouter>
+      {isNavbarPath ? <>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route
-            path="/signup"
-            element={user.isLoggedIn ? <MainPage /> : <SignupPage />}
-          />
-          <Route
-            path="/login"
-            element={user.isLoggedIn ? <MainPage /> : <LoginPage />}
-          />
+          <Route path="/"
+            element={user.isLoggedIn ? <HomePage /> : LoginRedirect} />
           <Route
             path="/main"
-            element={user.isLoggedIn ? <MainPage /> : <LoginPage />}
+            element={user.isLoggedIn ? <MainPage /> : LoginRedirect}
           />
-          <Route path="/dog-info/:id" 
-            element={user.isLoggedIn ? <DogInfoPage /> : <LoginPage />}
+          <Route path="/dog-info/:id"
+            element={user.isLoggedIn ? <DogInfoPage /> : LoginRedirect}
           />
           <Route path="/dog-profile/:id"
-            element={user.isLoggedIn ? <DogProfilePage /> : <LoginPage />}
+            element={user.isLoggedIn ? <DogProfilePage /> : LoginRedirect}
           />
           <Route path="/match"
-            element={user.isLoggedIn ? <MatchesPage /> : <LoginPage />}
-            />
+            element={user.isLoggedIn ? <MatchesPage /> : LoginRedirect}
+          />
           <Route
             path="/admin"
             element={
               user.isLoggedIn && user.user.isAdmin ? (
                 <AdminPage />
-              ) : (
-                // Probably need unauth page here
-                <LoginPage />
-              )
+              ) : LoginRedirect
             }
           />
-          <Route path="/logout" element={<Logout />} />
           <Route
             path="/dogSignUp"
-            element={user.isLoggedIn ? <DogSignUp /> : <LoginPage />}
+            element={user.isLoggedIn ? <DogSignUp /> : LoginRedirect}
           />
         </Routes>
-      </BrowserRouter>
+      </>
+        : (
+          <Routes>
+            <Route
+              path="/logout"
+              element={<Logout />}
+            />
+            <Route
+              path="/signup"
+              element={<SignupPage />}
+            />
+            <Route
+              path="/login"
+              element={user.isLoggedIn ? <Navigate replace to="/main" /> : <LoginPage />}
+            />
+          </Routes>
+        )
+      }
     </>
   );
 }

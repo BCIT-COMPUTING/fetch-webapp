@@ -1,5 +1,5 @@
 .container {
-  margin: 5% 7%;
+  margin: 16% 7%;
 }
 
 .btn {
@@ -58,5 +58,12 @@
 
 .funcBtn:hover  {
   background-color: rgb(199, 197, 197);
+}
+
+@media only screen and (max-width: 980px) {
+
+  .container {
+    margin: 26% 7%;
+  }
 }
 

@@ -2,6 +2,7 @@ import styles from './DogInfoPage.module.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import type { Dog } from '../../api/dogs';
+import DogCard from'../Shared/DogCard';
 
 const DogInfoPage = () => {
   const location = useLocation();
@@ -29,20 +30,20 @@ const DogInfoPage = () => {
       <button onClick={() => navigate("/main")} className={styles.btn}>
         Back
       </button>
-      <div className={styles.dogInfo}>
-        <h2 className={styles.name}>{name}</h2>
-        <img className={styles.dogImg} src={photo} alt="dog image" />
-        <h2 className={styles.title}>Breed</h2>
-        <p className={styles.info}>{breed}</p>
-        <h2 className={styles.title}>Description</h2>
-        <p className={styles.info}>{description}</p>
-        <h2 className={styles.title}>
-          Gender: <span className={styles.info}>{gender}</span>
-        </h2>
-        <h2 className={styles.title}>
-          Age: <span className={styles.info}>{age} years old</span>
-        </h2>
-      </div>
+      <h2 className={styles.name}>{name}</h2>
+      {
+        (name !== '') ? 
+        <DogCard data = { 
+          { dogName: name,
+            dogPhoto: photo,
+            dogBreed: breed,
+            dogDescription: description,
+            dogGender: gender,
+            dogAge: age
+          }
+        } /> :
+        ''
+      }
     </div>
   );
 };
