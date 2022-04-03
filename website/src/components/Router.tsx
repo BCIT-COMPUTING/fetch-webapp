@@ -15,18 +15,29 @@ import MainPage from "./Main/MainPage";
 import Navbar from "./Nav/Nav";
 import Logout from "./Logout/Logout";
 import { useEffect } from "react";
-import { getStorageValue } from "../store/localStorageHook";
 import Temp from "./DogInfo/temp";
+import DogSignUp from "./DogSignUp/DogSignUp";
 
 function AppRouter() {
   const { user, setUser } = useAppStore();
-
   const validate = async () => {
     if (!(await hasValidJWT(user))) {
-      setUser({ ...user, isLoggedIn: false });
+      setUser({
+        jwt: "",
+        isLoggedIn: false,
+        user: {
+          accessToken: "",
+          createdAt: "",
+          email: "",
+          firstname: "",
+          isAdmin: false,
+          lastname: "",
+          updatedAt: "",
+          username: "",
+        },
+      });
     }
   };
-
   useEffect(() => {
     validate();
   }, []);
@@ -80,6 +91,10 @@ function AppRouter() {
             }
           />
           <Route path="/logout" element={<Logout />} />
+          <Route
+            path="/dogSignUp"
+            element={user.isLoggedIn ? <DogSignUp /> : <LoginPage />}
+          />
         </Routes>
       </BrowserRouter>
     </>

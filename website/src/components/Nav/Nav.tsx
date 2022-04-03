@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { getStorageValue } from "../../store/localStorageHook";
 
 const Nav = () => {
-  const [userID, setUserID] = useState('');
-  const { user: { _id } } = getStorageValue(
-    'user', ''
-  );
-  useEffect(() =>
-  {
+  const [userID, setUserID] = useState("");
+  const {
+    user: { _id },
+  } = getStorageValue("user", "");
+  useEffect(() => {
     setUserID(_id);
   }, []);
 
@@ -36,11 +35,6 @@ const Nav = () => {
         <li className={styles.li}>
           <a className={styles.a} id="contact" href="/matches">
             Matches
-          </a>
-        </li>
-        <li className={styles.li}>
-          <a className={styles.a} id="test" href="/test">
-            test
           </a>
         </li>
         <li className={styles.li}>

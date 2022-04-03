@@ -1,0 +1,78 @@
+.containerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1%;
+  margin-left: 35%;
+  margin-top: 2%;
+  background-color: rgb(214, 234, 240);
+  border: 1px solid grey;
+  border-radius: 10px;
+  width: 30%;
+  height: auto;
+  margin-bottom: 2%;
+}
+.title {
+  text-align: center;
+}
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 5%;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.inputs {
+  width: 80%;
+  border-radius: 10px;
+  border: none;
+  padding: 1.5%;
+  margin: 2% 0 3% 0;
+}
+
+.textarea {
+  width: 85%;
+  height: 12%;
+  margin: 3% 0;
+}
+
+.select {
+  margin: 3% 0;
+  width: 20%;
+}
+
+.dogAge {
+  width: 20%;
+}
+.btnDiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4%;
+}
+
+.btn {
+  background-color: rgb(161, 184, 80);
+}
+
+@media only screen and (max-width: 1000px) {
+  .containerDiv {
+    width: 70%;
+    margin-top: 10%;
+    margin-left: 15%;
+    height: 100%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .containerDiv {
+    width: 80%;
+    margin-top: 5%;
+    margin-left: 10%;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+}
