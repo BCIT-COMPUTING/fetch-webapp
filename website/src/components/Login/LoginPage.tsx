@@ -50,7 +50,7 @@ const LoginPage = () => {
             user: response.data,
           });
           toast.success("user Login successful");
-          navigate("/dog-info");
+          navigate("/main");
         }
       })
       .catch((err) => {

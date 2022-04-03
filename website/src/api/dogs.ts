@@ -4,7 +4,7 @@ import { getStorageValue } from '../store/localStorageHook';
 const endPointBaseUrl = 'http://localhost:8080/dog';
 
 interface Dog {
-  id: String,
+  _id: String,
   name: String,
   photo: String,
   breed: String,
@@ -13,11 +13,9 @@ interface Dog {
   gender: String
 }
 
-//get all dogs from database
-const getAllDogs = () => {
-  axios.get(`${endPointBaseUrl}/getDogs`).then(response => {
-    return response.data;
-  }).catch(error => console.error(error));
+const getAllDogs = async () => {
+  const res = await axios.get(`${endPointBaseUrl}/getDogs`);
+  return <Array<Dog>>res.data;
 };
 
 //get dog by userID
@@ -33,7 +31,7 @@ const getDogByUserID = async (id: String) => {
     gender = ''
   } = res.data || {};
   const dog = {
-    id: _id,
+    _id,
     name,
     photo,
     breed,
@@ -47,7 +45,7 @@ const getDogByUserID = async (id: String) => {
 //add a new dog
 const addDog = (
   {
-    id,
+    _id,
     name,
     photo,
     breed,
@@ -55,12 +53,12 @@ const addDog = (
     description,
     gender
 }: Dog) => {
-  const { user: { _id }} = getStorageValue(
+  const user = getStorageValue(
     'user', ''
   );
   axios.post(`${endPointBaseUrl}/addDog`, {
     name,
-    userID: _id,
+    userID: user.user._id,
     photo,
     breed,
     age,
@@ -73,7 +71,7 @@ const addDog = (
 
 
 const editDog = ({
-  id,
+  _id,
   name,
   photo,
   breed,
@@ -81,8 +79,8 @@ const editDog = ({
   description,
   gender
 }: Dog) => {
-  axios.put(endPointBaseUrl + "/editDog", {
-    id,
+  axios.put(`${endPointBaseUrl}/editDog`, {
+    _id,
     name,
     photo,
     breed,
