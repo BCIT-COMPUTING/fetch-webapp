@@ -50,7 +50,7 @@ const MainPage = () => {
 
   return(
     <>
-      <button onClick={() => navigate('/temp')} className={styles.matchBtn}>
+      <button onClick={() => navigate("/temp")} className={styles.matchBtn}>
         Go To Match
       </button>
       { dogs.map((dog, index) =>
