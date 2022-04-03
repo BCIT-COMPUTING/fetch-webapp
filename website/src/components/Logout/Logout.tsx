@@ -32,7 +32,7 @@ const Logout = () => {
   return (
     <>
       <div className={styles.container}>
-        <h3>Have a Woof Day!</h3>
+        <h3 className={styles.heading}>Have a Woof Day!</h3>
         <button className={styles.btn} onClick={handleClick}>
           Login In Back!
         </button>

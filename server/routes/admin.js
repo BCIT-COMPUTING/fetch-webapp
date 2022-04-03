@@ -22,9 +22,11 @@ router.post("/reset", async function (req, res) {
       postLogin: 0,
       postVerifyJWT: 0,
       getDogs: 0,
-      postAddEditDog: 0,
+      postAddDog: 0,
+      putEditDog: 0,
       deleteDog: 0,
       getDogById: 0,
+      getDogByUserId: 0,
       getStats: 0,
     });
     res.send('reset OK');

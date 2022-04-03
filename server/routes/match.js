@@ -1,13 +1,13 @@
-const req = require('express/lib/request');
-const res = require('express/lib/response');
 const Match = require('../models/Match');
 const router = require('express').Router();
 
 //get dog by dog id
 router.get('/:id', async(req, res) => {
   const { id } = req.params;
+  console.log('match:id ' + id);
   try{
-    const found = await Match.findOne({ userId : id});
+    const found = await Match.find({ userId : id});
+    console.log(found);
     res.json(found);
   } catch(err) {
     console.log(err);
@@ -22,7 +22,8 @@ router.post('/add', async(req, res) => {
       const newMatch = new Match({
         userId,
         likes: [],
-        dislikes: []
+        dislikes: [],
+        viewed: []
       });
       const savedMatch = await newMatch.save();
       res.status(200).json(savedMatch);
@@ -40,6 +41,24 @@ router.put('/addLikes/:id', async(req, res) => {
     const found = await Match.find({ userId : id});
     if(!found[0].likes.includes(dogId)) {
       const update = await Match.findOneAndUpdate({ userId : id}, {$push: {likes: dogId}});
+      res.json(update);
+    } else {
+      res.json(found);
+    }
+  } catch(err) {
+    console.log(err);
+    throw err;
+  }
+});
+
+//add a dog id to viewed array
+router.put('/addView/:id', async(req, res) => {
+  const { id } = req.params;
+  const { dogId } = req.body;
+  try{
+    const found = await Match.find({ userId : id});
+    if(!found[0].viewed.includes(dogId)) {
+      const update = await Match.findOneAndUpdate({ userId : id}, {$push: {viewed: dogId}});
       res.json(update);
     } else {
       res.json(found);
