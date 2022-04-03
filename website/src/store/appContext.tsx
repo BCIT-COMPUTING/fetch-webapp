@@ -9,6 +9,7 @@ export const userState = {
   jwt: "",
   isLoggedIn: false,
   user: {
+    _id: "",
     accessToken: "",
     createdAt: "",
     email: "",
