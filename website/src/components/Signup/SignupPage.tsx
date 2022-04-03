@@ -92,7 +92,7 @@ const SignupPage = () => {
           onChange={(event) => setLastName(event.target.value)}
         />
         <label className={styles.labels} htmlFor="email">
-          Last Name
+          Email
         </label>
         <br />
         <input
