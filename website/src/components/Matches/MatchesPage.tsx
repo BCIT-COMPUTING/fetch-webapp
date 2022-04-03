@@ -1,8 +1,16 @@
 import styles from './MatchesPage.module.css';
 import { MatchInfo } from './data';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const MatchesPage = () => {
+  
+  const [matches, setMatches] = useState([]);
+  
+  useEffect(() => {
+    console.log("use effect executed");
+  }, [])
+
   return(
     <>
       <div className={styles.matchPageContainer}>
