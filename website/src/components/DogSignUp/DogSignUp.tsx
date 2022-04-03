@@ -148,10 +148,11 @@ const DogSignUp = () => {
   );
 
   const handleAdd = () => {
-    if(
+    if (
       name === "" ||
       description === "" ||
-      breed === ""
+      breed === "" ||
+      gender === "none"
     ) {
       toast.error("Please fill out all fields");
       return;
