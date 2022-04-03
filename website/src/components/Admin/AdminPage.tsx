@@ -66,13 +66,13 @@ const AdminPage = () => {
               <tr>
                 <td>POST</td>
                 <td>/auth/register</td>
-                <td>User registration</td>
+                <td>User registers</td>
                 <td>{stats.postRegister}</td>
               </tr>
               <tr>
                 <td>POST</td>
                 <td>/auth/login</td>
-                <td>User login</td>
+                <td>User logs in</td>
                 <td>{stats.postLogin}</td>
               </tr>
               <tr>
@@ -102,7 +102,7 @@ const AdminPage = () => {
               <tr>
                 <td>DELETE</td>
                 <td>/dog/delete/:id</td>
-                <td>Delete dog</td>
+                <td>Delete a dog</td>
                 <td>{stats.deleteDog}</td>
               </tr>
               <tr>
@@ -114,7 +114,7 @@ const AdminPage = () => {
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
-                <td>Obtaining the stats of Fetch app</td>
+                <td>Get the stats of Fetch app</td>
                 <td>{stats.getStats}</td>
               </tr>
               <tr>
@@ -126,7 +126,6 @@ const AdminPage = () => {
             </tbody>
           </table>
         </div>
-        <p>❌ = NOT handled yet</p>
         <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={async () => {
           await resetStats();
           getStats();
