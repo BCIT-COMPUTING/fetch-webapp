@@ -23,10 +23,22 @@ function AppRouter() {
 
   const validate = async () => {
     if (!(await hasValidJWT(user))) {
-      setUser({ ...user, isLoggedIn: false });
+      setUser({
+        jwt: "",
+        isLoggedIn: false,
+        user: {
+          accessToken: "",
+          createdAt: "",
+          email: "",
+          firstname: "",
+          isAdmin: false,
+          lastname: "",
+          updatedAt: "",
+          username: "",
+        },
+      });
     }
   };
-
   useEffect(() => {
     validate();
   }, []);

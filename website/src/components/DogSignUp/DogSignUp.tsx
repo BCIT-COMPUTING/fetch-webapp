@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { addDog } from "../../api/dogs";
+import { addDog, checkDogTableExsist } from "../../api/dogs";
 import styles from "./DogSignUp.module.css";
 import { toast } from "react-toastify";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { getStorageValue } from "../../store/localStorageHook";
 const MB_Size = 1024 * 1024;
 const DogSignUp = () => {
   const navigate = useNavigate();
@@ -14,7 +14,18 @@ const DogSignUp = () => {
   const [age, setAge] = useState(0);
   const [description, setDescription] = useState("");
   const [gender, setGender] = useState("none");
-  const [toggleButton, setToggleButton] = useState(false);
+
+  useEffect(() => {
+    const {
+      user: { _id },
+    } = getStorageValue("user", "");
+    (async () => {
+      const checkTable = await checkDogTableExsist(_id);
+      if (checkTable) {
+        navigate("/dog-info");
+      }
+    })();
+  }, []);
 
   //this is for convert image
   const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
@@ -116,13 +127,9 @@ const DogSignUp = () => {
         <option value="female">Female</option>
       </select>
       <div className={styles.btnDiv}>
-        {!toggleButton ? (
-          <button className={styles.btn} onClick={handleAdd}>
-            ADD
-          </button>
-        ) : (
-          <CircularProgress />
-        )}
+        <button className={styles.btn} onClick={handleAdd}>
+          ADD
+        </button>
       </div>
     </div>
   );

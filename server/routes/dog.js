@@ -1,41 +1,34 @@
-const Dog = require('../models/Dog');
-const router = require('express').Router();
+const Dog = require("../models/Dog");
+const router = require("express").Router();
 
 //get all dogs
-router.get('/getDogs', async (req, res) => {
+router.get("/getDogs", async (req, res) => {
   try {
     const dogs = await Dog.find();
     res.json(dogs);
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     throw err;
   }
 });
 
 //get Dog by userID
-router.get('/profile/:id', async (req, res) => {
+router.get("/profile/:id", async (req, res) => {
   const { id } = req.params;
-  try{
+  try {
     const foundDog = await Dog.findOne({ userID: id });
-    console.log({foundDog});
+    console.log({ foundDog });
     res.json(foundDog);
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     throw err;
   }
 });
 
 //add dog
-router.post('/addDog', async (req, res) => {
-  const {
-    name,
-    userID,
-    photo,
-    breed,
-    age,
-    description,
-    gender,
-    likes } = req.body;
+router.post("/addDog", async (req, res) => {
+  const { name, userID, photo, breed, age, description, gender, likes } =
+    req.body;
 
   const newDog = new Dog({
     name,
@@ -45,7 +38,7 @@ router.post('/addDog', async (req, res) => {
     age,
     description,
     gender,
-    likes
+    likes,
   });
 
   try {
@@ -58,20 +51,13 @@ router.post('/addDog', async (req, res) => {
 });
 
 //edit dog
-router.put('/editDog', async (req, res) => {
-  const { 
-    id,
-    name,
-    userID,
-    photo,
-    breed,
-    age,
-    description,
-    gender,
-    likes 
-        } = req.body;
-    try {
-      await Dog.updateOne({_id: id}, {
+router.put("/editDog", async (req, res) => {
+  const { id, name, userID, photo, breed, age, description, gender, likes } =
+    req.body;
+  try {
+    await Dog.updateOne(
+      { _id: id },
+      {
         name,
         userID,
         photo,
@@ -79,36 +65,50 @@ router.put('/editDog', async (req, res) => {
         age,
         description,
         gender,
-        likes
-      });
-    } catch(err) {
-      throw err;
-    }
+        likes,
+      }
+    );
+  } catch (err) {
+    throw err;
+  }
 });
 
-
 //delete dog by Id
-router.delete('/delete/:id', async(req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   console.log(`delete ${id}`);
-  await Dog.deleteOne({_id: id});
-  res.status(200).json({status: 'success', id});
-  try{
-
-  } catch(err) {
+  await Dog.deleteOne({ _id: id });
+  res.status(200).json({ status: "success", id });
+  try {
+  } catch (err) {
     console.log(err);
     throw err;
   }
 });
 
 //get a dog by id
-router.get('/:id', async(req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  try{
+  try {
     const foundDog = await Dog.findById(id);
     // console.log(foundDog);
     res.json(foundDog);
-  } catch(err) {
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+});
+
+router.get("/checkUser/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const found = await Dog.findOne({ userID: id });
+    if (found) {
+      res.json({ result: true });
+    } else {
+      res.json({ result: false });
+    }
+  } catch (err) {
     console.log(err);
     throw err;
   }
