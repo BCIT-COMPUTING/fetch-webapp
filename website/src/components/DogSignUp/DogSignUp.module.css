@@ -1,15 +1,20 @@
 .containerDiv {
-  position: absolute;
-  top: 18%;
-  left: 16%;
-  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1%;
+  margin-left: 35%;
+  margin-top: 2%;
   background-color: rgb(214, 234, 240);
   border: 1px solid grey;
   border-radius: 10px;
-  width: 450px;
-  height: 542px;
+  width: 30%;
+  height: auto;
+  margin-bottom: 2%;
 }
-
+.title {
+  text-align: center;
+}
 .btn {
   border: none;
   border-radius: 10px;
@@ -21,7 +26,7 @@
 }
 
 .inputs {
-  width: 95%;
+  width: 80%;
   border-radius: 10px;
   border: none;
   padding: 1.5%;
@@ -29,36 +34,45 @@
 }
 
 .textarea {
-  width: 95%;
+  width: 85%;
   height: 12%;
   margin: 3% 0;
 }
 
 .select {
   margin: 3% 0;
+  width: 20%;
 }
 
+.dogAge {
+  width: 20%;
+}
 .btnDiv {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4%;
 }
 
-.funcBtn:first-child {
+.btn {
   background-color: rgb(161, 184, 80);
-  color: white;
 }
 
-.funcBtn:first-child:hover {
-  background-color: rgb(109, 124, 55);
+@media only screen and (max-width: 1000px) {
+  .containerDiv {
+    width: 70%;
+    margin-top: 10%;
+    margin-left: 15%;
+    height: 100%;
+  }
 }
 
-.funcBtn {
-  font-size: 1.2rem;
-  padding: 1%;
-  background-color: white;
+@media only screen and (max-width: 650px) {
+  .containerDiv {
+    width: 80%;
+    margin-top: 5%;
+    margin-left: 10%;
+  }
 }
 
-.funcBtn:hover {
-  background-color: rgb(199, 197, 197);
+@media only screen and (max-width: 350px) {
 }

@@ -10,6 +10,7 @@ const DogSignUp = () => {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [breed, setBreed] = useState("");
   const [age, setAge] = useState(0);
   const [description, setDescription] = useState("");
@@ -37,6 +38,7 @@ const DogSignUp = () => {
       e.target.value = "";
       return;
     }
+    setSelectedFile(file);
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String: String = "" + reader.result;
@@ -47,7 +49,7 @@ const DogSignUp = () => {
 
   const form = () => (
     <div className={styles.containerDiv}>
-      <h2>Dog's SignUp - Use your PAWS!</h2>
+      <h2 className={styles.title}>Dog's SignUp - Use your PAWS!</h2>
       <label className={styles.labels} htmlFor="name">
         Name
       </label>
@@ -61,6 +63,16 @@ const DogSignUp = () => {
         name="name"
       />
       <br />
+      {selectedFile !== null && (
+        <>
+          <img
+            src={URL.createObjectURL(selectedFile)}
+            className="image"
+            height="215px"
+            width="215px"
+          />
+        </>
+      )}
       <label className={styles.labels} htmlFor="photo">
         Image
       </label>
@@ -94,6 +106,7 @@ const DogSignUp = () => {
       <br />
       <input
         value={age}
+        className={styles.dogAge}
         onChange={(e) => setAge(+e.target.value)}
         type="number"
         id="age"

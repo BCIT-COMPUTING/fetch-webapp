@@ -29,16 +29,26 @@ server.use((req, res, next) => {
   next();
 });
 server.use("/static", express.static("public"));
-server.use(bodyParser.json({ limit: '50mb' }));
-server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-server.use(bodyParser.raw({ limit: '50mb' }));
+server.use(
+  bodyParser.json({
+    parameterLimit: 100000,
+    limit: "50mb",
+  })
+);
+server.use(
+  bodyParser.urlencoded({
+    parameterLimit: 100000,
+    limit: "50mb",
+    extended: true,
+  })
+);
+server.use(bodyParser.raw({ limit: "50mb" }));
 
 // Routes
 server.use("/api/v1/auth", authRoute);
 server.use("/dog", dogRoute);
 server.use("/api/v1/admin", adminRoute);
 server.use("/match", matchRoute);
-
 
 // ensureTables();
 
