@@ -3,7 +3,6 @@ import { useEffect, useState} from 'react';
 import { getAllDogs } from '../../api/dogs';
 import type { Dog } from '../../api/dogs';
 import TinderCard from 'react-tinder-card';
-import { getStorageValue } from '../../store/localStorageHook';
 import { useNavigate } from 'react-router-dom';
 import {  addLikeToMatch,
           addDislikeToMatch, 
@@ -42,18 +41,19 @@ const MainPage = () => {
 
   useEffect(() => {
     (async() => {
-      const {viewed} = await getMatchByUserId();
+      const  { viewed = [] as String[] }  = await getMatchByUserId();
+      console.log(viewed);
       setMyList(viewed);
       const checkTable = await checkMatchTableExist(user.user._id);
-      if (!checkTable) {
-        addMatch();
-      }
       const allDogs = await getAllDogs();
+      if (!checkTable) {
+        await addMatch();
+      } 
       allDogs.forEach(d => {
         if(!viewed.includes(d._id)) {
           setDogs(dogs => dogs.concat(d));
         }
-      })
+      });
     })();
   }, []);
 

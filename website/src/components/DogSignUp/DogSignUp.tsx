@@ -151,6 +151,7 @@ const DogSignUp = () => {
     const addDogRes = addDog({
       _id,
       name,
+      userID: "",
       photo,
       breed,
       age,

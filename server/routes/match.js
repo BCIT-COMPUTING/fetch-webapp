@@ -4,8 +4,10 @@ const router = require('express').Router();
 //get dog by dog id
 router.get('/:id', async(req, res) => {
   const { id } = req.params;
+  console.log('match:id ' + id);
   try{
-    const found = await Match.findOne({ userId : id});
+    const found = await Match.find({ userId : id});
+    console.log(found);
     res.json(found);
   } catch(err) {
     console.log(err);

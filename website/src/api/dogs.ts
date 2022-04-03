@@ -5,6 +5,7 @@ const path = "/dog";
 
 interface Dog {
   _id: String;
+  userID: String,
   name: String;
   photo: string;
   breed: String;
@@ -22,17 +23,19 @@ const getAllDogs = async () => {
 const getDogByUserID = async (id: String) => {
   const res = await publicRequest.get(`${path}/profile/${id}`);
   const {
-    _id = "",
-    name = "",
-    photo = "",
-    breed = "",
+    _id = '',
+    name = '',
+    userID = '',
+    photo = '',
+    breed = '',
     age = 0,
-    description = "",
-    gender = "",
+    description = '',
+    gender = '',
   } = res.data || {};
   const dog = {
     _id,
     name,
+    userID,
     photo,
     breed,
     age,
@@ -43,10 +46,17 @@ const getDogByUserID = async (id: String) => {
 };
 
 //add a new dog
-const addDog = ({ name, photo, breed, age, description, gender }: Dog) => {
+const addDog = ({
+  userID,
+  name,
+  photo,
+  breed,
+  age,
+  description,
+  gender }: Dog) => {
   const {
     user: { _id },
-  } = getStorageValue("user", "");
+  } = getStorageValue('user', '');
   publicRequest
     .post(`${path}/addDog`, {
       name,
@@ -67,6 +77,7 @@ const addDog = ({ name, photo, breed, age, description, gender }: Dog) => {
 const editDog = ({
   _id,
   name,
+  userID,
   photo,
   breed,
   age,

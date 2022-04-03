@@ -1,8 +1,6 @@
 import { getStorageValue } from '../store/localStorageHook';
 import { getDogByUserID } from '../api/dogs';
 import { publicRequest, endPointBaseUrl } from '../appConfigs';
-
-
 const path = '/match';
 
 interface Match {
@@ -15,17 +13,22 @@ interface Match {
 const getMatchByUserId = async () => {
   const { user: { _id }} = getStorageValue('user', '');
   const res = await publicRequest.get(`${path}/${_id}`);
+  console.log('match userId ' + _id);
   console.log(res.data);
   return <Match> res.data;
 };
 
-const addMatch = () => {
+const addMatch = async () => {
   const { user: { _id }} = getStorageValue('user', '');
   console.log(_id);
-  publicRequest.post(`${path}/add`, {
-    userId: _id
-  }).then(res => console.log(res))
-  .catch(err => console.log(err));
+  try {
+    const res = await publicRequest.post(`${path}/add`, {
+      userId: _id
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 const addLikeToMatch = async (dogId: String) => {

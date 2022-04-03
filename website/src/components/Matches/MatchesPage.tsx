@@ -16,14 +16,16 @@ const MatchesPage = () => {
 
   useEffect(() => {
     (async() => {
-      const { likes } = await getMatchByUserId();
+      const { userId, likes } = await getMatchByUserId();
       console.log('my likes ' + likes);
       const allLikes = await getAllLikesByEveryOne();
       allLikes.forEach(async (dog: Match) => {
         let d = await getDogByUserID(dog.userId);
         console.log('dog id: ' + d._id);
-        if(likes.includes(d._id)) {
-          setDogs(dogs => dogs.concat(d));
+        if(likes !== undefined) {
+          if(likes.includes(d._id) && (userId !== d.userID)) {
+            setDogs(dogs => dogs.concat(d));
+          }
         }
       })
 
