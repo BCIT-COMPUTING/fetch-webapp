@@ -5,7 +5,7 @@ const admin = require('../configs/adminUtils');
 const OKAY = 200;
 
 
-router.get("/stats", async function (req, res) {
+router.get("/stats", async (req, res) => {
   /*
     #swagger.description = 'Returns the stats for all of the endpoints',
   } */
@@ -42,7 +42,7 @@ router.get("/stats", async function (req, res) {
   
 });
 
-router.post("/reset", async function (req, res) {
+router.post("/reset", async (req, res) => {
   /*
   #swagger.parameters['obj'] = {
     in: 'body',
