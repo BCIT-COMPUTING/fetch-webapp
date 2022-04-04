@@ -148,7 +148,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get all the dogs except the one that belongs to the user id -> id"
           }
         ],
         "responses": {
@@ -166,7 +167,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get a particular dog by the user id"
           }
         ],
         "responses": {
@@ -179,35 +181,55 @@
     "/dog/addDog": {
       "post": {
         "description": "",
+        "consumes": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "name": "body",
+            "name": "doginfo",
             "in": "body",
+            "description": "Dog description",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Molly"
                 },
                 "userID": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "622edfa1c8d9ef0e2bc547c9"
                 },
                 "photo": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "base64 String"
                 },
                 "breed": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Husky"
                 },
                 "age": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 5
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "about the dog description"
                 },
                 "gender": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Female"
                 }
-              }
+              },
+              "required": [
+                "name",
+                "userID",
+                "photo",
+                "breed",
+                "age",
+                "description",
+                "gender"
+              ]
             }
           }
         ],
@@ -218,41 +240,63 @@
         }
       }
     },
-    "/dog/editDog": {
+    "/editDog": {
       "put": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "_id",
+            "in": "path",
+            "description": "dog ID.",
+            "required": true,
+            "type": "String"
+          },
+          {
+            "name": "doginfo",
             "in": "body",
+            "description": "User data.",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "_id": {
-                  "example": "any"
-                },
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Molly2"
                 },
                 "userID": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "622edfa1c8d9ef0e2bc547c9"
                 },
                 "photo": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "new base64 String"
                 },
                 "breed": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Husky"
                 },
                 "age": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 5
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "about the dog description edited"
                 },
                 "gender": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Female"
                 }
-              }
+              },
+              "required": [
+                "name",
+                "userID",
+                "photo",
+                "breed",
+                "age",
+                "description",
+                "gender"
+              ]
             }
           }
         ],
@@ -267,7 +311,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "id of the dog to be deleted"
           }
         ],
         "responses": {
@@ -285,7 +330,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get the dog by id"
           }
         ],
         "responses": {
@@ -303,7 +349,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Check if the user had a dog registered or not"
           }
         ],
         "responses": {
