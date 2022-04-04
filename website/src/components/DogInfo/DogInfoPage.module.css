@@ -1,6 +1,12 @@
 
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 10%;
+}
+
 .container {
-  margin: 15% 7%;
+  width: 800px;
 }
 
 .btn {
@@ -12,10 +18,35 @@
   color: #727272;
 }
 
+.dogInfo{
+  background-color: #EFF7F6;
+  padding: 2% 3%;
+  margin: 5% 5%;
+  border-radius: 10px;
+}
+
+.name {
+  font-size: 1.8rem;
+  color: #727272;
+}
+
+.title {
+  color: #727272;
+}
+
+.info {
+  font-size: 1.1rem;
+  color: #606a75;
+  line-height: 1.5;
+}
 
 @media only screen and (max-width: 980px) {
 
   .container {
     margin: 25% 7%;
   }
+}
+
+.backBtnContainer {
+  text-align: center;
 }

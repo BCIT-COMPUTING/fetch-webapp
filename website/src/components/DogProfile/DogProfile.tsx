@@ -72,61 +72,63 @@ const DogProfile = () => {
 
   return (
     <>
-     <div className={styles.container}>
-      { (dogId !== '') ? 
-        <div>
-          <h1>{dogName} Profile</h1>
-          <div className={`${styles.btnDiv}`}>
-            <button onClick={() => setEditDisplay(true)}
-                    className={`${styles.btn} ${styles.editDeleteBtn}`}>
-                      Edit
-            </button>
-            <button onClick={() => setConfirmDisplay(true)}
-                    className={`${styles.btn} ${styles.editDeleteBtn}`}>
-                      Delete
-            </button>
+    <div className={styles.pageContainer}>
+      <div className={styles.container}>
+        { (dogId !== '') ? 
+          <div>
+            <h1 className={styles.profileHeader}>Profile</h1>
+            <div className={`${styles.btnDiv}`}>
+              <button onClick={() => setEditDisplay(true)}
+                      className={`${styles.btn} ${styles.editDeleteBtn}`}>
+                        Edit
+              </button>
+              <button onClick={() => setConfirmDisplay(true)}
+                      className={`${styles.btn} ${styles.editDeleteBtn}`}>
+                        Delete
+              </button>
+            </div>
+          </div> : <DogNotFound />
+        }
+        {
+          (confirmDisplay) ? displayConfirmDelete() : ''
+        }
+        {
+          (editDisplay) ? 
+          <div>
+            <DogEdit data={
+              { 
+                setDogName,
+                setDogAge,
+                setDogBreed,
+                setDogDescription,
+                setDogGender,
+                setDogPhoto,
+                setEditDisplay,
+                dogId,
+                dogName,
+                dogPhoto,
+                dogBreed,
+                dogDescription,
+                dogGender,
+                dogAge}
+              } />
           </div>
-        </div> : <DogNotFound />
-      }
-      {
-        (confirmDisplay) ? displayConfirmDelete() : ''
-      }
-      {
-        (editDisplay) ? 
-        <div>
-          <DogEdit data={
-            { 
-              setDogName,
-              setDogAge,
-              setDogBreed,
-              setDogDescription,
-              setDogGender,
-              setDogPhoto,
-              setEditDisplay,
-              dogId,
-              dogName,
+          : ''
+        }
+        {
+          (dogId !== '') ? 
+          <DogCard data = { 
+            { dogName, 
               dogPhoto,
               dogBreed,
               dogDescription,
               dogGender,
-              dogAge}
-            } />
-        </div>
-         : ''
-      }
-      {
-        (dogId !== '') ? 
-        <DogCard data = { 
-          { dogName, 
-            dogPhoto,
-            dogBreed,
-            dogDescription,
-            dogGender,
-            dogAge
-          }
-        }/>:
-        ''
-      }
+              dogAge
+            }
+          }/>:
+          ''
+        }
+      </div>
     </div>
     </>
   );

@@ -1,5 +1,16 @@
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 10%;
+}
+
 .container {
-  margin: 16% 7%;
+  margin: 0px 7%;
+  max-width: 800px;
+}
+
+.profileHeader {
+  text-align: center;
 }
 
 .btn {
