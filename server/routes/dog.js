@@ -1,9 +1,14 @@
 const Dog = require("../models/Dog");
 const router = require("express").Router();
-const admin = require('../configs/adminUtils');
+const admin = require("../configs/adminUtils");
 
 //get all dogs
 router.get("/getDogs/:id", async (req, res) => {
+  /*
+   #swagger.parameters['id'] =
+    { description:
+      "get all the dogs except the one that belongs to the user id -> id"}
+  */
   await admin.updateStats("getDogs");
   console.log(req.params, "printing params");
   const { id } = req.params;
@@ -20,6 +25,11 @@ router.get("/getDogs/:id", async (req, res) => {
 
 //get Dog by userID
 router.get("/profile/:id", async (req, res) => {
+  /*
+   #swagger.parameters['id'] =
+    { description:
+      "get a particular dog by the user id"}
+  */
   await admin.updateStats("getDogByUserId");
 
   const { id } = req.params;
@@ -34,6 +44,22 @@ router.get("/profile/:id", async (req, res) => {
 
 //add dog
 router.post("/addDog", async (req, res) => {
+  /*
+    #swagger.consumes = ['application/json']
+    #swagger.parameters['doginfo'] = {
+          in: 'body',
+          description: 'Dog description',
+          schema: {
+            $name: 'Molly',
+            $userID: '622edfa1c8d9ef0e2bc547c9',
+            $photo: 'base64 String',
+            $breed: 'Husky',
+            $age: 5,
+            $description: 'about the dog description',
+            $gender:'Female',   
+          }
+  } */
+
   await admin.updateStats("postAddDog");
 
   const { name, userID, photo, breed, age, description, gender } = req.body;
@@ -59,9 +85,35 @@ router.post("/addDog", async (req, res) => {
 
 //edit dog
 router.put("/editDog", async (req, res) => {
+  /*
+  #swagger.path = '/editDog'
+            #swagger.method = 'put'
+            #swagger.parameters['_id'] = {
+                in: 'path',
+                description: 'dog ID.',
+                required: true,
+                type: 'String'
+            }
+
+            #swagger.parameters['doginfo'] = {
+                in: 'body',
+                description: 'User data.',
+                required: true,
+                schema: {
+                  $name: 'Molly2',
+                  $userID: '622edfa1c8d9ef0e2bc547c9',
+                  $photo: 'new base64 String',
+                  $breed: 'Husky',
+                  $age: 5,
+                  $description: 'about the dog description edited',
+                  $gender:'Female', 
+                }
+            }
+        */
   await admin.updateStats("putEditDog");
-  const { _id, name, userID, photo, breed, age, description, gender } = req.body;
-  
+  const { _id, name, userID, photo, breed, age, description, gender } =
+    req.body;
+
   try {
     await Dog.updateOne(
       { _id },
@@ -82,6 +134,11 @@ router.put("/editDog", async (req, res) => {
 
 //delete dog by Id
 router.delete("/delete/:id", async (req, res) => {
+  /*
+   #swagger.parameters['id'] =
+    { description:
+      "id of the dog to be deleted"}
+  */
   await admin.updateStats("deleteDog");
 
   const { id } = req.params;
@@ -96,6 +153,11 @@ router.delete("/delete/:id", async (req, res) => {
 
 //get a dog by id
 router.get("/:id", async (req, res) => {
+  /*
+   #swagger.parameters['id'] =
+    { description:
+      "get the dog by id"}
+  */
   const { id } = req.params;
   try {
     const foundDog = await Dog.findById(id);
@@ -107,6 +169,11 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/checkUser/:id", async (req, res) => {
+  /*
+   #swagger.parameters['id'] =
+    { description:
+      "Check if the user had a dog registered or not"}
+  */
   const { id } = req.params;
   try {
     const found = await Dog.findOne({ userID: id });
