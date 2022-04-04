@@ -5,13 +5,20 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:3000",
-  "basePath": "/",
+  "host": "localhost:8080",
+  "basePath": "/api/v1",
   "schemes": [
-    "http"
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
   ],
   "paths": {
-    "/register": {
+    "/auth/register": {
       "post": {
         "description": "",
         "parameters": [
@@ -50,7 +57,7 @@
         }
       }
     },
-    "/login": {
+    "/auth/login": {
       "post": {
         "description": "",
         "consumes": [
@@ -101,15 +108,15 @@
             }
           },
           "401": {
-            "description": "Wrong credentials"
+            "description": "Unauthorized"
           },
           "500": {
-            "description": "Server error"
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/verifyJWT": {
+    "/auth/verifyJWT": {
       "post": {
         "description": "",
         "parameters": [
@@ -133,7 +140,7 @@
         }
       }
     },
-    "/getDogs/{id}": {
+    "/dog/getDogs/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -151,7 +158,7 @@
         }
       }
     },
-    "/profile/{id}": {
+    "/dog/profile/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -169,7 +176,7 @@
         }
       }
     },
-    "/addDog": {
+    "/dog/addDog": {
       "post": {
         "description": "",
         "parameters": [
@@ -211,7 +218,7 @@
         }
       }
     },
-    "/editDog": {
+    "/dog/editDog": {
       "put": {
         "description": "",
         "parameters": [
@@ -252,7 +259,7 @@
         "responses": {}
       }
     },
-    "/delete/{id}": {
+    "/dog/delete/{id}": {
       "delete": {
         "description": "",
         "parameters": [
@@ -270,7 +277,7 @@
         }
       }
     },
-    "/{id}": {
+    "/dog/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -288,7 +295,7 @@
         }
       }
     },
-    "/checkUser/{id}": {
+    "/dog/checkUser/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -306,7 +313,47 @@
         }
       }
     },
-    "/add": {
+    "/admin/stats": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/reset": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/match/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/match/add": {
       "post": {
         "description": "",
         "parameters": [
@@ -330,7 +377,7 @@
         }
       }
     },
-    "/addLikes/{id}": {
+    "/match/addLikes/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -360,7 +407,7 @@
         }
       }
     },
-    "/addView/{id}": {
+    "/match/addView/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -390,7 +437,7 @@
         }
       }
     },
-    "/addDislikes/{id}": {
+    "/match/addDislikes/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -420,7 +467,25 @@
         }
       }
     },
-    "/allLikes/{id}": {
+    "/match/checkUser/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/match/allLikes/{id}": {
       "get": {
         "description": "",
         "parameters": [

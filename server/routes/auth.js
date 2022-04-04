@@ -65,7 +65,6 @@ router.post("/login", async (req, res) => {
     const orgPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
     if (orgPassword !== req.body.password) {
-      // #swagger.responses[401] = { description: 'Wrong credentials' }
       res.status(401).json("Wrong Password");
       return;
     }
@@ -81,7 +80,6 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
-    // #swagger.responses[500] = { description: 'Server error' }
     res.status(500).json(err);
   }
 
