@@ -29,8 +29,9 @@ const postConfigExtended = {
 };
 
 // server.use(cors());
-server.use(express.json(postConfig));
-server.use("/documentation", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+const swaggerDocument = require("./public/swagger.json");
+const autoGenSwaggerDocument = require("./public/swagger_output.json");
+server.use("/documentation", swaggerUI.serve, swaggerUI.setup(autoGenSwaggerDocument));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");
