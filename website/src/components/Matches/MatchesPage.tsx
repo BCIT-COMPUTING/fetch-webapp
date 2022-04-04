@@ -6,10 +6,12 @@ import { useState, useEffect } from "react";
 import type { Match } from "../../api/match";
 import type { Dog } from "../../api/dogs";
 import { useAppStore } from "../../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 const MatchesPage = () => {
   const [dogs, setDogs] = useState<Array<Dog>>([]);
   const { user } = useAppStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -30,8 +32,17 @@ const MatchesPage = () => {
     <>
       <div className={styles.matchPageContainer}>
         <div className={styles.matchContent}>
-          <h1 className={styles.matchHeader}>Matches Page</h1>
-          {dogs.map((match: Dog, index) => (
+          {
+            (dogs.length === 0) ? 
+            <div className={styles.msgDiv}>
+              <h2 className={styles.msgText}>No Match Found</h2>
+              <button className={styles.btn} onClick={() => navigate("/main")}>Go to Main</button>
+            </div>
+          :
+            <h1 className={styles.matchHeader}>Matches Page</h1>
+          }
+          { dogs &&
+          dogs.map((match: Dog, index) => (
             <Link
               key={index}
               to={{ pathname: `/dog-info/${match._id}` }}

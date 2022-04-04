@@ -113,7 +113,6 @@ router.post("/login", async (req, res) => {
           accessToken: 'generated JWT token'
         }
   } */
-
 });
 
 router.post("/verifyJWT", async (req, res) => {

@@ -66,7 +66,7 @@ const LoginPage = () => {
   return (
     <>
       <div className={styles.containerDiv}>
-        <h2 className={styles.title}>Log In!</h2>
+        <h2 className={styles.title}>Login</h2>
         <label className={styles.labels} htmlFor="username">
           Username
         </label>
