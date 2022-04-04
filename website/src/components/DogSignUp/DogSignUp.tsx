@@ -106,6 +106,7 @@ const DogSignUp = () => {
       <br />
       <input
         value={age}
+        min="0"
         className={styles.dogAge}
         onChange={(e) => setAge(+e.target.value)}
         type="number"
