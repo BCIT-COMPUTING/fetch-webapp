@@ -19,7 +19,15 @@ const SignupPage = () => {
     if (user.isLoggedIn) navigate("/main");
   }, []);
 
-  const isValid = (username: string, password: string): boolean => {
+  const validEmail = new RegExp(
+    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
+  );
+
+  const isValid = (
+    username: string,
+    password: string,
+    email: string
+  ): boolean => {
     if (!username) {
       toast.error("Username required");
       return false;
@@ -28,6 +36,12 @@ const SignupPage = () => {
       toast.error("Password required");
       return false;
     }
+
+    if (!validEmail.test(email)) {
+      toast.error("Please provide a valid email");
+      return false;
+    }
+
     if (/\s/g.test(username)) {
       toast.error("Username must not contain white space");
       return false;
@@ -36,7 +50,7 @@ const SignupPage = () => {
   };
 
   const signup = async () => {
-    if (!isValid(username, password)) {
+    if (!isValid(username, password, email)) {
       return;
     }
 
@@ -106,7 +120,7 @@ const SignupPage = () => {
         <br />
         <input
           id="email"
-          type="text"
+          type="email"
           className={styles.inputs}
           placeholder="Enter your Email"
           name="email"
