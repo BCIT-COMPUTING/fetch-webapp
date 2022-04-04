@@ -1,16 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const swaggerUI = require("swagger-ui-express");
-const swaggerDocument = require("./public/swagger.json");
 const server = express();
 const PORT = process.env.PORT || 8080;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
-const authRoute = require("./routes/auth");
-const dogRoute = require("./routes/dog");
-const adminRoute = require("./routes/admin");
-const matchRoute = require("./routes/match");
 
 const router = require("./routes/router");
 mongoose
