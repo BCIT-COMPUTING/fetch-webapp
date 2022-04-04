@@ -20,6 +20,8 @@ const updateStats = async (stat) => {
   const putAddLikeById = "putAddLikeById";
   const putAddViewById = "putAddViewById";
   const putAddDislikeById = "putAddDislikeById";
+  const getCheckUserByUserId = "getCheckUserByUserId";
+  const getAllLikesByUserId = "getAllLikesByUserId";
 
   //1. don't forget to add to StatsSchema***********
   //2. also don't forget to add manually to MongoDB
@@ -133,9 +135,22 @@ const updateStats = async (stat) => {
         putAddDislikeById: incrementedVal
       });
       break;
-      
-      
+    
+    case getCheckUserByUserId:
+      incrementedVal = await stats[0].getCheckUserByUserId + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getCheckUserByUserId: incrementedVal
+      });
+      break;
 
+    case getAllLikesByUserId:
+      incrementedVal = await stats[0].getAllLikesByUserId + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getAllLikesByUserId: incrementedVal
+      });
+      break;
+      
+      
     default:
       console.log("NOTHING HERE: TODO");
       break;

@@ -99,6 +99,8 @@ router.put('/addDislikes/:id', async(req, res) => {
 });
 
 router.get('/checkUser/:id', async(req, res) => {
+  await admin.updateStats("getCheckUserByUserId");
+
   const { id } = req.params;
   try{
     const found = await Match.findOne({ userId : id});
@@ -114,6 +116,8 @@ router.get('/checkUser/:id', async(req, res) => {
 });
 
 router.get('/allLikes/:id', async (req, res) => {
+  await admin.updateStats("getAllLikesByUserId");
+
   const { id } = req.params;
   console.log(id);
   try{

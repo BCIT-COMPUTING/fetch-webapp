@@ -22,7 +22,8 @@ const AdminPage = () => {
     putAddLikeById: 0,
     putAddViewById: 0,
     putAddDislikeById: 0,
-
+    getCheckUserByUserId: 0,
+    getAllLikesByUserId: 0,
     getStats: 0,
     postReset: 0,
   });
@@ -147,7 +148,18 @@ const AdminPage = () => {
                 <td className={styles.adminDescriptions}>Add a dislike by ID (main)</td>
                 <td>{stats.putAddDislikeById} ✖</td>
               </tr>
-              
+              <tr>
+                <td>GET</td>
+                <td>/match/checkUser/:id</td>
+                <td className={styles.adminDescriptions}>Check user by User ID (main)</td>
+                <td>{stats.getCheckUserByUserId} ✖</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/match/allLikes/:id</td>
+                <td className={styles.adminDescriptions}>Get all likes by User ID (main)</td>
+                <td>{stats.getAllLikesByUserId} ✖</td>
+              </tr>
               <tr>
                 <td>GET</td>
                 <td>/admin/stats</td>
