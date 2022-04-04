@@ -76,16 +76,7 @@ const DogProfile = () => {
           {(dogId !== '') ?
             <div>
               <h1 className={styles.profileHeader}>Profile</h1>
-              <div className={`${styles.btnDiv}`}>
-                <button onClick={() => setEditDisplay(true)}
-                  className={`${styles.btn} ${styles.editDeleteBtn}`}>
-                  Edit
-                </button>
-                <button onClick={() => setConfirmDisplay(true)}
-                  className={`${styles.btn} ${styles.editDeleteBtn}`}>
-                  Delete
-                </button>
-              </div>
+
             </div> : <DogNotFound />
           }
           {
@@ -129,7 +120,18 @@ const DogProfile = () => {
               } /> :
               ''
           }
+          <div className={`${styles.btnDiv}`}>
+            <button onClick={() => setEditDisplay(true)}
+              className={`${styles.btn} ${styles.editDeleteBtn}`}>
+              Edit
+            </button>
+            <button onClick={() => setConfirmDisplay(true)}
+              className={`${styles.btn} ${styles.editDeleteBtn}`}>
+              Delete
+            </button>
+          </div>
         </div>
+
       </div>
     </>
   );
