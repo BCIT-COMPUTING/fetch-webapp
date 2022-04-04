@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "./LoginPage.module.css";
 import { useNavigate } from "react-router-dom";
-import { publicRequest, updateToken } from "../../appConfigs";
+import { publicRequest } from "../../appConfigs";
 
 const LoginPage = () => {
   const { user, setUser } = useAppStore();
@@ -38,26 +38,29 @@ const LoginPage = () => {
     const res = await publicRequest
       .post("/auth/login", { username, password })
       .then((response) => {
-        if (response.status === 200 && response.data.isAdmin === true) {
-          console.log(response);
-          setUser({
-            jwt: response.data.accessToken,
-            isLoggedIn: true,
-            user: response.data,
-          });
-          updateToken(response.data.accessToken);
-          toast.success("admin Login successful");
-          navigate("/admin");
-        } else if (response.status === 200 && response.data.isAdmin === false) {
-          setUser({
-            jwt: response.data.accessToken,
-            isLoggedIn: true,
-            user: response.data,
-          });
-          updateToken(response.data.accessToken);
-          toast.success("user Login successful");
-          navigate("/main");
+        try {
+          if (response.status === 200 && response.data.isAdmin === true) {
+            console.log(response);
+            setUser({
+              jwt: response.data.accessToken,
+              isLoggedIn: true,
+              user: response.data,
+            });
+            toast.success("admin Login successful");
+            navigate("/admin");
+          } else if (response.status === 200 && response.data.isAdmin === false) {
+            setUser({
+              jwt: response.data.accessToken,
+              isLoggedIn: true,
+              user: response.data,
+            });
+            toast.success("user Login successful");
+            navigate("/main");
+          }
+        } catch (error) {
+          console.log(error)
         }
+
       })
       .catch((err) => {
         toast.error(err.response.data);
