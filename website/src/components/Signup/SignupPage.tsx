@@ -121,7 +121,6 @@ const SignupPage = () => {
         <input
           id="email"
           type="email"
-          pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
           className={styles.inputs}
           placeholder="Enter your Email"
           name="email"
