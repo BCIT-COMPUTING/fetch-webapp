@@ -45,6 +45,7 @@ router.post("/register", async (req, res) => {
     //saving the user  to db
     const savedUser = await newUser.save();
     res.status(CREATED).json(savedUser);
+
     /* #swagger.responses[201] = {
         description: 'New account has been created, returns the saved user.',
         schema: {

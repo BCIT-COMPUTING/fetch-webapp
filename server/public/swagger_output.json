@@ -23,25 +23,31 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "register info",
             "in": "body",
+            "description": "Information for registering to the app.",
             "schema": {
               "type": "object",
               "properties": {
                 "username": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "JhonDoe"
                 },
                 "firstname": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Jhon"
                 },
                 "lastname": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Doe"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "jhondoe@yahoo.ca"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "yourPasswordGoesHere"
                 }
               }
             }
@@ -49,7 +55,35 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "New account has been created, returns the saved user.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "firstname": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "lastname": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "string"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -60,9 +94,6 @@
     "/auth/login": {
       "post": {
         "description": "",
-        "consumes": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "credentials",
@@ -121,13 +152,15 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "register info",
             "in": "body",
+            "description": "Verifies the JWT token submitted.",
             "schema": {
               "type": "object",
               "properties": {
                 "jwt": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "someEncodedJWT"
                 }
               }
             }
@@ -135,7 +168,14 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Returns true if token could be verified, else returns false.",
+            "schema": {
+              "type": "boolean",
+              "example": true,
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -555,12 +595,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "get the user Match table"
           }
@@ -624,12 +658,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "push a new dogId to likes"
           },
@@ -660,12 +688,6 @@
           {
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
             "required": true,
             "type": "string",
             "description": "push a new dogId to views"
@@ -698,12 +720,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "push a new dogId to dislikes"
           },
@@ -735,12 +751,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "find the user is exist"
           }
@@ -759,12 +769,6 @@
           {
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
             "required": true,
             "type": "string",
             "description": "get all likes by id"
