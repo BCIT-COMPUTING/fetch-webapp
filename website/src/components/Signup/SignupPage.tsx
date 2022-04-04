@@ -16,8 +16,8 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (user.isLoggedIn) navigate('/main');
-  }, [])
+    if (user.isLoggedIn) navigate("/main");
+  }, []);
 
   const isValid = (username: string, password: string): boolean => {
     if (!username) {
@@ -50,7 +50,7 @@ const SignupPage = () => {
       })
       .then((response) => {
         console.log(response);
-        if (response.status == 201) {
+        if (response.status === 201) {
           console.log(response.data);
           setUser({
             jwt: response.data.accessToken,
@@ -62,8 +62,13 @@ const SignupPage = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
-        toast.error("Server down");
+        console.log(error, "err");
+        if (error.response.status === 400) {
+          toast.error("Username Already Taken. Please provide a new one");
+        } else {
+          console.log(error, "printing error");
+          toast.error("Server down");
+        }
       });
   };
 

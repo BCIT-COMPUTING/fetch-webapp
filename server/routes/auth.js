@@ -1,4 +1,3 @@
-
 const User = require("../models/User");
 const router = require("express").Router();
 const CryptoJS = require("crypto-js");
@@ -10,12 +9,13 @@ const OKAY = 200;
 const CREATED = 201;
 const INTERNAL_SERVER_ERROR = 500;
 const UNAUTHORIZED = 401;
+const BAD_REQUEST = 400;
+const MONGODB_DUPLICATE_ERROR_CODE = 11000;
 
 dotenv.config();
 
 //REGISTER LOGIC
 router.post("/register", async (req, res) => {
-
   /*
       #swagger.parameters['register info'] = {
         in: 'body',
@@ -58,7 +58,15 @@ router.post("/register", async (req, res) => {
   } */
   } catch (err) {
     console.log(err);
-    res.status(INTERNAL_SERVER_ERROR).json(err);
+    if (err.code === MONGODB_DUPLICATE_ERROR_CODE) {
+      console.log("runnign");
+      res.status(BAD_REQUEST).json(err);
+      return;
+    } else {
+      console.log(err);
+      res.status(INTERNAL_SERVER_ERROR).json(err);
+      return;
+    }
   }
 });
 
@@ -109,7 +117,7 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
     res.status(OKAY).json({ ...others, accessToken });
   } catch (err) {
-    res.status(INTERNAL_SERVER_ERROR).json(err);
+    return res.status(INTERNAL_SERVER_ERROR).json(err);
   }
 
   /* #swagger.responses[200] = {
@@ -122,8 +130,6 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/verifyJWT", async (req, res) => {
-
-
   /*
       #swagger.parameters['register info'] = {
         in: 'body',
@@ -141,7 +147,7 @@ router.post("/verifyJWT", async (req, res) => {
   } catch {
     res.send(false);
   }
-    /* #swagger.responses[200] = {
+  /* #swagger.responses[200] = {
         description: 'Returns true if token could be verified, else returns false.',
         schema: true
   } */
