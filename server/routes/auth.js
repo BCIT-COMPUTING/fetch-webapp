@@ -28,7 +28,15 @@ router.post("/register", async (req, res) => {
     res.status(201).json(savedUser);
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    if (err.code === 11000) {
+      console.log("runnign");
+      res.status(400).json(err);
+      return;
+    } else {
+      console.log(err);
+      res.status(500).json(err);
+      return;
+    }
   }
 });
 
@@ -80,7 +88,7 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 
   /* #swagger.responses[200] = {
@@ -90,7 +98,6 @@ router.post("/login", async (req, res) => {
           accessToken: 'generated JWT token'
         }
   } */
-
 });
 
 router.post("/verifyJWT", async (req, res) => {
