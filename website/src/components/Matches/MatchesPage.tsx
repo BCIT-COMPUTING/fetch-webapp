@@ -18,7 +18,7 @@ const MatchesPage = () => {
       const { userId, likes } = await getMatchByUserId(user.user._id);
       const allLikes = await getAllLikesByEveryOne();
       allLikes.forEach(async (dog: Match) => {
-        let d = await getDogByUserID(dog.userId);
+        const d = await getDogByUserID(dog.userId);
         if (likes !== undefined) {
           if (likes.includes(d._id) && userId !== d.userID) {
             setDogs((dogs) => dogs.concat(d));

@@ -33,7 +33,7 @@ const AdminPage = () => {
   const getStats = async () => {
     //pass token here
     try {
-      let response = await userRequest.get("/admin/stats");
+      const response = await userRequest.get("/admin/stats");
       setStats(response.data[0]);
     } catch (e) {
       console.error(e);
@@ -43,7 +43,7 @@ const AdminPage = () => {
   const resetStats = async () => {
     //pass token here
     try {
-      let response = await userRequest.post("/admin/reset");
+      const response = await userRequest.post("/admin/reset");
       await setStats(response.data[0]);
       getStats();
     } catch (e) {
