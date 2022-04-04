@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "./LoginPage.module.css";
 import { useNavigate } from "react-router-dom";
-import { publicRequest } from "../../appConfigs";
+import { publicRequest, updateToken } from "../../appConfigs";
 
 const LoginPage = () => {
   const { user, setUser } = useAppStore();
@@ -12,9 +12,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(user.isLoggedIn) navigate('/main');
-  }, [])
-  
+    if (user.isLoggedIn) navigate("/main");
+  }, []);
 
   const isValid = (username: string, password: string): boolean => {
     if (!username) {
@@ -46,6 +45,7 @@ const LoginPage = () => {
             isLoggedIn: true,
             user: response.data,
           });
+          updateToken(response.data.accessToken);
           toast.success("admin Login successful");
           navigate("/admin");
         } else if (response.status === 200 && response.data.isAdmin === false) {
@@ -54,6 +54,7 @@ const LoginPage = () => {
             isLoggedIn: true,
             user: response.data,
           });
+          updateToken(response.data.accessToken);
           toast.success("user Login successful");
           navigate("/main");
         }
