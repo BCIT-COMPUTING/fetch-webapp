@@ -12,6 +12,7 @@ const dogRoute = require("./routes/dog");
 const adminRoute = require("./routes/admin");
 const matchRoute = require("./routes/match");
 
+const router = require("./routes/router");
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("DB Connection Successful"))
@@ -29,8 +30,8 @@ const postConfigExtended = {
 };
 
 // server.use(cors());
-server.use(express.json(postConfig));
-server.use("/documentation", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+const autoGenSwaggerDocument = require("./public/swagger_output.json");
+server.use("/documentation", swaggerUI.serve, swaggerUI.setup(autoGenSwaggerDocument));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");
@@ -54,10 +55,7 @@ server.use(
 server.use(bodyParser.raw({ limit: "50mb" }));
 
 // Routes
-server.use("/api/v1/auth", authRoute);
-server.use("/api/v1/dog", dogRoute);
-server.use("/api/v1/admin", adminRoute);
-server.use("/api/v1/match", matchRoute);
+server.use("/api/v1", router);
 
 // ensureTables();
 

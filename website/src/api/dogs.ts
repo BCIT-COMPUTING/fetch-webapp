@@ -117,7 +117,7 @@ const deleteDogByID = (id: String) => {
     .catch((error) => console.error(error));
 };
 
-const checkDogTableExsist = async (_id: string) => {
+const checkDogTableExist = async (_id: string) => {
   const res = await publicRequest.get(`${path}/checkUser/${_id}`);
   console.log(res.data.result);
   return res.data.result;
@@ -130,7 +130,7 @@ export {
   getDogByID,
   deleteDogByID,
   getDogByUserID,
-  checkDogTableExsist,
+  checkDogTableExist,
 };
 
 export type { Dog };

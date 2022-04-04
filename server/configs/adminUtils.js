@@ -11,9 +11,18 @@ const updateStats = async (stat) => {
 
   const getDogs = "getDogs";
   const getDogByUserId = "getDogByUserId";
+  const getDogByDogId = "getDogByDogId";
   const postAddDog = "postAddDog";
   const putEditDog = "putEditDog";
   const deleteDog = "deleteDog";
+
+  const postCreateMatch = "postCreateMatch";
+  const putAddLikeById = "putAddLikeById";
+  const putAddViewById = "putAddViewById";
+  const putAddDislikeById = "putAddDislikeById";
+  const getCheckUserByUserId = "getCheckUserByUserId";
+  const getAllLikesByUserId = "getAllLikesByUserId";
+
   //1. don't forget to add to StatsSchema***********
   //2. also don't forget to add manually to MongoDB
 
@@ -71,6 +80,13 @@ const updateStats = async (stat) => {
       });
       break;
 
+    case getDogByDogId:
+      incrementedVal = await stats[0].getDogByDogId + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getDogByDogId: incrementedVal
+      });
+      break;
+
     case postAddDog:
       incrementedVal = await stats[0].postAddDog + 1;
       await Stats.updateOne({_id: statsId }, {
@@ -92,6 +108,49 @@ const updateStats = async (stat) => {
       });
       break;
 
+    case postCreateMatch:
+      incrementedVal = await stats[0].postCreateMatch + 1;
+      await Stats.updateOne({_id: statsId }, {
+        postCreateMatch: incrementedVal
+      });
+      break;
+
+    case putAddLikeById:
+      incrementedVal = await stats[0].putAddLikeById + 1;
+      await Stats.updateOne({_id: statsId }, {
+        putAddLikeById: incrementedVal
+      });
+      break;
+
+    case putAddViewById:
+      incrementedVal = await stats[0].putAddViewById + 1;
+      await Stats.updateOne({_id: statsId }, {
+        putAddViewById: incrementedVal
+      });
+      break;
+
+    case putAddDislikeById:
+      incrementedVal = await stats[0].putAddDislikeById + 1;
+      await Stats.updateOne({_id: statsId }, {
+        putAddDislikeById: incrementedVal
+      });
+      break;
+    
+    case getCheckUserByUserId:
+      incrementedVal = await stats[0].getCheckUserByUserId + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getCheckUserByUserId: incrementedVal
+      });
+      break;
+
+    case getAllLikesByUserId:
+      incrementedVal = await stats[0].getAllLikesByUserId + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getAllLikesByUserId: incrementedVal
+      });
+      break;
+      
+      
     default:
       console.log("NOTHING HERE: TODO");
       break;

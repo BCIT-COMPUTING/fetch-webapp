@@ -34,6 +34,17 @@ router.post("/register", async (req, res) => {
 
 //LOGIN LOGIC HERE
 router.post("/login", async (req, res) => {
+  /*
+    #swagger.consumes = ['application/json']
+    #swagger.parameters['credentials'] = {
+          in: 'body',
+          description: 'Credentials of a user for login purposes.',
+          schema: {
+              $username: 'Jhon Doe',
+              $password: 'someHashedPassword',
+          }
+  } */
+
   await admin.updateStats("postLogin");
 
   try {
@@ -71,6 +82,15 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+
+  /* #swagger.responses[200] = {
+        description: 'Login token is successfully obtained.',
+        schema: {
+          userInfo : {},
+          accessToken: 'generated JWT token'
+        }
+  } */
+
 });
 
 router.post("/verifyJWT", async (req, res) => {
