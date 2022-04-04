@@ -11,7 +11,13 @@ const StatsSchema = new mongoose.Schema(
     deleteDog: Number,
     getDogByUserId: Number,
     getStats: Number,
-    postReset: Number
+    postReset: Number,
+    postCreateMatch: Number,
+    putAddLikeById: Number,
+    putAddViewById: Number,
+    putAddDislikeById: Number,
+    getCheckUserByUserId: Number,
+    getAllLikesByUserId: Number
   },
 );
 

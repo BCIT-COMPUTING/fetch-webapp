@@ -17,6 +17,13 @@ const AdminPage = () => {
     putEditDog: 0,
     deleteDog: 0,
     getDogByUserId: 0,
+    getDogByDogId: 0,
+    postCreateMatch: 0,
+    putAddLikeById: 0,
+    putAddViewById: 0,
+    putAddDislikeById: 0,
+    getCheckUserByUserId: 0,
+    getAllLikesByUserId: 0,
     getStats: 0,
     postReset: 0,
   });
@@ -107,9 +114,51 @@ const AdminPage = () => {
               </tr>
               <tr>
                 <td>GET</td>
+                <td>/dog/:id</td>
+                <td className={styles.adminDescriptions}>Get a dog by dog ID (main) </td>
+                <td>{stats.getDogByDogId} ✖</td>
+              </tr>
+              <tr>
+                <td>GET</td>
                 <td>/dog/profile/:id</td>
                 <td className={styles.adminDescriptions}>Get a dog by User ID (example: going to Profile page)</td>
                 <td>{stats.getDogByUserId}</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/match/add</td>
+                <td className={styles.adminDescriptions}>Create a match? (main)</td>
+                <td>{stats.postCreateMatch} ✖</td>
+              </tr>
+              <tr>
+                <td>PUT</td>
+                <td>/match/addLikes/:id</td>
+                <td className={styles.adminDescriptions}>Add a like by ID (main)</td>
+                <td>{stats.putAddLikeById} ✖</td>
+              </tr>
+              <tr>
+                <td>PUT</td>
+                <td>/match/addView/:id</td>
+                <td className={styles.adminDescriptions}>Add a view by ID (main)</td>
+                <td>{stats.putAddViewById} ✖</td>
+              </tr>
+              <tr>
+                <td>PUT</td>
+                <td>/match/addDislikes/:id</td>
+                <td className={styles.adminDescriptions}>Add a dislike by ID (main)</td>
+                <td>{stats.putAddDislikeById} ✖</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/match/checkUser/:id</td>
+                <td className={styles.adminDescriptions}>Check user by User ID (main)</td>
+                <td>{stats.getCheckUserByUserId} ✖</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/match/allLikes/:id</td>
+                <td className={styles.adminDescriptions}>Get all likes by User ID (main)</td>
+                <td>{stats.getAllLikesByUserId} ✖</td>
               </tr>
               <tr>
                 <td>GET</td>
