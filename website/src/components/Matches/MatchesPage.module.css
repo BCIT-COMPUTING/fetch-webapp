@@ -1,7 +1,7 @@
 .matchPageContainer {
   display: flex;
   justify-content: center;
-  margin-top: 26%;
+  margin-top: 10%;
 }
 
 .matchContent {
@@ -72,5 +72,11 @@
   .matchContent {
     width: 600px;
   }
-
 }
+
+@media only screen and (max-width: 600px) {
+  .matchPageContainer {
+    margin-top: 100px;
+  }
+}
+
