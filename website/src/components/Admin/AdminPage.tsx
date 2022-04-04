@@ -114,12 +114,6 @@ const AdminPage = () => {
               </tr>
               <tr>
                 <td>GET</td>
-                <td>/dog/:id</td>
-                <td className={styles.adminDescriptions}>Get a dog by dog ID (main) </td>
-                <td>{stats.getDogByDogId} ❌</td>
-              </tr>
-              <tr>
-                <td>GET</td>
                 <td>/dog/profile/:id</td>
                 <td className={styles.adminDescriptions}>Get a dog by User ID (example: going to Profile page)</td>
                 <td>{stats.getDogByUserId}</td>
