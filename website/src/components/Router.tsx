@@ -18,7 +18,7 @@ import DogSignUp from "./DogSignUp/DogSignUp";
 import { useEffect } from "react";
 import { Navigate, useLocation } from "react-router";
 
-const nonNavBarRoutes = ["/", "login", "logout", "signup", "dogSignUp"];
+const nonNavBarRoutes = ["login", "logout", "signup"];
 
 function AppRouter() {
   const { user, setUser } = useAppStore();
@@ -46,9 +46,10 @@ function AppRouter() {
     validate();
   }, []);
 
-  const isNavbarPath = !nonNavBarRoutes.some((route) =>
-    pathname.toLocaleLowerCase().endsWith(route)
-  );
+  const lowerPathname = pathname.toLocaleLowerCase();
+  const isNavbarPath = !nonNavBarRoutes.some((route) => {
+    return lowerPathname.endsWith('/' + route.toLocaleLowerCase());
+  });
 
   const isBaseURL = pathname === "" || pathname === "/";
   const LoginRedirect = <Navigate replace to="/login" />;

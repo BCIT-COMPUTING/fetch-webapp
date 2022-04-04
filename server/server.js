@@ -30,7 +30,6 @@ const postConfigExtended = {
 };
 
 // server.use(cors());
-const swaggerDocument = require("./public/swagger.json");
 const autoGenSwaggerDocument = require("./public/swagger_output.json");
 server.use("/documentation", swaggerUI.serve, swaggerUI.setup(autoGenSwaggerDocument));
 server.use((req, res, next) => {

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { addDog, checkDogTableExsist } from "../../api/dogs";
+import { addDog, checkDogTableExist } from "../../api/dogs";
 import styles from "./DogSignUp.module.css";
 import { toast } from "react-toastify";
-import { getStorageValue } from "../../store/localStorageHook";
+import { useAppStore } from "../../store/appContext";
+
 const MB_Size = 1024 * 1024;
+
 const DogSignUp = () => {
   const navigate = useNavigate();
   const [_id, setId] = useState("");
@@ -15,13 +17,11 @@ const DogSignUp = () => {
   const [age, setAge] = useState(0);
   const [description, setDescription] = useState("");
   const [gender, setGender] = useState("none");
+  const { user, setUser } = useAppStore();
 
   useEffect(() => {
-    const {
-      user: { _id },
-    } = getStorageValue("user", "");
     (async () => {
-      const checkTable = await checkDogTableExsist(_id);
+      const checkTable = await checkDogTableExist(user.user._id);
       if (checkTable) {
         navigate("/main");
       }
