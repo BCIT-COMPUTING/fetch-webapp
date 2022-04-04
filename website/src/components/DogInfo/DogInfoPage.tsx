@@ -26,24 +26,25 @@ const DogInfoPage = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <button onClick={() => navigate("/main")} className={styles.btn}>
-        Back
-      </button>
-      <h2 className={styles.name}>{name}</h2>
-      {
-        (name !== '') ? 
-        <DogCard data = { 
-          { dogName: name,
-            dogPhoto: photo,
-            dogBreed: breed,
-            dogDescription: description,
-            dogGender: gender,
-            dogAge: age
-          }
-        } /> :
-        ''
-      }
+    <div className={styles.pageContainer}>
+      <div className={styles.container}>
+        {
+          (name !== '') ? 
+          <DogCard data = { 
+            { dogName: name,
+              dogPhoto: photo,
+              dogBreed: breed,
+              dogDescription: description,
+              dogGender: gender,
+              dogAge: age
+            }
+          } /> :
+          ''
+        }
+        <button onClick={() => navigate("/match")} className={styles.btn}>
+          Back
+        </button>
+      </div>
     </div>
   );
 };

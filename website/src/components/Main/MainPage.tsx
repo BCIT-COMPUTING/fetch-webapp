@@ -17,7 +17,7 @@ import { useAppStore } from "../../store/appContext";
 const MainPage = () => {
   const { user, setUser } = useAppStore();
   const [dogs, setDogs] = useState<Array<Dog>>([]);
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState("Start Swiping!");
   const [lastDirection, setLastDirection] = useState("");
   const [myList, setMyList] = useState<Array<String>>([]);
   const navigate = useNavigate();
@@ -63,6 +63,7 @@ const MainPage = () => {
 
   return (
     <>
+      <h1 className={styles.mainHeader}>{msg}</h1>
       <button onClick={() => navigate("/match")} className={styles.matchBtn}>
         Go To Match
       </button>
@@ -86,10 +87,11 @@ const MainPage = () => {
               alt="dog image"
               src={dog.photo.toString()}
             />
+            <p><b>Age:</b> {dog.age}</p>
+            <p><b>Gender:</b> {dog.gender}</p>
           </div>
         </TinderCard>
       ))}
-      <p className={styles.msg}>{msg}</p>
     </>
   );
 };
