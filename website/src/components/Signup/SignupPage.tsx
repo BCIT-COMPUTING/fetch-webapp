@@ -1,5 +1,5 @@
 import { useAppStore } from "../../store/appContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SignupPage.module.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,10 @@ const SignupPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (user.isLoggedIn) navigate('/main');
+  }, [])
 
   const isValid = (username: string, password: string): boolean => {
     if (!username) {

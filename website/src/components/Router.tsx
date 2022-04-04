@@ -52,6 +52,7 @@ function AppRouter() {
 
   const isBaseURL = pathname === "" || pathname === "/";
   const LoginRedirect = <Navigate replace to="/login" />;
+
   return (
     <>
       <ToastContainer
@@ -102,15 +103,11 @@ function AppRouter() {
           <Route path="/logout" element={<Logout />} />
           <Route
             path="/signup"
-            element={
-              user.isLoggedIn ? <Navigate replace to="/main" /> : <SignupPage />
-            }
+            element={<SignupPage />}
           />
           <Route
             path="/login"
-            element={
-              user.isLoggedIn ? <Navigate replace to="/main" /> : <LoginPage />
-            }
+            element={<LoginPage />}
           />
         </Routes>
       )}
