@@ -11,9 +11,14 @@ const updateStats = async (stat) => {
 
   const getDogs = "getDogs";
   const getDogByUserId = "getDogByUserId";
+  const getDogByDogId = "getDogByDogId";
   const postAddDog = "postAddDog";
   const putEditDog = "putEditDog";
   const deleteDog = "deleteDog";
+
+  const postCreateMatch = "postCreateMatch";
+  const putAddLikeById = "putAddLikeById";
+
   //1. don't forget to add to StatsSchema***********
   //2. also don't forget to add manually to MongoDB
 
@@ -71,6 +76,13 @@ const updateStats = async (stat) => {
       });
       break;
 
+    case getDogByDogId:
+      incrementedVal = await stats[0].getDogByDogId + 1;
+      await Stats.updateOne({_id: statsId }, {
+        getDogByDogId: incrementedVal
+      });
+      break;
+
     case postAddDog:
       incrementedVal = await stats[0].postAddDog + 1;
       await Stats.updateOne({_id: statsId }, {
@@ -91,6 +103,22 @@ const updateStats = async (stat) => {
         deleteDog: incrementedVal
       });
       break;
+
+    case postCreateMatch:
+      incrementedVal = await stats[0].postCreateMatch + 1;
+      await Stats.updateOne({_id: statsId }, {
+        postCreateMatch: incrementedVal
+      });
+      break;
+
+    case putAddLikeById:
+      incrementedVal = await stats[0].putAddLikeById + 1;
+      await Stats.updateOne({_id: statsId }, {
+        putAddLikeById: incrementedVal
+      });
+      break;
+
+      
 
     default:
       console.log("NOTHING HERE: TODO");

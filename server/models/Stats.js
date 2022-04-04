@@ -11,7 +11,9 @@ const StatsSchema = new mongoose.Schema(
     deleteDog: Number,
     getDogByUserId: Number,
     getStats: Number,
-    postReset: Number
+    postReset: Number,
+    postCreateMatch: Number,
+    putAddLikeById: Number,
   },
 );
 
