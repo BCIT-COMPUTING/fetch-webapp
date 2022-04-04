@@ -15,6 +15,7 @@ const StatsSchema = new mongoose.Schema(
     postCreateMatch: Number,
     putAddLikeById: Number,
     putAddViewById: Number,
+    putAddDislikeById: Number
   },
 );
 

@@ -80,6 +80,8 @@ router.put('/addView/:id', async(req, res) => {
 
 //add a dog id to dislikes array
 router.put('/addDislikes/:id', async(req, res) => {
+  await admin.updateStats("putAddDislikeById");
+
   const { id } = req.params;
   const { dogId } = req.body;
   try{
