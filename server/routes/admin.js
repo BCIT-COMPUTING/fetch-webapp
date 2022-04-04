@@ -2,6 +2,8 @@ const router = require("express").Router();
 const Stats = require("../models/Stats");
 const admin = require('../configs/adminUtils');
 
+const OKAY = 200;
+
 
 router.get("/stats", async function (req, res) {
   /*
@@ -33,7 +35,7 @@ router.get("/stats", async function (req, res) {
   try {
     await admin.updateStats("getStats");
     const stats = await Stats.find();
-    res.send(stats);
+    res.status(OKAY).send(stats);
   } catch (e) {
     console.error(e);
   }
@@ -84,7 +86,7 @@ router.post("/reset", async function (req, res) {
       getAllLikesByUserId: 0,
       getStats: 0,
     });
-    res.send('reset OK');
+    res.status(OKAY).send('reset OK');
   } catch (e) {
     console.error(e);
   }

@@ -6,6 +6,11 @@ const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const admin = require("../configs/adminUtils");
 
+const OKAY = 200;
+const CREATED = 201;
+const INTERNAL_SERVER_ERROR = 500;
+const UNAUTHORIZED = 401;
+
 dotenv.config();
 
 //REGISTER LOGIC
@@ -39,7 +44,8 @@ router.post("/register", async (req, res) => {
   try {
     //saving the user  to db
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    res.status(CREATED).json(savedUser);
+
     /* #swagger.responses[201] = {
         description: 'New account has been created, returns the saved user.',
         schema: {
@@ -52,7 +58,7 @@ router.post("/register", async (req, res) => {
   } */
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    res.status(INTERNAL_SERVER_ERROR).json(err);
   }
 });
 
@@ -76,7 +82,7 @@ router.post("/login", async (req, res) => {
     });
 
     if (!user) {
-      res.status(401).json("Wrong Credentials");
+      res.status(UNAUTHORIZED).json("Wrong Credentials");
       return;
     }
 
@@ -88,7 +94,7 @@ router.post("/login", async (req, res) => {
     const orgPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
     if (orgPassword !== req.body.password) {
-      res.status(401).json("Wrong Password");
+      res.status(UNAUTHORIZED).json("Wrong Password");
       return;
     }
 
@@ -101,9 +107,9 @@ router.post("/login", async (req, res) => {
       { expiresIn: "3d" }
     );
     const { password, ...others } = user._doc;
-    res.status(200).json({ ...others, accessToken });
+    res.status(OKAY).json({ ...others, accessToken });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(INTERNAL_SERVER_ERROR).json(err);
   }
 
   /* #swagger.responses[200] = {

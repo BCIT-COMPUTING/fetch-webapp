@@ -28,11 +28,11 @@ const MainPage = () => {
     addViewedToMatch(dogId);
     if (direction === "left") {
       addLikeToMatch(dogId);
-      setMsg(`You like ${nameToDelete}`);
+      setMsg(`You liked ${nameToDelete} :)`);
     } else {
       console.log("dislike dogID " + dogId);
       addDislikeToMatch(dogId);
-      setMsg(`You don't like ${nameToDelete}`);
+      setMsg(`You disliked ${nameToDelete} :(`);
     }
     setLastDirection(direction.toString());
   };
@@ -66,35 +66,37 @@ const MainPage = () => {
 
   return (
     <>
-      <h1 className={styles.mainHeader}>{msg}</h1>
-      <button onClick={() => navigate("/match")} className={styles.matchBtn}>
-        Go To Match
-      </button>
-      {dogs.map((dog, index) => (
-        <TinderCard
-          className={styles.swipe}
-          key={index}
-          onSwipe={(dir) => swiped(dog._id, dir, dog.name)}
-          onCardLeftScreen={() => outOfFrame(dog.name)}
-        >
-          <div
-            className={styles.cardDiv}
-            style={{
-              backgroundColor:
-                dog.gender === "female" ? "rgb(229, 194, 200)" : "#0096FF",
-            }}
+      <div className={styles.mainPageContainer} >
+        <h1 className={styles.mainHeader}>{msg}</h1>
+        <button onClick={() => navigate("/match")} className={styles.matchBtn}>
+          Go To Match
+        </button>
+        {dogs.map((dog, index) => (
+          <TinderCard
+            className={styles.swipe}
+            key={index}
+            onSwipe={(dir) => swiped(dog._id, dir, dog.name)}
+            onCardLeftScreen={() => outOfFrame(dog.name)}
           >
-            <h2 className={styles.name}>{dog.name}</h2>
-            <img
-              className={styles.img}
-              alt="dog image"
-              src={dog.photo.toString()}
-            />
-            <p><b>Age:</b> {dog.age}</p>
-            <p><b>Gender:</b> {dog.gender}</p>
-          </div>
-        </TinderCard>
-      ))}
+            <div
+              className={styles.cardDiv}
+              style={{
+                backgroundColor:
+                  dog.gender === "female" ? "rgb(229, 194, 200)" : "#0096FF",
+              }}
+            >
+              <h2 className={styles.name}>{dog.name}</h2>
+              <img
+                className={styles.img}
+                alt="dog image"
+                src={dog.photo.toString()}
+              />
+              <p><b>Age:</b> {dog.age}</p>
+              <p><b>Gender:</b> {dog.gender}</p>
+            </div>
+          </TinderCard>
+        ))}
+      </div>
     </>
   );
 };
