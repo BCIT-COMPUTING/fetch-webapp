@@ -2,6 +2,8 @@ const Dog = require("../models/Dog");
 const router = require("express").Router();
 const admin = require("../configs/adminUtils");
 
+const OKAY = 200;
+
 //get all dogs
 router.get("/getDogs/:id", async (req, res) => {
   /*
@@ -76,7 +78,7 @@ router.post("/addDog", async (req, res) => {
 
   try {
     const savedDog = await newDog.save();
-    res.status(200).json(savedDog);
+    res.status(OKAY).json(savedDog);
   } catch (err) {
     console.log(err);
     throw err;
@@ -143,7 +145,7 @@ router.delete("/delete/:id", async (req, res) => {
 
   const { id } = req.params;
   await Dog.deleteOne({ _id: id });
-  res.status(200).json({ status: "success", id });
+  res.status(OKAY).json({ status: "success", id });
   try {
   } catch (err) {
     console.log(err);

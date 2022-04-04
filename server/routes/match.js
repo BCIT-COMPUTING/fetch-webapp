@@ -2,6 +2,8 @@ const Match = require('../models/Match');
 const router = require('express').Router();
 const admin = require('../configs/adminUtils');
 
+const OKAY = 200;
+
 //get dog by dog id
 router.get('/:id', async(req, res) => {
     /*
@@ -44,7 +46,7 @@ router.post('/add', async(req, res) => {
         viewed: []
       });
       const savedMatch = await newMatch.save();
-      res.status(200).json(savedMatch);
+      res.status(OKAY).json(savedMatch);
   } catch(err) {
       console.log(err);
     throw err;
