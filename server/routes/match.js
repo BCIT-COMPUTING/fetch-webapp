@@ -2,12 +2,17 @@ const Match = require('../models/Match');
 const router = require('express').Router();
 const admin = require('../configs/adminUtils');
 
+const OKAY = 200;
+
 //get dog by dog id
 router.get('/:id', async(req, res) => {
+    /*
+    #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'get the user Match table',
+  } */
   await admin.updateStats("getDogByDogId");
-
   const { id } = req.params;
-  console.log('match:id ' + id);
   try{
     const found = await Match.find({ userId : id});
     console.log(found);
@@ -20,6 +25,16 @@ router.get('/:id', async(req, res) => {
 
 //create match
 router.post('/add', async(req, res) => {
+    /*    #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Adding new match.',
+            schema: {
+              $userId: '622ewdfa1c8d9ef0e2bc547c9',
+              $likes: '622edafa1c8d9ef0e2bc547c9',
+              $dislikes: '622esxdfa1cs8d9ef0e2bc547c9',
+              $viewed: '622edfaa1c8d9ef0sae2bc547c9'
+            }
+    } */
   await admin.updateStats("postCreateMatch");
 
   const { userId } = req.body;
@@ -31,7 +46,7 @@ router.post('/add', async(req, res) => {
         viewed: []
       });
       const savedMatch = await newMatch.save();
-      res.status(200).json(savedMatch);
+      res.status(OKAY).json(savedMatch);
   } catch(err) {
       console.log(err);
     throw err;
@@ -40,6 +55,11 @@ router.post('/add', async(req, res) => {
 
 //add a dog id to likes array
 router.put('/addLikes/:id', async(req, res) => {
+  /*
+    #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'push a new dogId to likes',
+  } */
   await admin.updateStats("putAddLikeById");
 
   const { id } = req.params;
@@ -60,6 +80,11 @@ router.put('/addLikes/:id', async(req, res) => {
 
 //add a dog id to viewed array
 router.put('/addView/:id', async(req, res) => {
+  /*
+    #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'push a new dogId to views',
+  } */
   await admin.updateStats("putAddViewById");
 
   const { id } = req.params;
@@ -80,6 +105,11 @@ router.put('/addView/:id', async(req, res) => {
 
 //add a dog id to dislikes array
 router.put('/addDislikes/:id', async(req, res) => {
+  /*
+    #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'push a new dogId to dislikes',
+  } */
   await admin.updateStats("putAddDislikeById");
 
   const { id } = req.params;
@@ -99,6 +129,11 @@ router.put('/addDislikes/:id', async(req, res) => {
 });
 
 router.get('/checkUser/:id', async(req, res) => {
+  /*
+    #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'find the user is exist',
+  } */
   await admin.updateStats("getCheckUserByUserId");
 
   const { id } = req.params;
@@ -116,8 +151,12 @@ router.get('/checkUser/:id', async(req, res) => {
 });
 
 router.get('/allLikes/:id', async (req, res) => {
+  /*
+    #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'get all likes by id',
+  } */
   await admin.updateStats("getAllLikesByUserId");
-
   const { id } = req.params;
   console.log(id);
   try{

@@ -34,7 +34,7 @@ const Logout = () => {
       <div className={styles.container}>
         <h3 className={styles.heading}>Have a Woof Day!</h3>
         <button className={styles.btn} onClick={handleClick}>
-          Login In Back!
+          Back to Index
         </button>
       </div>
     </>

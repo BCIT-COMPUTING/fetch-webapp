@@ -1,15 +1,10 @@
+
 import styles from "./Nav.module.css";
-import { useEffect, useState } from "react";
-import { getStorageValue } from "../../store/localStorageHook";
+import { useAppStore } from "../../store/appContext";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
-  const [userID, setUserID] = useState("");
-  const {
-    user: { _id },
-  } = getStorageValue("user", "");
-  useEffect(() => {
-    setUserID(_id);
-  }, []);
+  const { user } = useAppStore();
 
   return (
     // hamburger menu for mobile
@@ -23,24 +18,24 @@ const Nav = () => {
       {/* menu list */}
       <ul className={styles.ul}>
         <li className={styles.li}>
-          <a className={styles.a} id="home" href="/main">
+          <Link className={styles.a} id="home" to="/main">
             Home
-          </a>
+          </Link>
         </li>
         <li className={styles.li}>
-          <a className={styles.a} id="profile" href={`/dog-profile/${userID}`}>
+          <Link className={styles.a} id="profile" to={`/dog-profile/${user.user._id}`}>
             Profile
-          </a>
+          </Link>
         </li>
         <li className={styles.li}>
-          <a className={styles.a} id="match" href="/match">
+          <Link className={styles.a} id="match" to="/match">
             Matches
-          </a>
+          </Link>
         </li>
         <li className={styles.li}>
-          <a className={styles.a} id="logout" href="/logout">
+          <Link className={styles.a} id="logout" to="/logout">
             Logout
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

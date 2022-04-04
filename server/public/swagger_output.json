@@ -23,25 +23,31 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "register info",
             "in": "body",
+            "description": "Information for registering to the app.",
             "schema": {
               "type": "object",
               "properties": {
                 "username": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "JhonDoe"
                 },
                 "firstname": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Jhon"
                 },
                 "lastname": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Doe"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "jhondoe@yahoo.ca"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "yourPasswordGoesHere"
                 }
               }
             }
@@ -49,7 +55,35 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "New account has been created, returns the saved user.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "firstname": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "lastname": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "string"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -60,9 +94,6 @@
     "/auth/login": {
       "post": {
         "description": "",
-        "consumes": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "credentials",
@@ -121,13 +152,15 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "register info",
             "in": "body",
+            "description": "Verifies the JWT token submitted.",
             "schema": {
               "type": "object",
               "properties": {
                 "jwt": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "someEncodedJWT"
                 }
               }
             }
@@ -135,7 +168,14 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Returns true if token could be verified, else returns false.",
+            "schema": {
+              "type": "boolean",
+              "example": true,
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -148,7 +188,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get all the dogs except the one that belongs to the user id -> id"
           }
         ],
         "responses": {
@@ -166,7 +207,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get a particular dog by the user id"
           }
         ],
         "responses": {
@@ -179,35 +221,55 @@
     "/dog/addDog": {
       "post": {
         "description": "",
+        "consumes": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "name": "body",
+            "name": "doginfo",
             "in": "body",
+            "description": "Dog description",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Molly"
                 },
                 "userID": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "622edfa1c8d9ef0e2bc547c9"
                 },
                 "photo": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "base64 String"
                 },
                 "breed": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Husky"
                 },
                 "age": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 5
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "about the dog description"
                 },
                 "gender": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Female"
                 }
-              }
+              },
+              "required": [
+                "name",
+                "userID",
+                "photo",
+                "breed",
+                "age",
+                "description",
+                "gender"
+              ]
             }
           }
         ],
@@ -218,41 +280,63 @@
         }
       }
     },
-    "/dog/editDog": {
+    "/editDog": {
       "put": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "_id",
+            "in": "path",
+            "description": "dog ID.",
+            "required": true,
+            "type": "String"
+          },
+          {
+            "name": "doginfo",
             "in": "body",
+            "description": "User data.",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "_id": {
-                  "example": "any"
-                },
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Molly2"
                 },
                 "userID": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "622edfa1c8d9ef0e2bc547c9"
                 },
                 "photo": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "new base64 String"
                 },
                 "breed": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Husky"
                 },
                 "age": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 5
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "about the dog description edited"
                 },
                 "gender": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Female"
                 }
-              }
+              },
+              "required": [
+                "name",
+                "userID",
+                "photo",
+                "breed",
+                "age",
+                "description",
+                "gender"
+              ]
             }
           }
         ],
@@ -267,7 +351,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "id of the dog to be deleted"
           }
         ],
         "responses": {
@@ -285,7 +370,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get the dog by id"
           }
         ],
         "responses": {
@@ -303,7 +389,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Check if the user had a dog registered or not"
           }
         ],
         "responses": {
@@ -315,11 +402,83 @@
     },
     "/admin/stats": {
       "get": {
-        "description": "",
+        "description": "Returns the stats for all of the endpoints",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Stats successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "postRegister": {
+                  "type": "number",
+                  "example": 6
+                },
+                "postLogin": {
+                  "type": "number",
+                  "example": 25
+                },
+                "postVerifyJWT": {
+                  "type": "number",
+                  "example": 65
+                },
+                "getDogs": {
+                  "type": "number",
+                  "example": 34
+                },
+                "postAddDog": {
+                  "type": "number",
+                  "example": 77
+                },
+                "putEditDog": {
+                  "type": "number",
+                  "example": 23
+                },
+                "deleteDog": {
+                  "type": "number",
+                  "example": 6
+                },
+                "getDogByUserId": {
+                  "type": "number",
+                  "example": 64
+                },
+                "getDogByDogId": {
+                  "type": "number",
+                  "example": 23
+                },
+                "postCreateMatch": {
+                  "type": "number",
+                  "example": 76
+                },
+                "putAddLikeById": {
+                  "type": "number",
+                  "example": 87
+                },
+                "putAddViewById": {
+                  "type": "number",
+                  "example": 65
+                },
+                "putAddDislikeById": {
+                  "type": "number",
+                  "example": 37
+                },
+                "getCheckUserByUserId": {
+                  "type": "number",
+                  "example": 85
+                },
+                "getAllLikesByUserId": {
+                  "type": "number",
+                  "example": 52
+                },
+                "getStats": {
+                  "type": "number",
+                  "example": 65
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -327,7 +486,100 @@
     "/admin/reset": {
       "post": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Resets the stats for all of the endpoints.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "postRegister": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postLogin": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postVerifyJWT": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getDogs": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postAddDog": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putEditDog": {
+                  "type": "number",
+                  "example": 0
+                },
+                "deleteDog": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getDogByUserId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getDogByDogId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postCreateMatch": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putAddLikeById": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putAddViewById": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putAddDislikeById": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getCheckUserByUserId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getAllLikesByUserId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getStats": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "required": [
+                "postRegister",
+                "postLogin",
+                "postVerifyJWT",
+                "getDogs",
+                "postAddDog",
+                "putEditDog",
+                "deleteDog",
+                "getDogByUserId",
+                "getDogByDogId",
+                "postCreateMatch",
+                "putAddLikeById",
+                "putAddViewById",
+                "putAddDislikeById",
+                "getCheckUserByUserId",
+                "getAllLikesByUserId",
+                "getStats"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -343,7 +595,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get the user Match table"
           }
         ],
         "responses": {
@@ -358,15 +611,35 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "Adding new match.",
             "schema": {
               "type": "object",
               "properties": {
                 "userId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "622ewdfa1c8d9ef0e2bc547c9"
+                },
+                "likes": {
+                  "type": "string",
+                  "example": "622edafa1c8d9ef0e2bc547c9"
+                },
+                "dislikes": {
+                  "type": "string",
+                  "example": "622esxdfa1cs8d9ef0e2bc547c9"
+                },
+                "viewed": {
+                  "type": "string",
+                  "example": "622edfaa1c8d9ef0sae2bc547c9"
                 }
-              }
+              },
+              "required": [
+                "userId",
+                "likes",
+                "dislikes",
+                "viewed"
+              ]
             }
           }
         ],
@@ -385,7 +658,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "push a new dogId to likes"
           },
           {
             "name": "body",
@@ -415,7 +689,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "push a new dogId to views"
           },
           {
             "name": "body",
@@ -445,7 +720,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "push a new dogId to dislikes"
           },
           {
             "name": "body",
@@ -475,7 +751,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "find the user is exist"
           }
         ],
         "responses": {
@@ -493,7 +770,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "get all likes by id"
           }
         ],
         "responses": {

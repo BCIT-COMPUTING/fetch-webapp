@@ -1,7 +1,7 @@
 .matchPageContainer {
   display: flex;
   justify-content: center;
-  margin-top: 26%;
+  margin-top: 10%;
 }
 
 .matchContent {
@@ -47,9 +47,36 @@
   margin-right: 5px;
 }
 
+.msgDiv {
+  text-align: center;
+}
+
+.msgText {
+  font-size: 2.5rem;
+}
+
+.btn {
+  padding: 3% 4%;
+  border: none;
+  border-radius: 10px;
+  background-color: #7BDFF2;
+  margin-top: 5%;
+  font-size: 1.2rem;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 600px) {
   .matchContent {
     width: 600px;
   }
-
 }
+
+@media only screen and (max-width: 600px) {
+  .matchPageContainer {
+    margin-top: 100px;
+  }
+}
+

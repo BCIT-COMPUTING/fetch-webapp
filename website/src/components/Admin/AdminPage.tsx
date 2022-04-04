@@ -58,12 +58,12 @@ const AdminPage = () => {
   return (
     <div className={styles.adminPageContainer}>
       <div className={styles.adminContent}>
-        <h2>Statistics - /api/v1</h2>
+        <h2 className={styles.adminHeader}>Statistics - /api/v1</h2>
         <div className={styles.adminTableContent}>
           <table>
             <thead>
               <tr>
-                <th>HTTP Method</th>
+                <th>Method</th>
                 <th>Endpoint</th>
                 <th className={styles.adminDescriptions}>Description</th>
                 <th># of hits</th>
@@ -114,12 +114,6 @@ const AdminPage = () => {
               </tr>
               <tr>
                 <td>GET</td>
-                <td>/dog/:id</td>
-                <td className={styles.adminDescriptions}>Get a dog by dog ID (main) </td>
-                <td>{stats.getDogByDogId} ✖</td>
-              </tr>
-              <tr>
-                <td>GET</td>
                 <td>/dog/profile/:id</td>
                 <td className={styles.adminDescriptions}>Get a dog by User ID (example: going to Profile page)</td>
                 <td>{stats.getDogByUserId}</td>
@@ -128,37 +122,37 @@ const AdminPage = () => {
                 <td>POST</td>
                 <td>/match/add</td>
                 <td className={styles.adminDescriptions}>Create a match? (main)</td>
-                <td>{stats.postCreateMatch} ✖</td>
+                <td>{stats.postCreateMatch}</td>
               </tr>
               <tr>
                 <td>PUT</td>
                 <td>/match/addLikes/:id</td>
                 <td className={styles.adminDescriptions}>Add a like by ID (main)</td>
-                <td>{stats.putAddLikeById} ✖</td>
+                <td>{stats.putAddLikeById}</td>
               </tr>
               <tr>
                 <td>PUT</td>
                 <td>/match/addView/:id</td>
                 <td className={styles.adminDescriptions}>Add a view by ID (main)</td>
-                <td>{stats.putAddViewById} ✖</td>
+                <td>{stats.putAddViewById}</td>
               </tr>
               <tr>
                 <td>PUT</td>
                 <td>/match/addDislikes/:id</td>
                 <td className={styles.adminDescriptions}>Add a dislike by ID (main)</td>
-                <td>{stats.putAddDislikeById} ✖</td>
+                <td>{stats.putAddDislikeById}</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/match/checkUser/:id</td>
                 <td className={styles.adminDescriptions}>Check user by User ID (main)</td>
-                <td>{stats.getCheckUserByUserId} ✖</td>
+                <td>{stats.getCheckUserByUserId}</td>
               </tr>
               <tr>
                 <td>GET</td>
                 <td>/match/allLikes/:id</td>
                 <td className={styles.adminDescriptions}>Get all likes by User ID (main)</td>
-                <td>{stats.getAllLikesByUserId} ✖</td>
+                <td>{stats.getAllLikesByUserId}</td>
               </tr>
               <tr>
                 <td>GET</td>
@@ -175,11 +169,13 @@ const AdminPage = () => {
             </tbody>
           </table>
         </div>
-        <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={async () => {
-          await resetStats();
-          getStats();
-          }}
-        />
+        <div className={styles.resetBtnContainer}>
+          <input className={styles.resetBtn} type="button" value="Reset Stats" onClick={async () => {
+            await resetStats();
+            getStats();
+            }}
+          />
+        </div>
       </div>
     </div>
   );
