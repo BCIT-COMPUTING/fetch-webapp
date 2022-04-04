@@ -315,11 +315,83 @@
     },
     "/admin/stats": {
       "get": {
-        "description": "",
+        "description": "Returns the stats for all of the endpoints",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Stats successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "postRegister": {
+                  "type": "number",
+                  "example": 6
+                },
+                "postLogin": {
+                  "type": "number",
+                  "example": 25
+                },
+                "postVerifyJWT": {
+                  "type": "number",
+                  "example": 65
+                },
+                "getDogs": {
+                  "type": "number",
+                  "example": 34
+                },
+                "postAddDog": {
+                  "type": "number",
+                  "example": 77
+                },
+                "putEditDog": {
+                  "type": "number",
+                  "example": 23
+                },
+                "deleteDog": {
+                  "type": "number",
+                  "example": 6
+                },
+                "getDogByUserId": {
+                  "type": "number",
+                  "example": 64
+                },
+                "getDogByDogId": {
+                  "type": "number",
+                  "example": 23
+                },
+                "postCreateMatch": {
+                  "type": "number",
+                  "example": 76
+                },
+                "putAddLikeById": {
+                  "type": "number",
+                  "example": 87
+                },
+                "putAddViewById": {
+                  "type": "number",
+                  "example": 65
+                },
+                "putAddDislikeById": {
+                  "type": "number",
+                  "example": 37
+                },
+                "getCheckUserByUserId": {
+                  "type": "number",
+                  "example": 85
+                },
+                "getAllLikesByUserId": {
+                  "type": "number",
+                  "example": 52
+                },
+                "getStats": {
+                  "type": "number",
+                  "example": 65
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -327,7 +399,100 @@
     "/admin/reset": {
       "post": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Resets the stats for all of the endpoints.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "postRegister": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postLogin": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postVerifyJWT": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getDogs": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postAddDog": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putEditDog": {
+                  "type": "number",
+                  "example": 0
+                },
+                "deleteDog": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getDogByUserId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getDogByDogId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "postCreateMatch": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putAddLikeById": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putAddViewById": {
+                  "type": "number",
+                  "example": 0
+                },
+                "putAddDislikeById": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getCheckUserByUserId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getAllLikesByUserId": {
+                  "type": "number",
+                  "example": 0
+                },
+                "getStats": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "required": [
+                "postRegister",
+                "postLogin",
+                "postVerifyJWT",
+                "getDogs",
+                "postAddDog",
+                "putEditDog",
+                "deleteDog",
+                "getDogByUserId",
+                "getDogByDogId",
+                "postCreateMatch",
+                "putAddLikeById",
+                "putAddViewById",
+                "putAddDislikeById",
+                "getCheckUserByUserId",
+                "getAllLikesByUserId",
+                "getStats"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
