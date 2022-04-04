@@ -595,12 +595,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "get the user Match table"
           }
@@ -664,12 +658,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "push a new dogId to likes"
           },
@@ -700,12 +688,6 @@
           {
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
             "required": true,
             "type": "string",
             "description": "push a new dogId to views"
@@ -738,12 +720,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "push a new dogId to dislikes"
           },
@@ -775,12 +751,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
             "type": "string",
             "description": "find the user is exist"
           }
@@ -799,12 +769,6 @@
           {
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
             "required": true,
             "type": "string",
             "description": "get all likes by id"

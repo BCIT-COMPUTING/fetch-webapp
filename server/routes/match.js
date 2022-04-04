@@ -6,7 +6,7 @@ const admin = require('../configs/adminUtils');
 router.get('/:id', async(req, res) => {
     /*
     #swagger.parameters['id'] = {
-          in: 'query',
+          in: 'path',
           description: 'get the user Match table',
   } */
   await admin.updateStats("getDogByDogId");
@@ -31,7 +31,7 @@ router.post('/add', async(req, res) => {
               $likes: '622edafa1c8d9ef0e2bc547c9',
               $dislikes: '622esxdfa1cs8d9ef0e2bc547c9',
               $viewed: '622edfaa1c8d9ef0sae2bc547c9'
-           }
+            }
     } */
   await admin.updateStats("postCreateMatch");
 
@@ -55,7 +55,7 @@ router.post('/add', async(req, res) => {
 router.put('/addLikes/:id', async(req, res) => {
   /*
     #swagger.parameters['id'] = {
-          in: 'query',
+          in: 'path',
           description: 'push a new dogId to likes',
   } */
   await admin.updateStats("putAddLikeById");
@@ -80,7 +80,7 @@ router.put('/addLikes/:id', async(req, res) => {
 router.put('/addView/:id', async(req, res) => {
   /*
     #swagger.parameters['id'] = {
-          in: 'query',
+          in: 'path',
           description: 'push a new dogId to views',
   } */
   await admin.updateStats("putAddViewById");
@@ -105,7 +105,7 @@ router.put('/addView/:id', async(req, res) => {
 router.put('/addDislikes/:id', async(req, res) => {
   /*
     #swagger.parameters['id'] = {
-          in: 'query',
+          in: 'path',
           description: 'push a new dogId to dislikes',
   } */
   await admin.updateStats("putAddDislikeById");
@@ -129,7 +129,7 @@ router.put('/addDislikes/:id', async(req, res) => {
 router.get('/checkUser/:id', async(req, res) => {
   /*
     #swagger.parameters['id'] = {
-          in: 'query',
+          in: 'path',
           description: 'find the user is exist',
   } */
   await admin.updateStats("getCheckUserByUserId");
@@ -151,7 +151,7 @@ router.get('/checkUser/:id', async(req, res) => {
 router.get('/allLikes/:id', async (req, res) => {
   /*
     #swagger.parameters['id'] = {
-          in: 'query',
+          in: 'path',
           description: 'get all likes by id',
   } */
   await admin.updateStats("getAllLikesByUserId");
