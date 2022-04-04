@@ -21,7 +21,6 @@ const addMatch = async () => {
   const {
     user: { _id },
   } = getStorageValue("user", "");
-  console.log(_id);
   try {
     const res = await publicRequest.post(`${path}/add`, {
       userId: _id,
@@ -45,7 +44,6 @@ const addLikeToMatch = async (dogId: String) => {
 };
 
 const addViewedToMatch = async (dogId: String) => {
-  console.log("viewd dog " + dogId);
   const {
     user: { _id },
   } = getStorageValue("user", "");
@@ -58,7 +56,6 @@ const addViewedToMatch = async (dogId: String) => {
 };
 
 const addDislikeToMatch = async (dogId: String) => {
-  console.log("dogId dislike " + dogId);
   const {
     user: { _id },
   } = getStorageValue("user", "");
@@ -72,7 +69,6 @@ const addDislikeToMatch = async (dogId: String) => {
 
 const checkMatchTableExist = async (id: string) => {
   const res = await publicRequest.get(`${path}/checkUser/${id}`);
-  console.log(res.data.result);
   return res.data.result;
 };
 
@@ -82,7 +78,7 @@ const getAllLikesByEveryOne = async () => {
   } = getStorageValue("user", "");
   const dog = await getDogByUserID(_id);
   const res = await publicRequest.get(`${path}/allLikes/${dog._id}`);
-  return res.data;
+  return res.data || [];
 };
 
 export {
