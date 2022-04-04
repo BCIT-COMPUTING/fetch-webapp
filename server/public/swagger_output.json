@@ -344,6 +344,13 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "get the user Match table"
           }
         ],
         "responses": {
@@ -358,15 +365,35 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "Adding new match.",
             "schema": {
               "type": "object",
               "properties": {
                 "userId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "622ewdfa1c8d9ef0e2bc547c9"
+                },
+                "likes": {
+                  "type": "string",
+                  "example": "622edafa1c8d9ef0e2bc547c9"
+                },
+                "dislikes": {
+                  "type": "string",
+                  "example": "622esxdfa1cs8d9ef0e2bc547c9"
+                },
+                "viewed": {
+                  "type": "string",
+                  "example": "622edfaa1c8d9ef0sae2bc547c9"
                 }
-              }
+              },
+              "required": [
+                "userId",
+                "likes",
+                "dislikes",
+                "viewed"
+              ]
             }
           }
         ],
@@ -386,6 +413,13 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "push a new dogId to likes"
           },
           {
             "name": "body",
@@ -418,6 +452,13 @@
             "type": "string"
           },
           {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "push a new dogId to views"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -448,6 +489,13 @@
             "type": "string"
           },
           {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "push a new dogId to dislikes"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -476,6 +524,13 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "find the user is exist"
           }
         ],
         "responses": {
@@ -494,6 +549,13 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "get all likes by id"
           }
         ],
         "responses": {
