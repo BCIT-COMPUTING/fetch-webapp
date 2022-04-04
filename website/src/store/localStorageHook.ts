@@ -25,11 +25,9 @@ export const getStorageValue = (key: any, defaultValue: any) => {
   }
 
   if (valueToCheck === "" || valueToCheck === null) {
-    console.log("Iam runnign");
     localStorage.setItem("user", JSON.stringify(initUser));
     return initUser;
   } else {
-    console.log("Iam running too ");
     const savedUser = JSON.parse(saved);
     return savedUser;
   }

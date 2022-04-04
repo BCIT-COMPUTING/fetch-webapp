@@ -5,7 +5,6 @@ const admin = require('../configs/adminUtils');
 //get dog by dog id
 router.get('/:id', async(req, res) => {
   await admin.updateStats("getDogByDogId");
-
   const { id } = req.params;
   console.log('match:id ' + id);
   try{
