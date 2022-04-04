@@ -18,6 +18,7 @@ const updateStats = async (stat) => {
 
   const postCreateMatch = "postCreateMatch";
   const putAddLikeById = "putAddLikeById";
+  const putAddViewById = "putAddViewById";
 
   //1. don't forget to add to StatsSchema***********
   //2. also don't forget to add manually to MongoDB
@@ -115,6 +116,13 @@ const updateStats = async (stat) => {
       incrementedVal = await stats[0].putAddLikeById + 1;
       await Stats.updateOne({_id: statsId }, {
         putAddLikeById: incrementedVal
+      });
+      break;
+
+    case putAddViewById:
+      incrementedVal = await stats[0].putAddViewById + 1;
+      await Stats.updateOne({_id: statsId }, {
+        putAddViewById: incrementedVal
       });
       break;
 

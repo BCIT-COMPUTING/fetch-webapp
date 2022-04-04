@@ -20,6 +20,7 @@ const AdminPage = () => {
     getDogByDogId: 0,
     postCreateMatch: 0,
     putAddLikeById: 0,
+    putAddViewById: 0,
 
     getStats: 0,
     postReset: 0,
@@ -132,6 +133,12 @@ const AdminPage = () => {
                 <td>/match/addLikes/:id</td>
                 <td className={styles.adminDescriptions}>Add a like by ID (main)</td>
                 <td>{stats.putAddLikeById} ✖</td>
+              </tr>
+              <tr>
+                <td>PUT</td>
+                <td>/match/addView/:id</td>
+                <td className={styles.adminDescriptions}>Add a view by ID (main)</td>
+                <td>{stats.putAddViewById} ✖</td>
               </tr>
               
               <tr>

@@ -60,6 +60,8 @@ router.put('/addLikes/:id', async(req, res) => {
 
 //add a dog id to viewed array
 router.put('/addView/:id', async(req, res) => {
+  await admin.updateStats("putAddViewById");
+
   const { id } = req.params;
   const { dogId } = req.body;
   try{
