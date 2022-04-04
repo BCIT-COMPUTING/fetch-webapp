@@ -75,7 +75,7 @@ const DogEdit = (props: { data: {
     setEditDisplay(false);
   };
 
-  const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (!fileList) return;
     const file = fileList[0];
