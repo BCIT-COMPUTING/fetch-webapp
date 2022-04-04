@@ -1,5 +1,5 @@
+
 const User = require("../models/User");
-const Stats = require("../models/Stats");
 const router = require("express").Router();
 const CryptoJS = require("crypto-js");
 const dotenv = require("dotenv");
@@ -10,6 +10,20 @@ dotenv.config();
 
 //REGISTER LOGIC
 router.post("/register", async (req, res) => {
+
+  /*
+      #swagger.parameters['register info'] = {
+        in: 'body',
+        description: 'Information for registering to the app.',
+        schema: {
+          username: 'JhonDoe',
+          firstname: 'Jhon',
+          lastname: 'Doe',
+          email: 'jhondoe@yahoo.ca',
+          password: 'yourPasswordGoesHere',
+        }
+  } */
+
   await admin.updateStats("postRegister");
 
   const newUser = new User({
@@ -26,6 +40,16 @@ router.post("/register", async (req, res) => {
     //saving the user  to db
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
+    /* #swagger.responses[201] = {
+        description: 'New account has been created, returns the saved user.',
+        schema: {
+          username: 'string',
+          firstname: 'string',
+          lastname: 'string',
+          email: 'string',
+          password: 'string',
+        }
+  } */
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -35,7 +59,6 @@ router.post("/register", async (req, res) => {
 //LOGIN LOGIC HERE
 router.post("/login", async (req, res) => {
   /*
-    #swagger.consumes = ['application/json']
     #swagger.parameters['credentials'] = {
           in: 'body',
           description: 'Credentials of a user for login purposes.',
@@ -94,6 +117,17 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/verifyJWT", async (req, res) => {
+
+
+  /*
+      #swagger.parameters['register info'] = {
+        in: 'body',
+        description: 'Verifies the JWT token submitted.',
+        schema: {
+          jwt: 'someEncodedJWT',
+        }
+  } */
+
   await admin.updateStats("postVerifyJWT");
 
   try {
@@ -102,5 +136,9 @@ router.post("/verifyJWT", async (req, res) => {
   } catch {
     res.send(false);
   }
+    /* #swagger.responses[200] = {
+        description: 'Returns true if token could be verified, else returns false.',
+        schema: true
+  } */
 });
 module.exports = router;
