@@ -18,7 +18,7 @@ import DogSignUp from "./DogSignUp/DogSignUp";
 import { useEffect } from "react";
 import { Navigate, useLocation } from "react-router";
 
-const nonNavBarRoutes = ['login', 'logout', 'signup'];
+const nonNavBarRoutes = ["/", "login", "logout", "signup", "dogSignUp"];
 
 function AppRouter() {
   const { user, setUser } = useAppStore();
@@ -46,7 +46,11 @@ function AppRouter() {
     validate();
   }, []);
 
-  const isNavbarPath = !nonNavBarRoutes.some(route => pathname.toLocaleLowerCase().endsWith(route));
+  const isNavbarPath = !nonNavBarRoutes.some((route) =>
+    pathname.toLocaleLowerCase().endsWith(route)
+  );
+
+  const isBaseURL = pathname === "" || pathname === "/";
   const LoginRedirect = <Navigate replace to="/login" />;
   return (
     <>
@@ -56,55 +60,60 @@ function AppRouter() {
         autoClose={3000}
         position="bottom-right"
       />
-      {isNavbarPath ? <>
-        <Navbar />
+      {isNavbarPath && !isBaseURL ? (
+        <>
+          <Navbar />
+          <Routes>
+            <Route
+              path="/main"
+              element={user.isLoggedIn ? <MainPage /> : LoginRedirect}
+            />
+            <Route
+              path="/dog-info/:id"
+              element={user.isLoggedIn ? <DogInfoPage /> : LoginRedirect}
+            />
+            <Route
+              path="/dog-profile/:id"
+              element={user.isLoggedIn ? <DogProfilePage /> : LoginRedirect}
+            />
+            <Route
+              path="/match"
+              element={user.isLoggedIn ? <MatchesPage /> : LoginRedirect}
+            />
+            <Route
+              path="/admin"
+              element={
+                user.isLoggedIn && user.user.isAdmin ? (
+                  <AdminPage />
+                ) : (
+                  LoginRedirect
+                )
+              }
+            />
+            <Route
+              path="/dogSignUp"
+              element={user.isLoggedIn ? <DogSignUp /> : LoginRedirect}
+            />
+          </Routes>
+        </>
+      ) : (
         <Routes>
-          <Route path="/"
-            element={user.isLoggedIn ? <HomePage /> : LoginRedirect} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/logout" element={<Logout />} />
           <Route
-            path="/main"
-            element={user.isLoggedIn ? <MainPage /> : LoginRedirect}
-          />
-          <Route path="/dog-info/:id"
-            element={user.isLoggedIn ? <DogInfoPage /> : LoginRedirect}
-          />
-          <Route path="/dog-profile/:id"
-            element={user.isLoggedIn ? <DogProfilePage /> : LoginRedirect}
-          />
-          <Route path="/match"
-            element={user.isLoggedIn ? <MatchesPage /> : LoginRedirect}
-          />
-          <Route
-            path="/admin"
+            path="/signup"
             element={
-              user.isLoggedIn && user.user.isAdmin ? (
-                <AdminPage />
-              ) : LoginRedirect
+              user.isLoggedIn ? <Navigate replace to="/main" /> : <SignupPage />
             }
           />
           <Route
-            path="/dogSignUp"
-            element={user.isLoggedIn ? <DogSignUp /> : LoginRedirect}
+            path="/login"
+            element={
+              user.isLoggedIn ? <Navigate replace to="/main" /> : <LoginPage />
+            }
           />
         </Routes>
-      </>
-        : (
-          <Routes>
-            <Route
-              path="/logout"
-              element={<Logout />}
-            />
-            <Route
-              path="/signup"
-              element={<SignupPage />}
-            />
-            <Route
-              path="/login"
-              element={user.isLoggedIn ? <Navigate replace to="/main" /> : <LoginPage />}
-            />
-          </Routes>
-        )
-      }
+      )}
     </>
   );
 }
